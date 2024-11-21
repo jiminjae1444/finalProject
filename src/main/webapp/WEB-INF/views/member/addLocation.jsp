@@ -2,37 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp" %>
 <style>
-	@keyframes slideBackground {
-        0% {
-            background-position: 0% 10%;
-        }
-        50% {
-            background-position: 100% 10%;
-        }
-        100% {
-            background-position: 0% 10%;
-        }
-    }
-    body {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('${cpath}/resources/image/side-view-hands-holding-smartphone.jpg');
-        background-size: 110% auto;
-        background-position: 0% 10%;
-        animation: slideBackground 50s ease infinite;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
+	body{
+        background: linear-gradient(to bottom,#2c3e50, #a2a3a3);
+        width: 100vw;
+        height: 100vh;
     }
     .addlocationModal {
-    	position: fixed;
-/*         top: -119px; */
-/*         left: -193px; */
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-        width: 100%;
-/*         height: 100%; */
+        width: 98%;
+		height: 91%;
         display: flex;
         justify-content: center;
-        align-items: flex-start;
+        align-items: center;
     }
     .addlocationcontent {
     	width: 380px;
@@ -49,11 +29,12 @@
     }
     .addlocationListcontent {
     	width: 380px;
-        height: auto;
+        height: 278px;
         padding-top: 8px;
 	    padding-left: 20px;
 	    padding-bottom: 8px;
 	    padding-right: 20px;
+	    margin: 10px;
         background-color: rgba(247, 249, 250, 0.8);
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -62,98 +43,108 @@
         position: relative; 
         top: 0; 
     }
+    .addlocationListcontent p {
+    	color: #2c3e50;
+        font-size: 25px;
+    }
     .addlocationoverlay {
     	background-color: rgba(0, 0, 0, 0.3);
     	border-radius: 8px;
     	height: 250px;
-    }
-    .topText {
-    	display: flex;
-    }
-    .text1 {
-    	margin-top: 5px;
-    	text-align: left;
-	    margin-left: 15px;
-    }
-    .text2 {
-    	text-align: left;
-	    font-size: 14px;
-	    margin-top: 45px;
+    	padding-top: 20px;
+    	box-sizing: border-box;
     }
     .addlocationBtn {
-    	padding-left: 62px;
+    	text-align: center;
+    	display: flex;
+    	justify-content: center;
     }
+    #addLocationForm input[type="text"] {
+       padding: 10px;
+       margin: 5px auto;
+       border: 1px solid #ddd;
+       border-radius: 4px;
+    }  
     .addlocationBtn input[type="submit"] {
     	background-color: #2c3e50;
 	    font-size: 17px;
 	    color: white;
-	    width: 177px;
-	    height: 32px;
+	    width: 190px;
+	    height: 36px;
+	    border: 0;
+	    border-radius: 4px;
+	    text-decoration: none;
+	    
 	    margin-bottom: 0;
 	    padding-top: 0px;
+	    padding-bottom: 3px;
+	    
 	    display: flex;
 	    justify-content: center;
 	    align-items: center;
 	    text-align: center;
-	    border: 0;
-	    border-radius: 4px;
-	    text-decoration: none;
-	    margin-left: 40px;
-	    padding-bottom: 3px;
     }
     .addlocationBtn input[type="submit"]:hover {
     	background-color: #34495e;
     }
-    .addlocationListModal {
-    	position: fixed;
-/*         top: -195px; */
-/*         left: 229px; */
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    
     .addlocationListoverlay {
     	background-color: rgba(0, 0, 0, 0.3);
     	border-radius: 8px;
     	height: auto;
     }
+    #addLocationTitle {
+      color: #2c3e50;
+      font-size: 25px;
+      margin: 0;
+   }
+   .gotoBackBtn {
+	    width: 183px;
+	    padding: 8px; /* 여백 축소 */
+	    background: none;
+	    border: 1px solid #2c3e50;
+	    border-radius: 4px; /* 둥글기 축소 */
+	    color: #2c3e50;
+	    cursor: pointer;
+	    transition: background 0.3s ease, color 0.3s ease;
+	    font-size: 0.9rem; /* 텍스트 크기 축소 */
+   }
+   .gotoBackBtn:hover {
+       background: #2c3e50;
+       color: white;
+   }
 </style>
-<div id="addlocationListModal" class="addlocationListModal" >
 
-</div>
-<h3>주소 정보 검색</h3>
+
 <div id="addlocationModal" class="addlocationModal" >
 	<div class="addlocationcontent">
+		
 		<div class="addlocationoverlay">
-		<div class="topText">
-			<div><h3 class="text1">AMD, AddLocation Service</h3></div>
-			<div><p  class="text2">위치 정보를 추가하고, 효율적으로 의료 서비스 정보를 관리 해보세요.</p></div>
-		</div>
-		<form method="POST" id="addLocationForm">
-			<p><input type="text" name="memberLocation" placeholder="추가 하실 주소를 입력하세요." required></p>
-			<p class="addlocationBtn"><input type="submit" value="등록" ></p>
-		</form>
-		<p style="text-align: center;"><a href="${cpath }/member/info/${login.id}"><button>뒤로가기</button></a></p>
+			<h3 id="addLocationTitle">주소 정보 검색</h3>
+			<form method="POST" id="addLocationForm">
+				<p><input type="text" name="memberLocation" placeholder="추가 하실 주소를 입력하세요." required></p>
+				<p class="addlocationBtn"><input type="submit" value="등록" ></p>
+			</form>
+			<p style="text-align: center;">
+				<a href="${cpath }/member/info/${login.id}">
+					<button class="gotoBackBtn">뒤로가기</button>
+				</a>
+			</p>
 		</div>
 	</div>
-	
+		
 	<div class="addlocationListcontent">
 		<div class="addlocationListoverlay">
-		<p>[현재 추가된 주소]</p>
-		<c:forEach var="dto" items="${list }">
-			<ul style="list-style: none;">
-				<li>${dto.memberLocation }</li>
-			</ul>
-		</c:forEach>
+			<p>[현재 추가된 주소]</p>
+			<c:forEach var="dto" items="${list }">
+				<ul style="list-style: none;">
+					<li>${dto.memberLocation }</li>
+				</ul>
+			</c:forEach>
 		</div>
 	</div>
 </div>
+
+<%@ include file="../footer.jsp" %>
 
 <script>
 	//다음 주소 찾기 함수
@@ -211,6 +202,9 @@
 	        })
 	    }
 	})
+	
+	const footer = document.getElementById('footer')
+   	footer.style.backgroundColor = '#a2a3a3'
 </script>
 
 </body>

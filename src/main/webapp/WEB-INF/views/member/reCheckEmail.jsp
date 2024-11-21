@@ -52,9 +52,9 @@
    }   
    .EreCheckcontent input[type="text"],
    .EreCheckcontent input[type="submit"] {
-       width: 100%;
+       width: 250px;
        padding: 10px;
-       margin: 5px 0;
+       margin: auto;
        border: 1px solid #ddd;
        border-radius: 4px;
    }   
@@ -63,7 +63,7 @@
        font-size: 17px;
        color: white;
        cursor: pointer;
-       width: 213px;
+       width: 270px;
        height: 43px;
        margin-bottom: 0;
        padding-top: 6.5px;
@@ -78,16 +78,36 @@
        text-decoration: none;
        margin: 5px;
    }
+   #ereCheckTitle {
+      color: #2c3e50;
+      font-size: 25px;
+   }
+   .gotoBackBtn {
+	    width: 183px;
+	    margin-top: 10px;
+	    padding: 8px; /* 여백 축소 */
+	    background: none;
+	    border: 1px solid #2c3e50;
+	    border-radius: 4px; /* 둥글기 축소 */
+	    color: #2c3e50;
+	    cursor: pointer;
+	    transition: background 0.3s ease, color 0.3s ease;
+	    font-size: 0.9rem; /* 텍스트 크기 축소 */
+   }
+   .gotoBackBtn:hover {
+       background: #2c3e50;
+       color: white;
+   }
 </style>
 <div class="EreCheckmodal">
 <div class="EreCheckoverlay"></div>
       <div class="EreCheckcontent">
-   <h3 style="margin-left: 25px;">고객님의 ID를 입력하세요.</h3>
+   <h2 id="ereCheckTitle">고객님의 ID를 입력하세요.</h2>
    <form method="POST" id="EreCheckForm">
        <p><input type="text" name="userid" placeholder="기억하시는 ID를 입력해주세요" required></p>
-       <p style="padding-left: 20px;"><input type="submit" value="조회"></p>
+       <p ><input type="submit" value="조회"></p>
    </form>
-      <p style="margin-left: 18px;"><a href="${cpath }/member/resetPassword"><button type="button" formnovalidate>뒤로가기</button></a></p>
+      <p><a href="${cpath }/member/resetPassword"><button type="button" class="gotoBackBtn">뒤로가기</button></a></p>
    </div>
 </div>
 

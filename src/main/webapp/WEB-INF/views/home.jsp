@@ -70,7 +70,7 @@
         height: 100%;
         z-index: 1;
     }
-   .main_left > p,
+    .main_left > p,
     .main_right > p  {
         text-align: center;
         color: white;
@@ -125,18 +125,10 @@
          background-image: url('${cpath}/resources/image/배경최종.jpg');
          animation: moveBackground 5s linear forwards;
      }
-     .second {
-         background-color: white;
-     }
-     .third {
-     	 background-image: url("${cpath}/resources/image/배경실험용2.jpg");
-     	 width: 100%;
-     	 height: 100%;
-         color: white;
-     }
      .fourth {
      	width: 100%;
-     	height: 50vh;
+     	height: 100vh;
+     	background-color: #edf7fa;
      }
      .pagination {
          position: absolute;
@@ -161,6 +153,9 @@
      }
 
 	/*  2번째 페이지  */
+	 .second {
+         background-color: white;
+     }
      .categoryComment {
          margin-left: 50px;
          font-size: 100px;
@@ -239,6 +234,25 @@
          100% {transform: translateX(-200%);}
      }
      
+	/* 3번째 페이지 */
+	.third {
+     	 background-color: #f1f1f1;
+     	 width: 100%;
+     	 height: 100%;
+         color: white;
+     }
+     .thirdPageComment {
+     	padding-left: 100px;
+     }
+     .thirdPageComment > p {
+     	font-size: 80px;
+     	font-weight: bold;
+     	margin: 10px auto;
+     }
+     .thirdPageComment > p:first-child {
+     	margin-top: 180px;
+     }
+     
 
 <<<<<<< HEAD
 /*     응급실 스타일 이라고할뻔*/
@@ -305,6 +319,45 @@
     .region-jeju { background-color: #dcedc8; color: #558b2f; }
     .region-etc { background-color: #e0e0e0; color: #616161; }
 
+</style>
+
+<!-- 세번째 페이지 코멘트 스타일 -->
+<style>
+	:root {
+	     --font-ns: 'CustomFont', sans-serif;
+	 }
+	 .reveal-text {
+	     font-size: 70px;
+	     font-size: clamp(62px, 5.1042vw, 36px);
+	     font-weight: 800;
+	     letter-spacing: -0.045em;
+	     font-family: var(--font-ns);
+	     line-height: 1.3;
+	     background-image: linear-gradient(90deg, #070707 0%, #070707 100%);
+	     background-size: 0% 100%;
+	     background-repeat: no-repeat;
+	     -webkit-background-clip: text;
+	     background-clip: text;
+	     -webkit-text-fill-color: transparent;
+	     color: #1A1A1A; /* 폴백 색상 */
+	     transition: background-size 15s ease;
+	     cursor: pointer;
+	     margin: 10px 0;
+	 }
+	 
+	 .reveal-text:first-child {
+	 	margin-top: 260px;
+	 	font-size: 70px;
+	 }
+	 .reveal-text:nth-child(2) {
+	 	font-size: 70px;
+	 }
+	 .reveal-text:nth-child(3) {
+	 	font-size: 70px;
+	 }
+	 .reveal-text.reset {
+	     transition: none;
+	 }
 </style>
 
 <%--검색어 순위 스타일--%>
@@ -486,22 +539,12 @@
 
 <!-- 헤더 스타일 -->
 <style>
-		/* 	챗봇 아이콘 */
-	#chat_icon img {
-		position: fixed;
-		right: 40px;
-		bottom: 40px;
-		z-index: 1000;
-		cursor: pointer;
-	}
-	/* 	(상담사) 채팅방 목록 아이콘 */
-	#list_icon img {
-		position: fixed;
-		right: 40px;
-		bottom: 100px;
-		z-index: 1000;
-		cursor: pointer;
-	}
+	/*    챗봇 아이콘 */
+        #chat_icon img {
+            position: fixed;
+            right: 50px;
+            bottom: 50px;
+        }
 
         /*   민재 파트 (홈 검색 기능) */
 
@@ -807,42 +850,59 @@
             text-overflow: ellipsis; /* 긴 이름은 ... 으로 표시 */
         }
 
-        .loginIcon ,.loginIcon2 {
+        .header-right {
+			justify-content: flex-end;
+			display: flex;
+			margin: 5px;
+			align-items: center;
+		}
+        .loginIcon {
             background-image: url('${cpath}/resources/image/로그인아이콘최종.png');
-            position: absolute;
             width: 30px;
             height: 30px;
-            top: 30px;
-            right: 30px;
             background-size: cover;
             cursor: pointer;
+            margin-right: 25px;
+        }
+        #gotoInfo {
+        	color: white;
+        	width: 30px;
+            height: 30px;
+            cursor: pointer;
+            margin: 10px;
         }
         .notificationIcon {
             background-image: url('${cpath}/resources/image/알림.png');
-            position: absolute;
             width: 27px;
             height: 27px;
-            top: 33px;
-            right: 150px;
             background-size: cover;
+            margin-right: 25px;
         }
         .healthInfoIcon {
         	background-image: url('${cpath}/resources/image/건강정보.png');
-            position: absolute;
             width: 30px;
             height: 30px;
-            top: 31px;
-            right: 90px;
             background-size: cover;
+            margin-right: 25px;
         }
         .myFavoritesIcon{
             background-image: url('${cpath}/resources/image/즐겨찾기.png');
-            position: absolute;
             width: 30px;
             height: 30px;
-            top: 31px;
-            right: 205px;
             background-size: cover;
+            margin-right: 25px;
+        }
+        #logoutBtn {
+        	width: 100px;
+		    padding: 8px;
+		    background: none;
+		    border: 1px solid white;
+		    border-radius: 4px; /* 둥글기 축소 */
+		    color: white;
+		    cursor: pointer;
+		    transition: background 0.3s ease, color 0.3s ease;
+		    font-size: 0.9rem; /* 텍스트 크기 축소 */
+		    margin-right: 10px;
         }
         
     </style>
@@ -1092,18 +1152,20 @@
         }
     </style>
     
+<!--     footer 스타일 -->
     <style>
-    	/* footer */
 		#footer {
-		    position: relative;
+		    position: absolute;
+		    bottom: 0;
 		    width: 100%;
-		    background-color: #587650;
+		    height: 250px;
+		    background-color: #8a8e92;
 		    padding: 20px;
 		    color: white;
+		    z-index: 2;
 		    display: flex;
 		}
 		footer p {
-		    margin: 20px;
 		    color: white;
 		    font-weight: 400;
 		    align-items: center;
@@ -1112,34 +1174,37 @@
 		    font-family: "Do Hyeon", sans-serif;
 		}
 		footer p:first-child {
-		    padding-left: 50px;
+		    padding-left: 380px;
 		}
-		.Right {
-		    padding-right: 550px;
+		.footerRight {
+		    margin-left: 90px;
 		}
 		.icons {
 		    display: flex;
 		    margin: 20px;
+		    margin-left: 0;
+		    align-items: center;
 		}
 		.icons a {
-		    width: 70px;
-		    height: 70px;
-		    border-radius: 50%;
-		    font-size: 0;
-		    display: block;
 		    background-size: cover;
 		    background-repeat: no-repeat;
 		    background-position: center;
-		    margin: 0 5px;
+		    margin: 0 8px;
 		}
-		.icons a.icon_youtube {
-		    background-image: url('${cpath}/resources/image/icon_youtube.svg');
+		.icon_youtube {
+			width: 50px;
+			height: 45px;
+		    background-image: url('${cpath}/resources/image/icon_youtube.png');
 		}
-		.icons a.icon_instagram {
-		    background-image: url('${cpath}/resources/image/icon_instagram.svg');
+		.icon_instagram {
+			width: 43px;
+		    height: 43px;
+		    background-image: url('${cpath}/resources/image/icon_instagram.png');
 		}
-		.icons a.icon_facebook {
-		    background-image: url('${cpath}/resources/image/icon_facebook.svg');
+		.icon_facebook {
+			width: 45px;
+		    height: 45px;
+		    background-image: url('${cpath}/resources/image/icon_facebook.png');
 		}
 		.logo img {
 			width: 146px;
@@ -1148,13 +1213,39 @@
 			margin-left: -33px;
 		}
 		header{
+			position: absolute;
+			top: 0;
+			left: 0;
             width: 100%;
             height: 80px;
             display: flex;
+            justify-content: space-between;
             z-index: 100;
-            position: absolute;
-            left: 0;
-            top: 0;
+            background-color: rgba(255, 255, 255, 0.2);
+   			backdrop-filter: blur(3px);
+        }
+        .fourth > p {
+        	font-size: 40px;
+        	color: #18114e;
+        	margin: 0;
+        	margin-top: 80px;
+        	font-weight: bold;
+        	padding-left: 50px;
+        }
+        .reviewCard {
+        	width: 300px;
+        	height: 300px;
+        	text-align: center;
+        	background-color: white;
+        	box-shadow: 0px 10px 25px 0px rgba(24, 17, 78, 0.08);
+        	border-radius: 20px;
+        	margin: auto;
+        	cursor: pointer;
+        }
+        .reviewContainer {
+        	margin-top: 74px;
+        	align-items: center;
+        	display: flex;
         }
     </style>
 
@@ -1486,11 +1577,6 @@
 		</footer>
 	</div>
 </div>
-
-		
-    
-
-  
 
 
 <ul class="pagination">

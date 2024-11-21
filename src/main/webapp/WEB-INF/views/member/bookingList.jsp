@@ -3,39 +3,21 @@
 <%@ include file="../header.jsp" %>
 
 <style>
-	@keyframes slideBackground {
-        0% {
-            background-position: 0% 10%;
-        }
-        50% {
-            background-position: 100% 10%;
-        }
-        100% {
-            background-position: 0% 10%;
-        }
-    }
-    body {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('${cpath}/resources/image/pexels-nathanjhilton-17500379.jpg');
-        background-size: 110% auto;
-        background-position: 0% 10%;
-        animation: slideBackground 50s ease infinite;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
+	body{
+        background: linear-gradient(to bottom,#2c3e50, #a2a3a3);
+        width: 100vw;
+        height: 100vh;
     }
     .bookingListModal {
-    	position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        width: 98%;
+        height: 91%;
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-left: 8px;
-        margin-right: 8px;
+        margin-right: 10px;
     }
-    .bookingContent {
-    	width: 940px;
+    .bookingListContent {
+    	width: 800px;
     	height: auto;
     	background-color: rgba(247, 249, 250, 0.8);
         border-radius: 8px;
@@ -52,13 +34,14 @@
 		width: 485px;
 	}
     .profile-image {
-	    width: 400px;
-	    background-color: rgba(0, 0, 0, 0.3);
+	    width: 340px;
 	    padding: 5px;
+	    border: 1px solid #2c3e50; 
 	    border-radius: 10px;
 	    margin-top: 17px;
 	    margin-left: 20px;
 	    display: flex;
+	    align-items: center;
 	}
     .profile-image .size {
     	padding-top: 5px;
@@ -72,19 +55,10 @@
     	margin-top: 0px;
     	margin-bottom: 0px;
     }
-    .profile-image .text {
-	    color: white;
-	    width: 335px;
-	    margin-top: 0px;
-	    margin-bottom: 5px;
-	}
-	.profile-image .titleText {
-	    color: black;
-	    text-align: left;
-	    width: 150px;
-	    margin-bottom: 20px;
-	    padding-left: 15px;
-	}
+	.titleText, #thisIsList {
+      	color: #2c3e50;
+      	font-size: 25px;
+    }
 	.mainTable {
 		text-align: center;
 		padding-left: 20px;
@@ -130,27 +104,40 @@
     	margin-right: 5px;
     }
     a {
-        color: black;  /* 기본 색상 */
         text-decoration: none;  /* 밑줄 제거 */
         transition: color 0.3s ease, background-color 0.3s ease;  /* 호버 시 색상과 배경 색상 변경 효과 */
     }
     a:hover {
         color: rgba(44, 62, 80, 0.9);
     }
+    .gotoBackBtn {
+	    width: 183px;
+	    padding: 8px; /* 여백 축소 */
+	    background: none;
+	    border: 1px solid #2c3e50;
+	    border-radius: 4px; /* 둥글기 축소 */
+	    color: #2c3e50;
+	    cursor: pointer;
+	    transition: background 0.3s ease, color 0.3s ease;
+	    font-size: 0.9rem; /* 텍스트 크기 축소 */
+   }
+   .gotoBackBtn:hover {
+       background: #2c3e50;
+       color: white;
+   }
 </style>
 <div class="bookingListModal">
-<div class="bookingOverlay"></div>
-	<div class="bookingContent">
-	<div class="topBox">
-		<div class="profile-image">
-			<div><img class="size" src="${cpath }/fpupload/image/${empty login.storedFileName ? 'default.png' : login.storedFileName }" alt="프로필 이미지"></div>
-			<div><h2 class="titleText" >AMD, Booking List</h2></div>
+	<div class="bookingListContent">
+		<div class="topBox">
+			<div class="profile-image">
+				<div><img class="size" src="${cpath }/fpupload/image/${empty login.storedFileName ? 'default.png' : login.storedFileName }" alt="프로필 이미지"></div>
+				<div><h2 class="titleText">병원 예약현황</h2></div>
+			</div>
+			<div class="guide">
+				<p style="color: gray;">예약된 병원 리스트를 한눈에 관리해 보세요.<br>병원 정보는 리스트 병원명 클릭을 통하여 확인 가능합니다.</p>
+			</div>
 		</div>
-		<div class="guide">
-			<p style="color: gray;">예약된 병원 리스트를 한눈에 관리해 보세요.<br>병원 정보는 리스트 병원명 클릭을 통하여 확인 가능합니다.</p>
-			<h3 class="text" style="color: white;">${login.name }님의 예약 정보 리스트입니다</h3>
-		</div>
-	</div>
+		<h3 id="thisIsList">${login.name }님의 예약 정보 리스트입니다</h3>
 	<div class="mainTable">
 	<table>
 		<thead>
@@ -185,9 +172,12 @@
 			</tbody>
 		</table>
 	</div>
-	<p><a href="${cpath }/member/info/${login.id}"><button type="button" formnovalidate>뒤로가기</button></a></p>
+	<p><a href="${cpath }/member/info/${login.id}"><button class="gotoBackBtn">뒤로가기</button></a></p>
 	</div>
 </div>
+
+<%@ include file="../footer.jsp" %>
+
 <script>
 	//예약 상태 숫자를 문자열로 변환하는 함수
 	function getStatusText(status) {
@@ -234,6 +224,9 @@
 	}	
 	// DOM이 준비되면 상태 변환 실행
 	document.addEventListener("DOMContentLoaded", updateBookingStatus)
+	
+	const footer = document.getElementById('footer')
+   footer.style.backgroundColor = '#a2a3a3'
 </script>
 </body>
 </html>

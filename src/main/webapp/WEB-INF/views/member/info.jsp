@@ -59,10 +59,10 @@
        gap: 10px; /* 요소 간 간격 */
    }
    .user-details {
-      text-align: left;
-       width: 280px;
+       text-align: left;
        margin: auto;
-       padding-left:10px;
+       margin-bottom: 10px;
+       padding: 15px;
        background-color: rgba(0, 0, 0, 0.2); 
        border-radius: 10px;
    }
@@ -187,13 +187,20 @@
    .custom-file-label:hover {
        background-color: #34495e;
    }
+   #myInfoTitle {
+      color: #2c3e50;
+      font-size: 25px;
+   }
+   #myDetail {
+   	  font-size: 16px;
+   	  font-weight: normal;
+   }
 
 </style>
 <div class="Infomodal">
 <div class="Infooverlay"></div>
     <div class="Infocontent">
-    <h2>AMD, Members' Personal Information Service</h2>
-        <p style="color: gray;">회원님의 개인 정보와 일정을 수정 및 관리해보세요.</p>
+    <h2 id="myInfoTitle">회원정보</h2>
         <div class="profile-container">
           <div class="profile-image">
               <img class="size" src="${cpath }/fpupload/image/${empty login.storedFileName ? 'default.png' : login.storedFileName }" alt="프로필 이미지">
@@ -203,9 +210,9 @@
           </p>
       </div>
         <div class="user-details">
-            <p style="font-weight: bold;">ID/E-mail   :</p>${login.userid } / ${login.email }
-            <p style="font-weight: bold;">NAME/GENDER :</p> ${login.name }   / ${login.gender }
-            <p style="font-weight: bold;">Address :</p> ${login.location }
+            <p style="font-weight: bold;">ID/E-mail   : <span id="myDetail">${login.userid } / ${login.email }</span></p>
+            <p style="font-weight: bold;">NAME/GENDER : <span id="myDetail">${login.name }   / ${login.gender }<span></p>
+            <p style="font-weight: bold;">Address : <span id="myDetail">${login.location }<span></p>
         </div>
         <div>
             <details>
