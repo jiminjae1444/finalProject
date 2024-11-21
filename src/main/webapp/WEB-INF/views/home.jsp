@@ -240,7 +240,7 @@
      }
      
 
-/*     응급실 스타일 */
+/*     응급실 스타일 이라고할뻔*/
     .rollerWrap {
 		position: absolute;
 		bottom: 0px;
