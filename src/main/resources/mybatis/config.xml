@@ -14,5 +14,7 @@
 		<typeAlias type="com.itbank.finalProject.model.HospitalTimeDTO" alias="hospital_time"/>
 		<typeAlias type="com.itbank.finalProject.model.NotificationDTO" alias="notification"/>
 		<typeAlias type="com.itbank.finalProject.model.FavoriteDTO" alias="favorite"/>
+		<typeAlias type="com.itbank.finalProject.model.ChatRoomDTO" alias="chatRoom"/>
+		<typeAlias type="com.itbank.finalProject.model.ChatHistoryDTO" alias="chatHistory"/>
 	</typeAliases>
 </configuration>
