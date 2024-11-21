@@ -55,6 +55,6 @@ public class HomeController {
    		return "healthInfo/healthInfo";
    	}
     
-    
+    // 반갑
 
 }
