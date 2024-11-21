@@ -886,8 +886,11 @@
             }
             return result
         } else {
-            notificationCountSpan.innerText = '' // 0 이하일 경우 비움
-            notificationCountSpan.classList.add('hidden')
+        	if('${login}' != ''){
+        		
+	            notificationCountSpan.innerText = '' // 0 이하일 경우 비움
+	            notificationCountSpan.classList.add('hidden')
+        	}
             return ''
         }
     }
@@ -1069,7 +1072,7 @@
 
     closeBookingBtn.addEventListener('click', closeBookingModal)
     bookingOverlay.onclick = closeBookingModal
-    notification.addEventListener('click', readNotification)
+    if('${login}' != '') notification.addEventListener('click', readNotification)
     document.addEventListener('DOMContentLoaded', notificationCount)
 </script>
 
@@ -1287,25 +1290,12 @@
         const result = await fetch(url, opt).then(resp => resp.json())
         if(result > 0) openMyFavorites({ target: { dataset: { page: 1 } } })
     }
-
-
-    myFavorites.addEventListener('click', (event) => {
-        if('${login}' != '') openMyFavorites(event)
-        else {
-            Swal.fire({
-                title: '',
-                text: '로그인 해주세요.',
-                icon: 'info',
-                confirmButtonText: '확인',
-                cancelButtonText: '취소',
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                showCancelButton: true,
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-                showCloseButton: false
-            }).then((result) => {if(result.isConfirmed) location.href = '${cpath}/member/login'})
-        }
-    })
+	
+    console.log('${login}' == '')
+	if('${login}' != ''){		
+	    myFavorites.addEventListener('click', (event) => {
+	        openMyFavorites(event)
+	    })
+	}
 </script>
 
