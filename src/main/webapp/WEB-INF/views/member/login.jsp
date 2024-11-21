@@ -127,7 +127,7 @@
 <script>
    document.addEventListener('DOMContentLoaded', function() {
        const message = '${message}'
-       
+       console.log('url :' + ('${redirectUrl}' == ''))
        if (message != '') {
            swal('회원 가입 결과', message, 'success')
        }
@@ -153,7 +153,7 @@
                        type: "success",
                        confirmButtonText: "확인"
                    }, function() {
-                       location.href = '${cpath}'
+                	   location.href = ('${redirectUrl}' !== '') ? '${redirectUrl}' : '${cpath}'
                    })
                } else {
                    swal({

@@ -17,12 +17,22 @@
 	        padding: 0;
 	        font-family: Arial, sans-serif;
     	}
-        /*    챗봇 아이콘 */
-        #chat_icon img {
-            position: fixed;
-            right: 50px;
-            bottom: 50px;
-        }
+     /* 	챗봇 아이콘 */
+	#chat_icon img {
+		position: fixed;
+		right: 40px;
+		bottom: 40px;
+		z-index: 1000;
+		cursor: pointer;
+	}
+	/* 	(상담사) 채팅방 목록 아이콘 */
+	#list_icon img {
+		position: fixed;
+		right: 40px;
+		bottom: 100px;
+		z-index: 1000;
+		cursor: pointer;
+	}
 
         /*   민재 파트 (홈 검색 기능) */
 
@@ -715,6 +725,8 @@
 
 </head>
 <body>
+
+
 <!-- 즐겨찾기 테이블 -->
 <table id="myFavoritesTable" class="hidden">
     <thead></thead>
@@ -723,10 +735,19 @@
 
 <!-- 챗봇 아이콘 -->
 <div id="chat_icon">
-    <a href="${cpath }/chat/room" onclick="window.open(this.href, '_blank', 'width=600, height=1080'); return false;">
-        <img src="${cpath }/resources/image/chat-icon.png" width="50">
-    </a>
+	<a onclick="openChatRoom(); return false;">
+		<img src="${cpath }/resources/image/chat-icon.png" width="50">
+	</a>
 </div>
+
+<!-- (상담사한테만 뜸) 채팅방 목록 아이콘 -->
+<c:if test="${not empty login && login.role == 1 }">
+	<div id="list_icon">
+		<a href="${cpath }/chat/rooms">
+			<img src="${cpath }/resources/image/list-icon.png" width="50">
+		</a>
+	</div>
+</c:if>
 
 
 <header>
@@ -783,6 +804,23 @@
     </div>
 </div>
 </c:if>
+
+
+<!-- 새창에서 챗봇 페이지로 이동 -->
+<script>
+	async function openChatRoom() {
+		const url = cpath + '/chats/room'
+		const roomUrl = await fetch(url).then(resp => resp.text())
+		console.log('roomUrl 받아온 후: ', roomUrl)
+		
+		if(roomUrl) {
+			window.open(cpath + '/chat/room/' + roomUrl, '_blank', 'width=600, height=1080')
+		}
+		else {
+			alert('챗봇으로 연결할 수 없습니다')
+		}
+	}
+</script>
 
 <!-- 예약하기 입력 폼 -->
 <form id="bookingInsertForm" class="hidden">
@@ -886,8 +924,11 @@
             }
             return result
         } else {
-            notificationCountSpan.innerText = '' // 0 이하일 경우 비움
-            notificationCountSpan.classList.add('hidden')
+        	if('${login}' != ''){
+        		
+	            notificationCountSpan.innerText = '' // 0 이하일 경우 비움
+	            notificationCountSpan.classList.add('hidden')
+        	}
             return ''
         }
     }
@@ -1069,7 +1110,7 @@
 
     closeBookingBtn.addEventListener('click', closeBookingModal)
     bookingOverlay.onclick = closeBookingModal
-    notification.addEventListener('click', readNotification)
+    if('${login}' != '') notification.addEventListener('click', readNotification)
     document.addEventListener('DOMContentLoaded', notificationCount)
 </script>
 
@@ -1287,25 +1328,12 @@
         const result = await fetch(url, opt).then(resp => resp.json())
         if(result > 0) openMyFavorites({ target: { dataset: { page: 1 } } })
     }
-
-
-    myFavorites.addEventListener('click', (event) => {
-        if('${login}' != '') openMyFavorites(event)
-        else {
-            Swal.fire({
-                title: '',
-                text: '로그인 해주세요.',
-                icon: 'info',
-                confirmButtonText: '확인',
-                cancelButtonText: '취소',
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                showCancelButton: true,
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-                showCloseButton: false
-            }).then((result) => {if(result.isConfirmed) location.href = '${cpath}/member/login'})
-        }
-    })
+	
+    console.log('${login}' == '')
+	if('${login}' != ''){		
+	    myFavorites.addEventListener('click', (event) => {
+	        openMyFavorites(event)
+	    })
+	}
 </script>
 
