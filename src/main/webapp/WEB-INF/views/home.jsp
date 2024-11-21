@@ -239,17 +239,8 @@
          100% {transform: translateX(-200%);}
      }
      
-	/* 3번째 페이지 */
-/*     .thirdPageOverlay { */
-/*     	width: 100%; */
-/*     	height: 100%; */
-/*     	top: 0; */
-/*     	left: 0; */
-/*     	background-color: black; */
-/*     	position: absolute; */
-/*     	opacity: 0.5; */
-/*     } */
-/*     응급실 스타일 */
+
+/*     응급실 스타일이라고할뻔*/
     .rollerWrap {
 		position: absolute;
 		bottom: 0px;
