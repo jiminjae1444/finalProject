@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+         "-//mybatis.org//DTD Mapper 3.0//EN" 
+         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itbank.finalProject.repository.MemberDAO">
+   <insert id="naverInsert" parameterType="member">
+      insert into member
+         (
+            userid, salt, hash, name, email, location, gender, birth
+            <if test="naver_id != null">, naver_id</if>
+         )
+            values 
+         (
+            #{userid}, 
+            #{salt}, 
+            #{hash}, 
+            #{name}, 
+            #{email}, 
+            #{location}, 
+            #{gender},
+            #{birth}
+            <if test="naver_id != null">, #{naver_id}</if>
+         )
+   </insert>
+   
+   <select id="selectSalt" parameterType="string" resultType="string">
+      select salt from member where userid = #{userid}
+   </select>
+   
+   <select id="selectLogin" parameterType="member" resultType="member">
+      SELECT
+         m.* , 
+          p.storedFileName
+             FROM member m
+             left join profile p
+                 on m.profile_id = p.id
+              where
+                 userid = #{userid}
+                 and
+                 hash = #{hash}
+   </select>
+   
+   <select id="selectNaverLogin" parameterType="string" resultType="member">
+      select 
+         m.*,
+         p.storedFileName 
+         from member m
+         left join profile p
+            on m.profile_id = p.id
+         where 
+            naver_id = #{naver_id}
+   </select>
+   
+   <select id="selectCount" parameterType="string" resultType="int">
+      select count(*) from member where userid = #{userid}
+   </select>
+   
+   <select id="selectEmailAndUserid" parameterType="member" resultType="int">
+      select count(*) from member
+         where
+            userid = #{userid}
+            and
+            email = #{email}
+   </select>
+   
+   <update id="updatePassword" parameterType="member">
+      update member
+         set
+            salt = #{salt},
+            hash = #{hash}
+         where
+            userid = #{userid}
+            and
+            email = #{email}
+   </update>
+   
+   <select id="getMemberByeId" parameterType="int" resultType="member">
+      SELECT
+      m.id,
+      p.originalFileName,
+      p.storedFileName,
+      p.contentType
+      FROM member m
+      LEFT JOIN profile p
+      ON m.profile_id = p.id
+      WHERE m.id = #{id}
+   </select>
+   
+   <select id="selectMaxProfileId" resultType="int">
+      select max(id) from profile
+   </select>
+   
+   <insert id="insertProfile_img" parameterType="profile">
+      insert into profile (originalFileName, storedFileName, contentType) 
+         values (
+            #{originalFileName}, #{storedFileName}, #{contentType}
+         )
+   </insert>
+   
+   <update id="updateMemberProfile" parameterType="member">
+      update member set profile_id = #{profile_id} where id = #{id}
+   </update>
+   
+   <update id="updateLocation" parameterType="member">
+      update member set location = #{location} where id = #{id}
+   </update>
+   
+   <!-- <select id="selectUserByEmail" resultType="member" parameterType="string">
+      select * from member where email = #{email}
+   </select> -->
+   
+   <select id="selectUserById" resultType="member" parameterType="int">
+      select * from member 
+         where 
+         id = #{id}
+   </select>
+   
+   <update id="updatePw" parameterType="member">
+      update member
+         set
+            salt = #{salt},
+            hash = #{hash}
+         where
+            id = #{id}
+   </update>
+   
+   <select id="checkByUserId" resultType="member" parameterType="string">
+      select
+      m.userid,
+      m.email
+      from member m
+      where email = #{email}
+   </select>
+   
+   <select id="checkByEmail" resultType="member" parameterType="string">
+      select
+      m.email,
+      m.userid
+      from member m
+      where userid = #{userid}
+   </select>
+   
+   <select id="selectMemberByBookingList" parameterType="int">
+      SELECT 
+          b.id,
+          m.userid,
+          h.HOSPITAL_NAME,
+          h.ADDRESS,
+          b.booking_date,
+          b.booked_at
+      FROM 
+          booking b
+      JOIN 
+          member m ON b.member_id = m.id
+      JOIN 
+          hospital h ON b.hospital_id = h.id
+      WHERE 
+          m.id = #{id}
+      ORDER BY 
+          b.booking_date DESC
+   </select>
+   
+   <insert id="insertAddLocation" parameterType="sublocation">
+      insert into subLocation (member_id, memberLocation) values (#{id}, #{memberLocation})
+   </insert>
+   
+   <select id="selectAddLocationList" parameterType="int">
+      SELECT
+          s.id,
+          s.memberLocation
+          FROM 
+              subLocation s
+          join 
+              member m on s.member_id = m.id
+          where 
+              m.id = #{id}
+          ORDER BY 
+              s.memberLocation DESC
+   </select>
+   
+   <delete id="deleteAddLocation" parameterType="int">
+      DELETE FROM subLocation s
+      WHERE s.id = #{id}
+   </delete>
+   
+</mapper>
+
+
+
+
+
+
+
+

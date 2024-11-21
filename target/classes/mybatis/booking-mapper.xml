@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+			"-//mybatis.org//DTD Mapper 3.0//EN" 
+			"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itbank.finalProject.repository.BookingDAO">
+	
+	<select id="selectBookingInfo" resultType="booking">
+		select * from booking
+			where member_id = #{member_id} and hospital_id = #{hospital_id} and status = 1
+	</select>
+	
+	<insert id="bookingInsert" parameterType="booking">
+		INSERT INTO booking (member_id, hospital_id, booking_date, status) VALUES (#{member_id}, #{hospital_id}, #{booking_date}, #{status})
+	</insert>
+	
+	<select id="selectHospitalTime" resultType="hospital_time">
+		select * from hospital_time where id = #{hospital_id}
+	</select>
+	
+	<update id="bookingCancel">
+		update booking set status = 0 where member_id = #{member_id} and hospital_id = #{hospital_id} and status = 1
+	</update>
+	
+	<insert id="notificationBookingCancel" parameterType="notification">
+		insert into notification (member_id, booking_id, message) values (#{member_id}, #{id}, '예약이 취소되었습니다.')
+	</insert>
+	
+	<update id="bookingTimeOver">
+		update booking set status = -1 where member_id = #{member_id} and hospital_id = #{hospital_id} and status = 1
+	</update>
+	
+	<insert id="notificationBookingTimeOver" parameterType="notification">
+		insert into notification (member_id, booking_id, message) values (#{member_id}, #{id}, '예약기간이 만료되었습니다.')
+	</insert>
+	
+	<insert id="notificationBookingOneDay" parameterType="notification">
+		insert into notification (member_id, booking_id, message) values (#{member_id}, #{id}, '예약시간 하루 전입니다.')
+	</insert>
+	
+	<select id="selectNotificationList" resultType="notification">
+		select 
+			n.*,
+			h.hospital_name as hospital_name,
+			b.booking_date as booking_date,
+			m.name as name,
+			m.email as email
+			from notification n
+			join booking b
+				on b.id = n.booking_id
+			join hospital h
+				on h.id = b.hospital_id
+			join member m
+				on n.member_id = m.id
+			order by n.id desc
+			OFFSET #{selectStart} ROWS FETCH NEXT 7 ROWS ONLY
+	</select>
+	
+	<select id="selectNotificationAllCount" >
+		select count(*) from notification 
+	</select>
+	
+	<insert id="notificationBooking" parameterType="notification">
+		insert into notification (member_id, booking_id, message) values (#{member_id}, #{id}, ' 예약되었습니다.')
+	</insert>
+	
+	<select id="selectNotificationCount" >
+		select count(*) from notification where read = 0
+	</select>
+	
+	<update id="readNotification">
+	<![CDATA[
+		UPDATE notification
+		SET read = 1
+		WHERE (read = 0) and id IN (
+		    SELECT id
+		    FROM (
+		        SELECT id, ROW_NUMBER() OVER (ORDER BY id desc) AS p
+		        FROM notification
+		        order by id desc
+		    )
+		    WHERE p > #{selectStart} AND p <= #{selectEnd}
+		)
+		]]>
+	</update>
+	
+	<update id="bookingUpdate" parameterType="booking">
+		update booking set booking_date = #{booking_date} where member_id = #{member_id} and hospital_id = #{hospital_id} and status = 1
+	</update>
+	
+	<insert id="notificationBookingUpdate" parameterType="notification">
+		insert into notification (member_id, booking_id, message) values (#{member_id}, #{id}, '으로 예약이 변경되었습니다.')
+	</insert>
+	
+	<delete id="deleteNotification">
+		delete from notification where id = #{id}
+	</delete>
+
+	<delete id="deleteNotificationAll">
+		delete from notification
+	</delete>
+
+	<delete id="deleteMyFavorites">
+		delete from favorite where hospital_id = #{id}
+	</delete>
+	<delete id="deleteMyfavoritesAll">
+		delete from favorite
+	</delete>
+	
+</mapper>
+
+
+
+
+
+
+
+
