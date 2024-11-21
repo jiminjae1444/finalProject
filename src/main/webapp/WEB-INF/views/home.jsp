@@ -240,7 +240,7 @@
      }
      
 
-/*     응급실 스타일이라고할뻔*/
+/*     응급실 스타일이라고*/
     .rollerWrap {
 		position: absolute;
 		bottom: 0px;
@@ -307,7 +307,7 @@
 <style>
 	.ranking-list {
 		position:absolute;
-		top: 56%;
+		top: 58%;
 		left: 4%;
 		list-style: none;
 		padding: 0;
@@ -1993,8 +1993,11 @@ window.onload = () => {
             }
             return result
         } else {
-            notificationCountSpan.innerText = '' // 0 이하일 경우 비움
-            notificationCountSpan.classList.add('hidden')
+if('${login}' != ''){
+        		
+	            notificationCountSpan.innerText = '' // 0 이하일 경우 비움
+	            notificationCountSpan.classList.add('hidden')
+        	}
             return ''
         }
     }
@@ -2176,7 +2179,6 @@ window.onload = () => {
 
     closeBookingBtn.addEventListener('click', closeBookingModal)
     bookingOverlay.onclick = closeBookingModal
-    notification.addEventListener('click', readNotification)
     document.addEventListener('DOMContentLoaded', notificationCount)
 </script>
 
@@ -2282,6 +2284,8 @@ window.onload = () => {
             await updateMyFavoritesPage(thisPage)
         }
     }
+    
+    document.addEventListener('DOMContentLoaded', console.log('${login}' == ''))
 
     // 즐겨찾기 페이징 최대 페이지 수 가져오는 함수
     async function myFavoritesMaxPage(startPage){
@@ -2395,24 +2399,7 @@ window.onload = () => {
     }
 
 
-    myFavorites.addEventListener('click', (event) => {
-        if('${login}' != '') openMyFavorites(event)
-        else {
-            Swal.fire({
-                title: '',
-                text: '로그인 해주세요.',
-                icon: 'info',
-                confirmButtonText: '확인',
-                cancelButtonText: '취소',
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                showCancelButton: true,
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-                showCloseButton: false
-            }).then((result) => {if(result.isConfirmed) location.href = '${cpath}/member/login'})
-        }
-    })
+    
 </script>
 
 </body>
