@@ -239,16 +239,7 @@
          100% {transform: translateX(-200%);}
      }
      
-	/* 3번째 페이지 */
-/*     .thirdPageOverlay { */
-/*     	width: 100%; */
-/*     	height: 100%; */
-/*     	top: 0; */
-/*     	left: 0; */
-/*     	background-color: black; */
-/*     	position: absolute; */
-/*     	opacity: 0.5; */
-/*     } */
+
 /*     응급실 스타일 */
     .rollerWrap {
 		position: absolute;
@@ -316,7 +307,7 @@
 <style>
 	.ranking-list {
 		position:absolute;
-		top: 56%;
+		top: 58%;
 		left: 4%;
 		list-style: none;
 		padding: 0;
