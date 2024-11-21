@@ -486,12 +486,22 @@
 
 <!-- 헤더 스타일 -->
 <style>
-	/*    챗봇 아이콘 */
-        #chat_icon img {
-            position: fixed;
-            right: 50px;
-            bottom: 50px;
-        }
+		/* 	챗봇 아이콘 */
+	#chat_icon img {
+		position: fixed;
+		right: 40px;
+		bottom: 40px;
+		z-index: 1000;
+		cursor: pointer;
+	}
+	/* 	(상담사) 채팅방 목록 아이콘 */
+	#list_icon img {
+		position: fixed;
+		right: 40px;
+		bottom: 100px;
+		z-index: 1000;
+		cursor: pointer;
+	}
 
         /*   민재 파트 (홈 검색 기능) */
 
@@ -1148,6 +1158,22 @@
         }
     </style>
 
+<!-- 챗봇 아이콘 -->
+<div id="chat_icon">
+	<a onclick="openChatRoom(); return false;">
+		<img src="${cpath }/resources/image/chat-icon.png" width="50">
+	</a>
+</div>
+
+<!-- (상담사한테만 뜸) 채팅방 목록 아이콘 -->
+<c:if test="${not empty login && login.role == 1 }">
+	<div id="list_icon">
+		<a href="${cpath }/chat/rooms">
+			<img src="${cpath }/resources/image/list-icon.png" width="50">
+		</a>
+	</div>
+</c:if>
+
 <!-- 즐겨찾기 테이블 -->
 <table id="myFavoritesTable" class="hidden">
     <thead></thead>
@@ -1485,6 +1511,21 @@
 
 
 
+<!-- 새창에서 챗봇 페이지로 이동 -->
+<script>
+	async function openChatRoom() {
+		const url = cpath + '/chats/room'
+		const roomUrl = await fetch(url).then(resp => resp.text())
+		console.log('roomUrl 받아온 후: ', roomUrl)
+		
+		if(roomUrl) {
+			window.open(cpath + '/chat/room/' + roomUrl, '_blank', 'width=600, height=1080')
+		}
+		else {
+			alert('챗봇으로 연결할 수 없습니다')
+		}
+	}
+</script>
 
 
 <!-- 민재 검색 스크립트 -->
