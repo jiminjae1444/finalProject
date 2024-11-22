@@ -18,14 +18,22 @@
 	        font-family: Arial, sans-serif;
 	        overflow-x: hidden;
     	}
-        /*    챗봇 아이콘 */
-        #chat_icon img {
-            position: fixed;
-            right: 50px;
-            bottom: 50px;
-            z-index:3;
-        }
-
+     		/* 	챗봇 아이콘 */
+	#chat_icon img {
+		position: fixed;
+		right: 40px;
+		bottom: 40px;
+		z-index: 1000;
+		cursor: pointer;
+	}
+	/* 	(상담사) 채팅방 목록 아이콘 */
+	#list_icon img {
+		position: fixed;
+		right: 40px;
+		bottom: 100px;
+		z-index: 1000;
+		cursor: pointer;
+	}
         /*   민재 파트 (홈 검색 기능) */
 
 
@@ -751,10 +759,19 @@
 
 <!-- 챗봇 아이콘 -->
 <div id="chat_icon">
-    <a href="${cpath }/chat/room" onclick="window.open(this.href, '_blank', 'width=600, height=1080'); return false;">
-        <img src="${cpath }/resources/image/chat-icon.png" width="50">
-    </a>
+	<a onclick="openChatRoom(); return false;">
+		<img src="${cpath }/resources/image/chat-icon.png" width="50">
+	</a>
 </div>
+
+<!-- (상담사한테만 뜸) 채팅방 목록 아이콘 -->
+<c:if test="${not empty login && login.role == 1 }">
+	<div id="list_icon">
+		<a href="${cpath }/chat/rooms">
+			<img src="${cpath }/resources/image/list-icon.png" width="50">
+		</a>
+	</div>
+</c:if>
 
 
 <header>
