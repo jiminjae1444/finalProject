@@ -89,17 +89,15 @@
         border: none;
         padding: 0;
     }   
-    .rpcaptchaline input[type="button"] {
-        margin-left: 10px;
-    }
     .resetcontent .rpcaptchaline input[type="text"] {
        text-align: center;
        padding-left: 0px;
        padding-right: 0px;
+       width: 291px;
      } 
     .rpcaptchaline {
        border: 1px solid white;
-          padding: 10px;
+       padding: 10px;
        margin-top: 10px;
        margin-bottom: 10px;
        border-radius: 10px;
@@ -107,6 +105,33 @@
    #resetPwTitle {
       color: #2c3e50;
       font-size: 25px;
+   }
+   .captchaReloadBtn {
+   width: 289px;
+   padding: 8px; /* 여백 축소 */
+   background: none;
+   border: 1px solid #2c3e50;
+   border-radius: 4px; /* 둥글기 축소 */
+   color: #2c3e50;
+   cursor: pointer;
+   transition: background 0.3s ease, color 0.3s ease;
+   font-size: 0.9rem; /* 텍스트 크기 축소 */
+   margin-top: 20px;
+	}
+	.gotoBackBtn {
+	    width: 200px;
+	    padding: 8px; /* 여백 축소 */
+	    background: none;
+	    border: 1px solid #2c3e50;
+	    border-radius: 4px; /* 둥글기 축소 */
+	    color: #2c3e50;
+	    cursor: pointer;
+	    transition: background 0.3s ease, color 0.3s ease;
+	    font-size: 0.9rem; /* 텍스트 크기 축소 */
+   }
+   .gotoBackBtn:hover {
+       background: #2c3e50;
+       color: white;
    }
 </style>
 <div class="resetmodal">
@@ -120,7 +145,7 @@
       <p><input type="submit" value="재발급"></p>   
    </form>
       <p><a href="${cpath }/member/reCheckUserid">ID 재확인</a> | <a href="${cpath }/member/reCheckEmail">Email 재확인</a></p>
-      <p><a href="${cpath }/member/login"><button type="button" formnovalidate>뒤로가기</button></a></p>
+      <p><a href="${cpath }/member/login"><button type="button" class="gotoBackBtn">뒤로가기</button></a></p>
    </div>
 </div>
 
@@ -132,7 +157,7 @@
       const result = await fetch(url).then(resp => resp.json())
       let tag = '<fieldset><p>'
       tag += '<img src="${cpath}/fpupload/captcha/' + result.captchaImage + '" width="300">'
-      tag += '<input type="button" name="reload" value="새로고침">'
+      tag += '<input type="button" name="reload" class="captchaReloadBtn" value="새로고침">'
       tag += '</p>'
       tag += '<input type="text" name="user" placeholder="그림에 나타난 글자를 입력하세요" required>'
       tag += '</fieldset>'

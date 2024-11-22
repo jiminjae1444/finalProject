@@ -60,8 +60,7 @@
    }
    .user-details {
        text-align: left;
-       margin: auto;
-       margin-bottom: 10px;
+       margin: 30px auto;
        padding: 15px;
        background-color: rgba(0, 0, 0, 0.2); 
        border-radius: 10px;
@@ -77,7 +76,7 @@
        justify-content: space-around; /* 버튼 간 균등 배치 */
        align-items: center; /* 세로 가운데 정렬 */
        gap: 0px; /* 버튼 간 간격 최소화 */
-       margin-top: 10px; /* 상단 여백 줄이기 */
+       margin-top: 30px; /* 상단 여백 줄이기 */
    }
    
    .category-button {
@@ -120,6 +119,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        z-index: 3;
    }
    .Updateoverlay {
       background-color: rgba(0, 0, 0, 0.8);
@@ -197,7 +197,7 @@
    }
 
 	.gotoBackBtn {
-	    width: 183px;
+	    width: 200px;
 	    padding: 8px; /* 여백 축소 */
 	    background: none;
 	    border: 1px solid #2c3e50;
@@ -210,6 +210,23 @@
    .gotoBackBtn:hover {
        background: #2c3e50;
        color: white;
+   }
+   #gotoBack1 {
+   	   margin-top: 30px;
+   }
+   .imgSubmitBtn {
+   		width: 200px;
+	    padding: 8px; /* 여백 축소 */
+	    background: #2c3e50;
+	    border: 1px solid #2c3e50;
+	    border-radius: 4px; /* 둥글기 축소 */
+	    color: white;
+	    cursor: pointer;
+	    transition: background 0.3s ease, color 0.3s ease;
+	    font-size: 0.9rem; /* 텍스트 크기 축소 */
+   }
+   .imgSubmitBtn:hover {
+       background-color: #34495e;
    }
 </style>
 <div class="Infomodal">
@@ -263,7 +280,7 @@
             <span style="font-size: 15px;">패스워드 수정</span>
         </a>
     </div>
-    <p style="text-align: center;"><a href="${cpath }"><button>뒤로가기</button></a></p>
+    <p style="text-align: center;"><a href="${cpath }"><button class="gotoBackBtn" id="gotoBack1">뒤로가기</button></a></p>
 </div>
 </div>
 
@@ -282,7 +299,7 @@
          <input type="file" name="imgUpload" accept="image/*" class="hidden-file-input" id="fileInput" required>
          <label for="fileInput" class="custom-file-label">IMG SEARCH</label>
       </p>
-      <p><input type="submit" value="등록하기"></p>
+      <p><input type="submit" value="등록하기" class="imgSubmitBtn"></p>
    </form>
    <p class="closeImgUploadModal"><a href="${cpath }/member/info/${login.id}"><button class="gotoBackBtn">뒤로가기</button></a></p>
    </div>

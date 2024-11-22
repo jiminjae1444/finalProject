@@ -16,6 +16,7 @@
 	        margin: 0;
 	        padding: 0;
 	        font-family: Arial, sans-serif;
+	        overflow-x: hidden;
     	}
         /*    챗봇 아이콘 */
         #chat_icon img {
@@ -254,8 +255,8 @@
 
         #notificationCountSpan {
             position: absolute;
-            top: -5px;
-            right: -5px;
+            top: 18px;
+            right: 303px;
             background-color: red;
             color: white;
             border-radius: 50%;
@@ -275,7 +276,7 @@
         #recentHospitalsContainer {
             width: 180px; /* 컨테이너 너비를 조금 더 줄임 */
             position: fixed; /* 화면에 고정 */
-            top: 118px; /* 상단에서 80px 떨어지게 위치 */
+            top: 130px; /* 상단에서 80px 떨어지게 위치 */
             right: 20px; /* 화면 오른쪽에 위치 */
             background-color: #f9f9f9;
             padding: 10px;

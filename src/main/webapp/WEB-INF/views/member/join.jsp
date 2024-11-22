@@ -126,7 +126,7 @@ label {
     color: white;
 }
 .captchaReloadBtn {
-   width: 183px;
+   width: 289px;
    padding: 8px; /* 여백 축소 */
    background: none;
    border: 1px solid #2c3e50;
@@ -135,6 +135,7 @@ label {
    cursor: pointer;
    transition: background 0.3s ease, color 0.3s ease;
    font-size: 0.9rem; /* 텍스트 크기 축소 */
+   margin-top: 20px;
 }
 </style>
 
