@@ -2058,7 +2058,7 @@ window.onload = () => {
     }
 
     if (loginIcon2) {
-        loginIcon2.addEventListener('click', function() {
+        	loginIcon2.addEventListener('click', function() {
             location.href =  '${cpath}/member/info/${login.id}'
         })
     }
@@ -2124,8 +2124,7 @@ window.onload = () => {
             }
             return result
         } else {
-if('${login}' != ''){
-        		
+			if('${login}' != ''){
 	            notificationCountSpan.innerText = '' // 0 이하일 경우 비움
 	            notificationCountSpan.classList.add('hidden')
         	}
@@ -2310,6 +2309,9 @@ if('${login}' != ''){
 
     closeBookingBtn.addEventListener('click', closeBookingModal)
     bookingOverlay.onclick = closeBookingModal
+    if('${login}' != ''){
+	    notification.addEventListener('click', readNotification)	
+    }
     document.addEventListener('DOMContentLoaded', notificationCount)
 </script>
 
@@ -2529,7 +2531,9 @@ if('${login}' != ''){
         if(result > 0) openMyFavorites({ target: { dataset: { page: 1 } } })
     }
 
-
+    if('${login}' != '') {
+    	myFavorites.addEventListener('click', (event) => openMyFavorites(event))
+    }
     
 </script>
 
