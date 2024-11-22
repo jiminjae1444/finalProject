@@ -13,17 +13,21 @@ public interface ReviewDAO {
 	List<HashMap<String, Object>> selectList(@Param("id") int id, @Param("offset") int offset, @Param("rowNums") int rowNums);
 
 	// 리뷰 작성
-	int insert(ReviewDTO dto);
+	int insertReview(ReviewDTO dto);
 
 	// 리뷰 삭제
-	int delete(int reviewId);
-	
-	
+	int deleteReview(int reviewId);
 	
 	// 선택한 병원의 전체 리뷰 개수
-	int selectCount(int id);
+	int selectTotalReviewCount(int id);
 
 	// 선택한 병원의 평점 평균
-	double selectAvg(int id);
+	Double selectReviewAvg(int id);
+
+	// 2주 내 해당 병원 방문 횟수
+	int selectVisitCount(@Param("memberId") int memberId, @Param("id") int id);
+
+	// 2주 내 해당 병원 리뷰 작성 개수
+	int selectWriteReviewCount(@Param("memberId") int memberId, @Param("id") int id);
 
 }

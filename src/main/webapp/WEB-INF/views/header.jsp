@@ -823,6 +823,22 @@
 </div>
 </c:if>
 
+<!-- 새창에서 챗봇 페이지로 이동 -->
+<script>
+	async function openChatRoom() {
+		const url = cpath + '/chats/room'
+		const roomUrl = await fetch(url).then(resp => resp.text())
+		console.log('roomUrl 받아온 후: ', roomUrl)
+		
+		if(roomUrl) {
+			window.open(cpath + '/chat/room/' + roomUrl, '_blank', 'width=600, height=900')
+		}
+		else {
+			alert('챗봇으로 연결할 수 없습니다')
+		}
+	}
+</script>
+
 <!-- 예약하기 입력 폼 -->
 <form id="bookingInsertForm" class="hidden">
     <p><input type="hidden" name="member_id" value="${login.id }"></p>
