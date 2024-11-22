@@ -894,7 +894,7 @@
 
 
 
-    // 아직 안읽은 알림 갯수 가져와서 띄우는 함수
+    // 아직 안읽은 알림 갯수 가져와서 띄우는 함수입니다.
     async function notificationCount(){
         const url = '${cpath}/notificationCount'
         const opt = {
@@ -910,8 +910,11 @@
             }
             return result
         } else {
-            notificationCountSpan.innerText = '' // 0 이하일 경우 비움
-            notificationCountSpan.classList.add('hidden')
+if('${login}' != ''){
+        		
+	            notificationCountSpan.innerText = '' // 0 이하일 경우 비움
+	            notificationCountSpan.classList.add('hidden')
+        	}
             return ''
         }
     }
