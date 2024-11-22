@@ -52,13 +52,13 @@
        display: flex;
        flex-direction: column;
        align-items: center;
+       padding: 0;
    }   
    .resetcontent input[type="text"],
    .resetcontent input[type="email"],
    .resetcontent input[type="submit"] {
        width: 190px;
        padding: 10px;
-       margin: 5px 0;
        border: 1px solid #ddd;
        border-radius: 4px;
    }   
@@ -104,12 +104,15 @@
        margin-bottom: 10px;
        border-radius: 10px;
    } 
+   #resetPwTitle {
+      color: #2c3e50;
+      font-size: 25px;
+   }
 </style>
 <div class="resetmodal">
 <div class="resetoverlay"></div>
       <div class="resetcontent">
-   <h2>AMD, Reset Password Service</h2>
-   <p style="color: gray;">정보를 조회하여 암호한 비밀번호를 메일로 보내드립니다.</p>
+   <h2 id="resetPwTitle">비밀번호 재발급</h2>
    <form>
       <p><input type="text" name="userid" placeholder="ID" autocomplete="off" required autofocus></p>
       <p><input type="email" name="email" placeholder="Email" autocomplete="off" required></p>

@@ -3,40 +3,13 @@
 <%@ include file="../header.jsp" %>
 
 <style>
-	@keyframes slideBackground {
-	    0% {
-	        background-position: 0% 10%;
-	    }
-	    50% {
-	        background-position: 100% 10%;
-	    }
-	    100% {
-	        background-position: 0% 10%;
-	    }
-	}
-	body {
-	    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('${cpath}/resources/image/network-security-system-perforated-paper-padlock.jpg');
-	    background-size: 110% auto;
-	    background-position: 0% 10%;
-	    animation: slideBackground 50s ease infinite;
-	    background-repeat: no-repeat;
-	    background-attachment: fixed;
-	}
+	body{
+        background: linear-gradient(to bottom,#2c3e50, #a2a3a3);
+        width: 100vw;
+        height: 100vh;
+    }
 	.pwUpdateModal {
-	/* 	position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center; */
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        height: 91%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -57,27 +30,32 @@
     	height: 288px;
 	}
 	.topText {
-    	display: flex;
+    	text-align: center;
     }
-    .text1 {
-    	margin-top: 5px;
-    	text-align: left;
-	    margin-left: 15px;
+    .topText h3 {
+    	margin: 0;
+    	padding-top: 8px;
     }
-    .text2 {
-    	text-align: left;
-	    font-size: 14px;
-	    margin-top: 22px;
+    .pwUpdateTitle {
+    	color: #2c3e50;
+      	font-size: 25px;
     }
     .pwUpdateBtn {
-    	padding-left: 112px;
+    	display: flex;
+    	justify-content: center;
+    }
+    #pwUpdateForm input[type="password"]{
+       padding: 10px;
+       margin: 5px auto;
+       border: 1px solid #ddd;
+       border-radius: 4px;
     }
     .pwUpdateBtn input[type="submit"]{
     	background-color: #2c3e50;
 	    font-size: 17px;
 	    color: white;
-	    width: 177px;
-	    height: 32px;
+	    width: 187px;
+	    height: 37px;
 	    margin-bottom: 0;
 	    padding-top: 0px;
 	    display: flex;
@@ -87,29 +65,45 @@
 	    border: 0;
 	    border-radius: 4px;
 	    text-decoration: none;
-	    margin-left: 40px;
 	    padding-bottom: 3px;
     }
     .pwUpdateBtn input[type="submit"]:hover {
     	background-color: #34495e;
     }
+    .gotoBackBtn {
+	    width: 183px;
+	    padding: 8px; /* 여백 축소 */
+	    background: none;
+	    border: 1px solid #2c3e50;
+	    border-radius: 4px; /* 둥글기 축소 */
+	    color: #2c3e50;
+	    cursor: pointer;
+	    transition: background 0.3s ease, color 0.3s ease;
+	    font-size: 0.9rem; /* 텍스트 크기 축소 */
+   }
+   .gotoBackBtn:hover {
+       background: #2c3e50;
+       color: white;
+   }
 </style>
 <div id="pwUpdateModal" class="pwUpdateModal" >
 <div class="pwUpdatecontent">
 	<div class="pwUpdateoverlay">
 	<div class="topText">
-		<div><h3 class="text1">AMD, Password Update</h3></div>
-		<div><p  class="text2">비밀번호를 수정하여 개인보안을 관리할 수 있습니다.</p></div>
+		<div><h3 class="pwUpdateTitle">비밀번호 변경</h3></div>
 	</div>
-	<form method="POST">
+	<form method="POST" id="pwUpdateForm">
 		<p><input type="password" name="currentPw" placeholder="현재 등록된 비밀번호 입력" required autocomplete="off"></p>
 		<p><input type="password" name="newPw" placeholder="변경할 비밀번호 입력" required></p>
 		<p class="pwUpdateBtn"><input type="submit" value="변경하기"></p> 
 	</form>
-		<p><a href="${cpath }/member/info/${login.id}"><button>뒤로가기</button></a></p>
+		<p><a href="${cpath }/member/info/${login.id}"><button class="gotoBackBtn">뒤로가기</button></a></p>
 	</div>	
 	</div>
 </div>
+
+<%@ include file="../footer.jsp" %>
+
 <script>
 	document.addEventListener('DOMContentLoaded', function() {
 	    // 서버에서 전송된 메시지 받기
@@ -135,6 +129,9 @@
 	        })
 	    }
 	})
+	
+	const footer = document.getElementById('footer')
+   	footer.style.backgroundColor = '#a2a3a3'
 </script>
 </body>
 </html>

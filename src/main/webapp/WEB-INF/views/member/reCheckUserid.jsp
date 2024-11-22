@@ -44,9 +44,8 @@
        border-radius: 8px;
        box-shadow: 0 0 10px rgba(0,0,0,0.1);
        text-align: center;
-       /* background-color: rgba(0, 0, 0, 0.5); */
    }   
-   .reCheckcontent form {
+   .reCheckcontent #reCheckForm {
        display: flex;
        flex-direction: column;
        align-items: center;
@@ -55,7 +54,7 @@
    .reCheckcontent input[type="submit"] {
        width: 250px;
        padding: 10px;
-       margin: 5px 0;
+       margin: auto;
        border: 1px solid #ddd;
        border-radius: 4px;
    }   
@@ -64,7 +63,7 @@
        font-size: 17px;
        color: white;
        cursor: pointer;
-       width: 213px;
+       width: 270px;
        height: 43px;
        margin-bottom: 0;
        padding-top: 6.5px;
@@ -83,17 +82,35 @@
       color: #2c3e50;
       font-size: 25px;
    }
+   .gotoBackBtn {
+	    width: 183px;
+	    margin-top: 10px;
+	    padding: 8px; /* 여백 축소 */
+	    background: none;
+	    border: 1px solid #2c3e50;
+	    border-radius: 4px; /* 둥글기 축소 */
+	    color: #2c3e50;
+	    cursor: pointer;
+	    transition: background 0.3s ease, color 0.3s ease;
+	    font-size: 0.9rem; /* 텍스트 크기 축소 */
+   }
+   .gotoBackBtn:hover {
+       background: #2c3e50;
+       color: white;
+   }
 </style>
 
 <div class="reCheckmodal">
 <div class="reCheckoverlay"></div>
-      <div class="reCheckcontent">
-   <h3 id="reCheckEmailTitle">고객님의 E-mail 주소를 입력하세요.</h3>
-   <form method="POST" id="reCheckForm">
-       <p class="reCheckIdBtn"><input type="email" name="email" placeholder="기억하시는 메일 주소를 입력해주세요" required></p>
-       <p style="margin-left: 23px;"><input type="submit" value="조회"></p>
-   </form>
-      <p style="margin-left: 21px;"><a href="${cpath }/member/resetPassword"><button type="button" formnovalidate>뒤로가기</button></a></p>
+   <div class="reCheckcontent">
+	   <h3 id="reCheckEmailTitle">고객님의 E-mail 주소를 입력하세요.</h3>
+	   
+	   <form method="POST" id="reCheckForm">
+	       <p class="reCheckIdBtn"><input type="email" name="email" placeholder="기억하시는 메일 주소를 입력해주세요" required></p>
+	       <p><input type="submit" value="조회"></p>
+	   </form>
+	   
+	   <p><a href="${cpath }/member/resetPassword"><button type="button" class="gotoBackBtn">뒤로가기</button></a></p>
    </div>
 </div>
 

@@ -73,16 +73,16 @@
       background-color: #2c3e50;
    }
    .gotoBackBtn {
-    width: 183px;
-    margin-top: 10px;
-    padding: 8px; /* 여백 축소 */
-    background: none;
-    border: 1px solid #2c3e50;
-    border-radius: 4px; /* 둥글기 축소 */
-    color: #2c3e50;
-    cursor: pointer;
-    transition: background 0.3s ease, color 0.3s ease;
-    font-size: 0.9rem; /* 텍스트 크기 축소 */
+	    width: 183px;
+	    margin-top: 10px;
+	    padding: 8px; /* 여백 축소 */
+	    background: none;
+	    border: 1px solid #2c3e50;
+	    border-radius: 4px; /* 둥글기 축소 */
+	    color: #2c3e50;
+	    cursor: pointer;
+	    transition: background 0.3s ease, color 0.3s ease;
+	    font-size: 0.9rem; /* 텍스트 크기 축소 */
    }
    .gotoBackBtn:hover {
        background: #2c3e50;
@@ -127,7 +127,7 @@
 <script>
    document.addEventListener('DOMContentLoaded', function() {
        const message = '${message}'
-       console.log('url :' + ('${redirectUrl}' == ''))
+       
        if (message != '') {
            swal('회원 가입 결과', message, 'success')
        }
@@ -153,7 +153,7 @@
                        type: "success",
                        confirmButtonText: "확인"
                    }, function() {
-                	   location.href = ('${redirectUrl}' !== '') ? '${redirectUrl}' : '${cpath}'
+                	   location.href = '${redirectUrl}' != '' ? '${redirectUrl}' : '${cpath}'
                    })
                } else {
                    swal({
