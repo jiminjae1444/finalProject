@@ -894,7 +894,7 @@
 
 
 
-    // 아직 안읽은 알림 갯수 가져와서 띄우는 함수입니다.
+    // 아직 안읽은 알림 갯수 가져와서 띄우는 함수일수도 있고 아닐수도
     async function notificationCount(){
         const url = '${cpath}/notificationCount'
         const opt = {
