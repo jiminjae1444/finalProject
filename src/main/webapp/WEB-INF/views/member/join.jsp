@@ -166,7 +166,7 @@ label {
          
          
          
-         <p class="naverP"><input id="joinWithNaver" type="image" src="${cpath }/resources/naver/btnG_완성형.png" width="177" height="38"></p>
+         <p class="naverP"><input id="joinWithNaver" type="image" src="${cpath }/resources/image/naverJoin.png"></p>
       </div>
       
       <div id="captcha" class="captchaline"></div>

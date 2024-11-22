@@ -369,6 +369,7 @@
             height: 27px;
             background-size: cover;
             margin-right: 25px;
+            cursor: pointer;
         }
         .healthInfoIcon {
         	background-image: url('${cpath}/resources/image/건강정보.png');
@@ -383,6 +384,7 @@
             height: 30px;
             background-size: cover;
             margin-right: 25px;
+            cursor: pointer
         }
         #logoutBtn {
         	width: 100px;
@@ -394,6 +396,11 @@
 		    cursor: pointer;
 		    transition: background 0.3s ease, color 0.3s ease;
 		    font-size: 0.9rem; /* 텍스트 크기 축소 */
+        }
+        #logoutBtn:hover {
+        	background: #364657;
+        	border: 1px solid #364657;
+       		color: white;
         }
     </style>
 

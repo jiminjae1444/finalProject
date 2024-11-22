@@ -123,7 +123,7 @@
 	updateBtn.addEventListener('submit', async function(event) {
 		event.preventDefault()
 		const formData = new FormData(updateBtn);
-		const url = '${cpath}/member/locationUpdate/' + '${login.id}/' + formData.get('location')
+		const url = '${cpath}/members/locationUpdate/' + '${login.id}/' + formData.get('location')
 		const opt = {
 				method : 'POST'
 		}
@@ -151,7 +151,7 @@
 	})
 	
 	const footer = document.getElementById('footer')
-   	footer.style.backgroundColor = '#a2a3a3'
+   	footer.style.backgroundColor = '#83888d'
 </script>
 
 </body>

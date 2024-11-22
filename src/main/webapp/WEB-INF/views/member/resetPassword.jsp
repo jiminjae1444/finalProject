@@ -138,7 +138,7 @@
 <div class="resetoverlay"></div>
       <div class="resetcontent">
    <h2 id="resetPwTitle">비밀번호 재발급</h2>
-   <form>
+   <form id ="resetForm">
       <p><input type="text" name="userid" placeholder="ID" autocomplete="off" required autofocus></p>
       <p><input type="email" name="email" placeholder="Email" autocomplete="off" required></p>
       <div id="captcha" class="rpcaptchaline"></div>
@@ -152,6 +152,7 @@
 <%@ include file="../footer.jsp" %>
 
 <script>
+	const resetForm = document.getElementById('resetForm');
    async function loadCaptchaHandler() {
       const url = '${cpath}/members/captcha'
       const result = await fetch(url).then(resp => resp.json())
@@ -168,7 +169,7 @@
       const url = '${cpath}/members/captcha'
       const opt = {
             method: 'POST',
-            body: new FormData(document.forms[0])
+            body: new FormData(resetForm)
       }
       const result = await fetch(url, opt).then(resp => resp.json())
       if(result.result == false) {
@@ -210,11 +211,11 @@
          swal('정보 재확인', '일치하는 계정 혹은 이메일을 찾을 수 없습니다', 'error')
       }
    }
-   document.forms[0].onsubmit = resetPasswordHandler
+   resetForm.onsubmit = resetPasswordHandler
    window.addEventListener('DOMContentLoaded', loadCaptchaHandler)
    
    const footer = document.getElementById('footer')
-   footer.style.backgroundColor = '#a2a3a3'
+   footer.style.backgroundColor = '#83888d'
 </script>
 
 </body>

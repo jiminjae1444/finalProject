@@ -357,8 +357,8 @@
 <style>
 	.ranking-list {
 		position:absolute;
-		top: 56%;
-		left: 4%;
+		top: 53%;
+		left: 11%;
 		list-style: none;
 		padding: 0;
 		margin: 0;
@@ -409,6 +409,7 @@
 		border: 2px solid #ddd; /* 테두리 색상 */
 		border-radius: 40px; /* 둥근 모서리 */
 		margin-top: 430px; /* 상단 여백 */
+		margin-left: 60px;
 		position: absolute;
 		width: 70%;
 	}
@@ -871,6 +872,7 @@
             height: 27px;
             background-size: cover;
             margin-right: 25px;
+            cursor: pointer;
         }
         .healthInfoIcon {
         	background-image: url('${cpath}/resources/image/건강정보.png');
@@ -885,6 +887,7 @@
             height: 30px;
             background-size: cover;
             margin-right: 25px;
+            cursor: pointer;
         }
         #logoutBtn {
         	width: 100px;
@@ -898,7 +901,11 @@
 		    font-size: 0.9rem; /* 텍스트 크기 축소 */
 		    margin-right: 10px;
         }
-        
+        #logoutBtn:hover {
+        	background: #364657;
+        	border: 1px solid #364657;
+       		color: white;
+        }
     </style>
 
 <%--    알림 메시지 스타일--%>

@@ -12,7 +12,7 @@
 		const naver_id = JSON.parse(userProfile).response.id
 		const formData = new FormData()
 		formData.append('naver_id', naver_id)
-		const url = '${cpath}/ajax/naverLogin'
+		const url = '${cpath}/members/naverLogin'
 		const opt = {
 			method: 'POST',
 			body: formData

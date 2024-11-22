@@ -381,7 +381,7 @@
     })
     
     const footer = document.getElementById('footer')
-   footer.style.backgroundColor = '#a2a3a3'
+   footer.style.backgroundColor = '#83888d'
 </script>
 
 </body>
