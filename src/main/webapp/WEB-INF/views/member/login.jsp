@@ -153,7 +153,9 @@
                        type: "success",
                        confirmButtonText: "확인"
                    }, function() {
+
                 	   location.href = '${redirectUrl}' != '' ? '${redirectUrl}' : '${cpath}'
+
                    })
                } else {
                    swal({

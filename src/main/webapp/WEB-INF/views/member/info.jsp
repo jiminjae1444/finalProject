@@ -195,6 +195,7 @@
    	  font-size: 16px;
    	  font-weight: normal;
    }
+
 	.gotoBackBtn {
 	    width: 183px;
 	    padding: 8px; /* 여백 축소 */
