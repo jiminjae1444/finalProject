@@ -1,0 +1,63 @@
+# Created by https://www.toptal.com/developers/gitignore/api/eclipse,java
+
+# Edit at https://www.toptal.com/developers/gitignore?templates=eclipse,java
+
+mybatis-config.xml
+log4j.xml
+lecture
+target
+pom.properties
+.classpath
+MANIFEST.MF
+
+### Eclipse ###
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+.externalToolBuilders/
+*.launch
+#.project
+
+### Eclipse Patch ###
+.sts4-cache/
+.project
+target
+
+### Java ###
+*.class
+*.log
+*.ctxt
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+hs_err_pid*
+
+### Intellij ###
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/dbnavigator.xml
+.idea/**/gradle.xml
+.idea/**/libraries
+
+### Gradle Patch ###
+*.hprof
+
+### QueryDsl 사용시 ###
+src/main/generated
+
+# 기타 프로젝트 특정 파일
+config.properties
