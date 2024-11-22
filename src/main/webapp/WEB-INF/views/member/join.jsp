@@ -125,9 +125,16 @@ label {
     background: #2c3e50;
     color: white;
 }
-.reloadBtn {
-   margin-top: 10px;
-   height: 30px;
+.captchaReloadBtn {
+   width: 183px;
+   padding: 8px; /* 여백 축소 */
+   background: none;
+   border: 1px solid #2c3e50;
+   border-radius: 4px; /* 둥글기 축소 */
+   color: #2c3e50;
+   cursor: pointer;
+   transition: background 0.3s ease, color 0.3s ease;
+   font-size: 0.9rem; /* 텍스트 크기 축소 */
 }
 </style>
 
@@ -200,7 +207,7 @@ label {
        // servlet-context.xml <resources> 부분에 경로 추가해야 404오류 안뜸
        tag += '<img src="${cpath}/fpupload/captcha/' + result.captchaImage + '" width="300">'
        tag += '<input type="text" name="captcha" placeholder="그림에 나타난 글자를 입력하세요" required>'
-       tag += '<input type="button" name="reload" class="reloadBtn" value="새로고침">'
+       tag += '<input type="button" name="reload" class="captchaReloadBtn" value="새로고침">'
        tag += '</p>'
        tag += '</fieldset>'
 

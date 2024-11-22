@@ -196,6 +196,21 @@
    	  font-weight: normal;
    }
 
+	.gotoBackBtn {
+	    width: 183px;
+	    padding: 8px; /* 여백 축소 */
+	    background: none;
+	    border: 1px solid #2c3e50;
+	    border-radius: 4px; /* 둥글기 축소 */
+	    color: #2c3e50;
+	    cursor: pointer;
+	    transition: background 0.3s ease, color 0.3s ease;
+	    font-size: 0.9rem; /* 텍스트 크기 축소 */
+   }
+   .gotoBackBtn:hover {
+       background: #2c3e50;
+       color: white;
+   }
 </style>
 <div class="Infomodal">
 <div class="Infooverlay"></div>
@@ -269,7 +284,7 @@
       </p>
       <p><input type="submit" value="등록하기"></p>
    </form>
-   <p class="closeImgUploadModal"><a href="${cpath }/member/info/${login.id}"><button>뒤로가기</button></a></p>
+   <p class="closeImgUploadModal"><a href="${cpath }/member/info/${login.id}"><button class="gotoBackBtn">뒤로가기</button></a></p>
    </div>
    </div>
 </div>
