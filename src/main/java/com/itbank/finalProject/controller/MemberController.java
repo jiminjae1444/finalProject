@@ -57,7 +57,9 @@ public class MemberController {
    }
    
    @GetMapping("/login")
-   public void login(Model model) {
+   public void login(Model model, @RequestParam(value = "redirectUrl", defaultValue = "") String redirectUrl) {
+	   log.info("url : " + redirectUrl);
+	   model.addAttribute("redirectUrl", redirectUrl);
       String naverLoginURL = naverLoginComponent.getAuthorizationUrl();
       model.addAttribute("naverLoginURL", naverLoginURL);
    }

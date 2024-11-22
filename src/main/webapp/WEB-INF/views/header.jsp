@@ -109,6 +109,7 @@
             width: 100%;
             height: 80px;
             display: flex;
+            justify-content: space-between;
             z-index: 100;
             background-color: rgba(255, 255, 255, 0.2);
    			backdrop-filter: blur(3px);
@@ -337,43 +338,61 @@
             overflow: hidden;
             text-overflow: ellipsis; /* 긴 이름은 ... 으로 표시 */
         }
+	
+		.header-right {
+			justify-content: flex-end;
+			display: flex;
+			margin: 5px;
+			margin-right: 30px;
+			align-items: center;
+		}
 
-        .loginIcon ,.loginIcon2 {
+        .loginIcon {
             background-image: url('${cpath}/resources/image/로그인아이콘최종.png');
-            position: absolute;
             width: 30px;
             height: 30px;
-            top: 30px;
-            right: 30px;
             background-size: cover;
             cursor: pointer;
+            margin-right: 25px;
+        }
+        #gotoInfo {
+        	color: white;
+        	width: 30px;
+            height: 30px;
+            cursor: pointer;
+            margin-right: 25px;
         }
         .notificationIcon {
             background-image: url('${cpath}/resources/image/알림.png');
-            position: absolute;
             width: 27px;
             height: 27px;
-            top: 33px;
-            right: 150px;
             background-size: cover;
+            margin-right: 25px;
         }
         .healthInfoIcon {
         	background-image: url('${cpath}/resources/image/건강정보.png');
-            position: absolute;
             width: 30px;
             height: 30px;
-            top: 31px;
-            right: 90px;
             background-size: cover;
+            margin-right: 25px;
         }
         .myFavoritesIcon{
             background-image: url('${cpath}/resources/image/즐겨찾기.png');
-            position: absolute;
             width: 30px;
             height: 30px;
-            top: 31px;
-            right: 205px;
             background-size: cover;
+            margin-right: 25px;
+        }
+        #logoutBtn {
+        	width: 100px;
+		    padding: 8px;
+		    background: none;
+		    border: 1px solid white;
+		    border-radius: 4px; /* 둥글기 축소 */
+		    color: white;
+		    cursor: pointer;
+		    transition: background 0.3s ease, color 0.3s ease;
+		    font-size: 0.9rem; /* 텍스트 크기 축소 */
         }
     </style>
 
@@ -622,8 +641,8 @@
         }
     </style>
     
+<!--    footer 스타일 -->
     <style>
-    	/* footer */
 		#footer {
 		    position: relative;
 		    width: 100%;
@@ -730,29 +749,40 @@
 
 
 <header>
+	<!-- 로고 -->
 	<div class="logo">
 		<a href="${cpath }"><img src="${cpath }/resources/image/로고.png"></a>
 	</div>
-    <a href="${cpath }/healthInfo/healthInfo">
-		<div class="healthInfoIcon"></div>
-	</a>
-    <div class="-container">
-        <c:if test="${empty login }">
-        <div class="loginIcon"></div>
-	    </c:if>
-    </div>
-
-    <c:set var="default" value="${cpath }/resources/image/default.png" />
-    <c:if test="${not empty login }">
-        <div class="header-right">
-            <div class="loginIcon2"></div>
-            <div class="notificationIcon" id="notification" data-page="1"><span id="notificationCountSpan" class="hidden"></span></div>
-            <div class="myFavoritesIcon" id="myFavorites" data-page="1"></div>
-            <span>${login.name }</span>
-            <a href="${cpath }/member/logout"><button>로그아웃</button></a>
-
-        </div>
-    </c:if>
+	
+	<!-- 헤더 오른쪽 메뉴 모음 -->
+	<div class="header-right">
+	  
+	  	<c:if test="${not empty login }">
+			<!-- 즐겨찾기 아이콘 -->
+			<div class="myFavoritesIcon" id="myFavorites" data-page="1"></div>
+			      
+			<!-- 알림 아이콘 -->
+			<div class="notificationIcon" id="notification" data-page="1"><span id="notificationCountSpan" class="hidden"></span></div>
+		</c:if>
+		      
+		<!-- 건강정보 아이콘 -->
+		<a href="${cpath }/healthInfo/healthInfo">
+			<div class="healthInfoIcon"></div>
+		</a>
+		
+		<!-- 로그인 아이콘, 로그인했을 시 정보띄우기 -->
+		<c:if test="${empty login }">
+			<div class="loginIcon"></div>
+		</c:if>
+		<c:if test="${not empty login }">
+			<div class="loginInfoArea">
+				<span id="gotoInfo">
+					<a href="${cpath}/member/info/${login.id}">${login.name } 님</a>
+				</span>
+				<a href="${cpath }/member/logout"><button id="logoutBtn">로그아웃</button></a>
+			</div>
+		</c:if>
+	</div>
 </header>
 
 <!--예약 모달 -->
@@ -812,16 +842,10 @@
     const cpath = '${cpath}'
     const loginIcon = document.querySelector('div.loginIcon')
     console.log(loginIcon)
-    const loginIcon2 = document.querySelector('div.loginIcon2')
+    
     if (loginIcon) {
         loginIcon.addEventListener('click', function() {
             location.href = cpath + '/member/login'
-        })
-    }
-
-    if (loginIcon2) {
-        loginIcon2.addEventListener('click', function() {
-            location.href =  '${cpath}/member/info/${login.id}'
         })
     }
 </script>
@@ -870,7 +894,7 @@
 
 
 
-    // 아직 안읽은 알림 갯수 가져와서 띄우는 함수
+ 	// 아직 안읽은 알림 갯수 가져와서 띄우는 함수
     async function notificationCount(){
         const url = '${cpath}/notificationCount'
         const opt = {
@@ -886,8 +910,11 @@
             }
             return result
         } else {
-            notificationCountSpan.innerText = '' // 0 이하일 경우 비움
-            notificationCountSpan.classList.add('hidden')
+			if('${login}' != ''){
+              
+               notificationCountSpan.innerText = '' // 0 이하일 경우 비움
+               notificationCountSpan.classList.add('hidden')
+           }
             return ''
         }
     }

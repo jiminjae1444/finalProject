@@ -1,20 +1,132 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp" %>
+<style>
+    body{
+        background: linear-gradient(to bottom,#2c3e50, #a2a3a3);
+        width: 100vw;
+        height: 100vh;
+    }
+    .resetmodal {
+       width: 100%;
+       height: 91%;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+   }   
+   .resetmodal > .Imgresetoverlay {
+       width: 100%;
+       height: 100%;
+       position: fixed;
+       top: 0;
+       left: 0;
+       background-color: rgba(0, 0, 0, 0.8);
+       z-index: 1;
+   }   
+   .resetmodal > .Imgresetcontent {
+       width: 300px;
+       height: 400px;
+       display: flex;
+       flex-direction: column;
+       justify-content: center;
+       align-items: center;
+       z-index: 2;
+       position: fixed;
+       top: 50%;
+       left: 50%;
+       transform: translate(-50%, -50%);
+       border-radius: 25px;
+       box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+   }
+   .resetcontent {
+       width: 100%;
+       max-width: 400px;
+       padding: 20px;
+       background-color: rgba(247, 249, 250, 0.8);
+       border-radius: 8px;
+       box-shadow: 0 0 10px rgba(0,0,0,0.1);
+       text-align: center;
+       /* background-color: rgba(0, 0, 0, 0.5); */
+   }   
+   .resetcontent form {
+       display: flex;
+       flex-direction: column;
+       align-items: center;
+       padding: 0;
+   }   
+   .resetcontent input[type="text"],
+   .resetcontent input[type="email"],
+   .resetcontent input[type="submit"] {
+       width: 190px;
+       padding: 10px;
+       border: 1px solid #ddd;
+       border-radius: 4px;
+   }   
+   .resetcontent input[type="submit"] {
+       background-color: #2c3e50;
+       font-size: 17px;
+       color: white;
+       cursor: pointer;
+       width: 210px;
+       height: 37px;
+       margin-bottom: 0;
+       padding-top: 6.5px;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       text-align: center;
+       border: 0;
+   }   
+   .resetcontent a {
+       color: #333;
+       text-decoration: none;
+       margin: 5px;
+   }
+   .rpcaptchaline {
+        margin-top: 10px;
+    }    
+    .rpcaptchaline fieldset {
+        border: none;
+        padding: 0;
+    }   
+    .rpcaptchaline input[type="button"] {
+        margin-left: 10px;
+    }
+    .resetcontent .rpcaptchaline input[type="text"] {
+       text-align: center;
+       padding-left: 0px;
+       padding-right: 0px;
+     } 
+    .rpcaptchaline {
+       border: 1px solid white;
+          padding: 10px;
+       margin-top: 10px;
+       margin-bottom: 10px;
+       border-radius: 10px;
+   } 
+   #resetPwTitle {
+      color: #2c3e50;
+      font-size: 25px;
+   }
+</style>
+<div class="resetmodal">
+<div class="resetoverlay"></div>
+      <div class="resetcontent">
+   <h2 id="resetPwTitle">비밀번호 재발급</h2>
+   <form>
+      <p><input type="text" name="userid" placeholder="ID" autocomplete="off" required autofocus></p>
+      <p><input type="email" name="email" placeholder="Email" autocomplete="off" required></p>
+      <div id="captcha" class="rpcaptchaline"></div>
+      <p><input type="submit" value="재발급"></p>   
+   </form>
+      <p><a href="${cpath }/member/reCheckUserid">ID 재확인</a> | <a href="${cpath }/member/reCheckEmail">Email 재확인</a></p>
+      <p><a href="${cpath }/member/login"><button type="button" formnovalidate>뒤로가기</button></a></p>
+   </div>
+</div>
 
-<h3>패스워드 재설정</h3>
-
-<form id="form">
-   <p><input type="text" name="userid" placeholder="ID" autocomplete="off" required autofocus></p>
-   <p><input type="email" name="email" placeholder="Email" autocomplete="off" required></p>
-   <div id="captcha"></div>
-   <p><input type="submit" value="재발급"></p>   
-</form>
-   <p><a href="${cpath }/member/reCheckUserid">ID 재확인</a></p>
-   <p><a href="${cpath }/member/reCheckEmail">Email 재확인</a></p>
+<%@ include file="../footer.jsp" %>
 
 <script>
-	const form = document.getElementById('form')
    async function loadCaptchaHandler() {
       const url = '${cpath}/members/captcha'
       const result = await fetch(url).then(resp => resp.json())
@@ -31,10 +143,9 @@
       const url = '${cpath}/members/captcha'
       const opt = {
             method: 'POST',
-            body: new FormData(form)
+            body: new FormData(document.forms[0])
       }
       const result = await fetch(url, opt).then(resp => resp.json())
-      console.log(result)
       if(result.result == false) {
          swal('캡차 검증 실패', '입력값을 다시 확인해주세요', 'error')
          loadCaptchaHandler()
@@ -74,8 +185,11 @@
          swal('정보 재확인', '일치하는 계정 혹은 이메일을 찾을 수 없습니다', 'error')
       }
    }
-   form.addEventListener('submit', resetPasswordHandler)
+   document.forms[0].onsubmit = resetPasswordHandler
    window.addEventListener('DOMContentLoaded', loadCaptchaHandler)
+   
+   const footer = document.getElementById('footer')
+   footer.style.backgroundColor = '#a2a3a3'
 </script>
 
 </body>

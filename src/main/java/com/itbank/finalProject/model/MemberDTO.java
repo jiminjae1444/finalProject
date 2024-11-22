@@ -54,5 +54,7 @@ public class MemberDTO {
 	
 	private String email;
 	
+	private int role;
+	private String roomUrl;
 	
 }

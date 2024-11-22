@@ -70,7 +70,7 @@
         height: 100%;
         z-index: 1;
     }
-   .main_left > p,
+    .main_left > p,
     .main_right > p  {
         text-align: center;
         color: white;
@@ -125,18 +125,10 @@
          background-image: url('${cpath}/resources/image/배경최종.jpg');
          animation: moveBackground 5s linear forwards;
      }
-     .second {
-         background-color: white;
-     }
-     .third {
-     	 background-image: url("${cpath}/resources/image/배경실험용2.jpg");
-     	 width: 100%;
-     	 height: 100%;
-         color: white;
-     }
      .fourth {
      	width: 100%;
-     	height: 50vh;
+     	height: 100vh;
+     	background-color: #edf7fa;
      }
      .pagination {
          position: absolute;
@@ -161,6 +153,9 @@
      }
 
 	/*  2번째 페이지  */
+	 .second {
+         background-color: white;
+     }
      .categoryComment {
          margin-left: 50px;
          font-size: 100px;
@@ -240,16 +235,23 @@
      }
      
 	/* 3번째 페이지 */
-/*     .thirdPageOverlay { */
-/*     	width: 100%; */
-/*     	height: 100%; */
-/*     	top: 0; */
-/*     	left: 0; */
-/*     	background-color: black; */
-/*     	position: absolute; */
-/*     	opacity: 0.5; */
-/*     } */
-/*     응급실 스타일 */
+	.third {
+     	 background-color: #f1f1f1;
+     	 width: 100%;
+     	 height: 100%;
+         color: white;
+     }
+     .thirdPageComment {
+     	padding-left: 100px;
+     }
+     .thirdPageComment > p {
+     	font-size: 80px;
+     	font-weight: bold;
+     	margin: 10px auto;
+     }
+     .thirdPageComment > p:first-child {
+     	margin-top: 180px;
+     }
     .rollerWrap {
 		position: absolute;
 		bottom: 0px;
@@ -310,6 +312,45 @@
     .region-jeju { background-color: #dcedc8; color: #558b2f; }
     .region-etc { background-color: #e0e0e0; color: #616161; }
 
+</style>
+
+<!-- 세번째 페이지 코멘트 스타일 -->
+<style>
+	:root {
+	     --font-ns: 'CustomFont', sans-serif;
+	 }
+	 .reveal-text {
+	     font-size: 70px;
+	     font-size: clamp(62px, 5.1042vw, 36px);
+	     font-weight: 800;
+	     letter-spacing: -0.045em;
+	     font-family: var(--font-ns);
+	     line-height: 1.3;
+	     background-image: linear-gradient(90deg, #070707 0%, #070707 100%);
+	     background-size: 0% 100%;
+	     background-repeat: no-repeat;
+	     -webkit-background-clip: text;
+	     background-clip: text;
+	     -webkit-text-fill-color: transparent;
+	     color: #1A1A1A; /* 폴백 색상 */
+	     transition: background-size 15s ease;
+	     cursor: pointer;
+	     margin: 10px 0;
+	 }
+	 
+	 .reveal-text:first-child {
+	 	margin-top: 260px;
+	 	font-size: 70px;
+	 }
+	 .reveal-text:nth-child(2) {
+	 	font-size: 70px;
+	 }
+	 .reveal-text:nth-child(3) {
+	 	font-size: 70px;
+	 }
+	 .reveal-text.reset {
+	     transition: none;
+	 }
 </style>
 
 <%--검색어 순위 스타일--%>
@@ -396,6 +437,7 @@
 		border-radius: 40px 40px 40px 40px;
 		background: url('${cpath}/resources/image/try-me.gif') no-repeat 97% 50% / 25px auto; /* 화살표 이미지 지정 */
 	}
+	
 
 	/* select 스타일 */
 	#searchTypeSelect {
@@ -424,7 +466,7 @@
 		background-color: #2c3e50;
 		color: white;
 		cursor: pointer;
-		margin: 10px;
+		margin: 5px;
 	}
 
 	button:hover {
@@ -802,42 +844,59 @@
             text-overflow: ellipsis; /* 긴 이름은 ... 으로 표시 */
         }
 
-        .loginIcon ,.loginIcon2 {
+        .header-right {
+			justify-content: flex-end;
+			display: flex;
+			margin: 5px;
+			align-items: center;
+		}
+        .loginIcon {
             background-image: url('${cpath}/resources/image/로그인아이콘최종.png');
-            position: absolute;
             width: 30px;
             height: 30px;
-            top: 30px;
-            right: 30px;
             background-size: cover;
             cursor: pointer;
+            margin-right: 25px;
+        }
+        #gotoInfo {
+        	color: white;
+        	width: 30px;
+            height: 30px;
+            cursor: pointer;
+            margin: 10px;
         }
         .notificationIcon {
             background-image: url('${cpath}/resources/image/알림.png');
-            position: absolute;
             width: 27px;
             height: 27px;
-            top: 33px;
-            right: 150px;
             background-size: cover;
+            margin-right: 25px;
         }
         .healthInfoIcon {
         	background-image: url('${cpath}/resources/image/건강정보.png');
-            position: absolute;
             width: 30px;
             height: 30px;
-            top: 31px;
-            right: 90px;
             background-size: cover;
+            margin-right: 25px;
         }
         .myFavoritesIcon{
             background-image: url('${cpath}/resources/image/즐겨찾기.png');
-            position: absolute;
             width: 30px;
             height: 30px;
-            top: 31px;
-            right: 205px;
             background-size: cover;
+            margin-right: 25px;
+        }
+        #logoutBtn {
+        	width: 100px;
+		    padding: 8px;
+		    background: none;
+		    border: 1px solid white;
+		    border-radius: 4px; /* 둥글기 축소 */
+		    color: white;
+		    cursor: pointer;
+		    transition: background 0.3s ease, color 0.3s ease;
+		    font-size: 0.9rem; /* 텍스트 크기 축소 */
+		    margin-right: 10px;
         }
         
     </style>
@@ -1086,19 +1145,20 @@
             transform: scale(0.95);
         }
     </style>
-    
+<!--     footer 스타일 -->
     <style>
-    	/* footer */
 		#footer {
-		    position: relative;
+		    position: absolute;
+		    bottom: 0;
 		    width: 100%;
-		    background-color: #587650;
+		    height: 250px;
+		    background-color: #8a8e92;
 		    padding: 20px;
 		    color: white;
+		    z-index: 2;
 		    display: flex;
 		}
 		footer p {
-		    margin: 20px;
 		    color: white;
 		    font-weight: 400;
 		    align-items: center;
@@ -1107,34 +1167,37 @@
 		    font-family: "Do Hyeon", sans-serif;
 		}
 		footer p:first-child {
-		    padding-left: 50px;
+		    padding-left: 380px;
 		}
-		.Right {
-		    padding-right: 550px;
+		.footerRight {
+		    margin-left: 90px;
 		}
 		.icons {
 		    display: flex;
 		    margin: 20px;
+		    margin-left: 0;
+		    align-items: center;
 		}
 		.icons a {
-		    width: 70px;
-		    height: 70px;
-		    border-radius: 50%;
-		    font-size: 0;
-		    display: block;
 		    background-size: cover;
 		    background-repeat: no-repeat;
 		    background-position: center;
-		    margin: 0 5px;
+		    margin: 0 8px;
 		}
-		.icons a.icon_youtube {
-		    background-image: url('${cpath}/resources/image/icon_youtube.svg');
+		.icon_youtube {
+			width: 50px;
+			height: 45px;
+		    background-image: url('${cpath}/resources/image/icon_youtube.png');
 		}
-		.icons a.icon_instagram {
-		    background-image: url('${cpath}/resources/image/icon_instagram.svg');
+		.icon_instagram {
+			width: 43px;
+		    height: 43px;
+		    background-image: url('${cpath}/resources/image/icon_instagram.png');
 		}
-		.icons a.icon_facebook {
-		    background-image: url('${cpath}/resources/image/icon_facebook.svg');
+		.icon_facebook {
+			width: 45px;
+		    height: 45px;
+		    background-image: url('${cpath}/resources/image/icon_facebook.png');
 		}
 		.logo img {
 			width: 146px;
@@ -1143,13 +1206,39 @@
 			margin-left: -33px;
 		}
 		header{
+			position: absolute;
+			top: 0;
+			left: 0;
             width: 100%;
             height: 80px;
             display: flex;
+            justify-content: space-between;
             z-index: 100;
-            position: absolute;
-            left: 0;
-            top: 0;
+            background-color: rgba(255, 255, 255, 0.2);
+   			backdrop-filter: blur(3px);
+        }
+        .fourth > p {
+        	font-size: 40px;
+        	color: #18114e;
+        	margin: 0;
+        	margin-top: 80px;
+        	font-weight: bold;
+        	padding-left: 50px;
+        }
+        .reviewCard {
+        	width: 300px;
+        	height: 300px;
+        	text-align: center;
+        	background-color: white;
+        	box-shadow: 0px 10px 25px 0px rgba(24, 17, 78, 0.08);
+        	border-radius: 20px;
+        	margin: auto;
+        	cursor: pointer;
+        }
+        .reviewContainer {
+        	margin-top: 74px;
+        	align-items: center;
+        	display: flex;
         }
     </style>
 
@@ -1162,29 +1251,40 @@
 <div class="pages">
    <div class="first page">
    		<header>
+			<!-- 로고 -->
 			<div class="logo">
 				<a href="${cpath }"><img src="${cpath }/resources/image/로고.png"></a>
 			</div>
-		    <a href="${cpath }/healthInfo/healthInfo">
-				<div class="healthInfoIcon"></div>
-			</a>
-		    <div class="-container">
-		        <c:if test="${empty login }">
-		        <div class="loginIcon"></div>
-			    </c:if>
-		    </div>
-		
-		    <c:set var="default" value="${cpath }/resources/image/default.png" />
-		    <c:if test="${not empty login }">
-		        <div class="header-right">
-		            <div class="loginIcon2"></div>
-		            <div class="notificationIcon" id="notification" data-page="1"><span id="notificationCountSpan" class="hidden"></span></div>
-		            <div class="myFavoritesIcon" id="myFavorites" data-page="1"></div>
-		            <span>${login.name }</span>
-		            <a href="${cpath }/member/logout"><button>로그아웃</button></a>
-		
-		        </div>
-		    </c:if>
+			
+			<!-- 헤더 오른쪽 메뉴 모음 -->
+			<div class="header-right">
+			  
+			  	<c:if test="${not empty login }">
+					<!-- 즐겨찾기 아이콘 -->
+					<div class="myFavoritesIcon" id="myFavorites" data-page="1"></div>
+					      
+					<!-- 알림 아이콘 -->
+					<div class="notificationIcon" id="notification" data-page="1"><span id="notificationCountSpan" class="hidden"></span></div>
+				</c:if>
+				      
+				<!-- 건강정보 아이콘 -->
+				<a href="${cpath }/healthInfo/healthInfo">
+					<div class="healthInfoIcon"></div>
+				</a>
+				
+				<!-- 로그인 아이콘, 로그인했을 시 정보띄우기 -->
+				<c:if test="${empty login }">
+					<div class="loginIcon"></div>
+				</c:if>
+				<c:if test="${not empty login }">
+					<div class="loginInfoArea">
+						<span id="gotoInfo">
+							<a href="${cpath}/member/info/${login.id}">${login.name } 님</a>
+						</span>
+						<a href="${cpath }/member/logout"><button id="logoutBtn">로그아웃</button></a>
+					</div>
+				</c:if>
+			</div>
 		</header>
       <div class="overlay"></div>
       
@@ -1197,20 +1297,21 @@
       
 	  <div class="main_right">
 		
-		<div class="input-group">
-			<div class="search-buttons">
-				<div class="select-wrap">
-					<select id="searchTypeSelect">
-						<option value="search">증상 검색</option>
-						<option value="hospital">병원명 검색</option>
-					</select>
-				</div>
-			</div>
-			<form id="searchForm" class="search-form" method="post">
-				<input type="text" id="searchInput" name="search" placeholder="증상 또는 병명을 입력해주세요" required>
-				<button type="submit" class="search">검색</button>
-			</form>
-		</div>
+		   <div class="input-group">
+            <div class="search-buttons">
+               <div class="select-wrap">
+                  <select id="searchTypeSelect">
+                     <option value="search">증상 검색</option>
+                     <option value="hospital">병원명 검색</option>
+                  </select>
+               </div>
+            </div>
+            <form id="searchForm" class="search-form" method="post">
+               <input type="text" id="searchInput" name="search" placeholder="증상 또는 병명을 입력해주세요" required>
+               <button type="button" id="soundSearch" class="search">음성</button>
+               <button type="submit" class="search">검색</button>
+            </form>
+         </div>
 		
 		<p>
 		<div class="ranking-container">
@@ -1295,7 +1396,7 @@
 		            </a>
 		        </li>
 		        <li>
-		            <a href="${cpath}/hospital/searchLocation/8">
+		            <a href="${cpath}/hospital/selectLocation/8">
 		                <div class="categoryOverlay"></div>
 		                <img src="${cpath}/resources/category/성형외과.jpg" alt="성형외과">
 		                <h4>성형외과</h4>
@@ -1431,8 +1532,11 @@
    </div> 	<!-- 2번째 페이지 종료 -->
 
 	<div class="third page">
-		<div class="thirdPageOverlay"></div>
-		<p>About us</p>
+		<div class="thirdPageComment">
+			<h1 class="reveal-text">당신의 건강 파트너, 병원 검색의 시작.</h1>
+			<p class="reveal-text">빠르고 간편하게, 필요한 정보를 한눈에.</p>
+			<p class="reveal-text">편리하게, 믿을 수 있는 병원을 찾아보세요.</p>
+		</div>
 		<div class="rollerWrap">
 			<div class="rolling-list" id="roller1">
 				<ul id="emergencyList"></ul>
@@ -1442,6 +1546,21 @@
 	</div>	<!-- 3번째 페이지 종료 -->
 	
 	<div class="fourth page">
+		<p>실제 후기를 확인해보세요</p>
+		<div class="reviewContainer">
+			<c:forEach var="dto" items="${homeReview }">
+				<div class="reviewCard">
+					<p><a href="${cpath }/hospitalInfo/${dto.hospital_id}">${dto.hospital_id }</a>
+					<p>${dto.member_id }</p>
+					<p>${dto.comments }</p>
+					<p class="hospital_id"></p> 
+				<c:forEach var="i" begin="1" end="${dto.rating }">
+				    <span>★</span>
+				</c:forEach>	
+				</div>
+			</c:forEach>
+		</div>
+	
 		<footer id="footer">
 			<p>
 			   사업자: 민재컴퍼니 | 대표자: 지민재<br>
@@ -1474,11 +1593,10 @@
 
 <ul class="pagination">
 </ul>
+
 <div class="backImage">
 </div>
    
-
-
 <div id="mapModal">
     <div class="content">
         <div id="map2"></div>
@@ -1503,51 +1621,108 @@
     const mapModal = document.getElementById('mapModal')
     let map; // 맵 변수 선언
     const infowindow = new kakao.maps.InfoWindow({ zIndex: 1 }) // 인포윈도우 생성
+    
+    let recognition   //음성인식에 사용
+    let isRecognitionActive = false // 음성 인식 상태 플래그
+    const soundSearch = document.getElementById('soundSearch')
+    // 음성 인식 초기화
+    if (window.SpeechRecognition || window.webkitSpeechRecognition) {
+       recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)()
+       recognition.lang = 'ko-KR' // 한국어로 설정
+    }
+
+    // 음성 인식 시작 이벤트
+    recognition.onstart = function () {
+       isRecognitionActive = true // 음성 인식이 시작되었음을 표시
+       Swal.fire({
+          title: '알림',
+          text: '음성 인식이 시작되었습니다.',
+          icon: 'success',
+          confirmButtonColor:'#3085d6',
+          confirmButtonText: '확인'
+       })
+    }
+
+    // 음성 인식 종료 이벤트
+    recognition.onend = function () {
+       isRecognitionActive = false // 음성 인식이 종료되었음을 표시
+       Swal.fire({
+          title: '알림',
+          text: '음성 인식이 종료되었습니다.',
+          confirmButtonColor:'#3085d6',
+          icon: 'info',
+          confirmButtonText: '확인'
+       })
+    }
+
+    // 음성 인식 시작 함수
+    function startRecognition() {
+       if (!isRecognitionActive) { // 음성 인식이 실행 중이 아닐 때만 시작
+          recognition.start()
+       } else {
+          Swal.fire({
+             title: '알림',
+             text: '음성 인식이 이미 실행 중입니다.',
+             confirmButtonColor:'#3085d6',
+             icon: 'info',
+             confirmButtonText: '확인'
+          })
+       }
+    }
+    // 음성 인식 결과 처리
+    recognition.onresult = function (event) {
+       let speechToText = event.results[0][0].transcript
+       speechToText = speechToText.trim().replace('.', '') // 마침표 제거
+       searchInput.value = speechToText // 텍스트 입력 필드에 반영
+       console.log('음성 검색 결과: ', speechToText)
+    }
+
+    soundSearch.onclick = startRecognition
 
     // 초기 플레이스 홀더 설정
-    searchInput.placeholder = '증상 또는 병명을 입력해주세요';  // 기본값
+    searchInput.placeholder = '증상 또는 병명을 입력해주세요'  // 기본값
 
     // 스위치 상태에 따라 플레이스 홀더 및 name 속성 변경
     searchTypeSelect.addEventListener('change', function() {
-        if (this.value === 'hospital') {
-            // 병원명 검색 선택 시
-            searchInput.placeholder = '병원명을 입력해주세요';
-            searchInput.name = 'hospital';  // 병원명 검색
-        } else {
-            // 증상 검색 선택 시
-            searchInput.placeholder = '증상 또는 병명을 입력해주세요';
-            searchInput.name = 'search';  // 증상 검색
-        }
-    });
+       if (this.value === 'hospital') {
+          // 병원명 검색 선택 시
+          searchInput.placeholder = '병원명을 입력해주세요'
+          searchInput.name = 'hospital'  // 병원명 검색
+       } else {
+          // 증상 검색 선택 시
+          searchInput.placeholder = '증상 또는 병명을 입력해주세요'
+          searchInput.name = 'search'  // 증상 검색
+       }
+    })
 
     // 검색 핸들러
     async function searchHandler(event) {
-        event.preventDefault();
-        const formData = new FormData(event.target);
-        const url = searchTypeSelect.value === 'hospital' ? '${cpath}/hospitals/searchs/names' : '${cpath}/hospitals/searchs';
-        const opt = {
-            method: 'POST',
-            body: formData
-        };
-        const result = await fetch(url, opt).then(response => response.json());
-        console.log(result);
+       event.preventDefault();
+       const formData = new FormData(event.target);
+       const url = searchTypeSelect.value === 'hospital' ? '${cpath}/hospitals/searchs/names' : '${cpath}/hospitals/searchs';
+       const opt = {
+          method: 'POST',
+          body: formData
+       }
+       const result = await fetch(url, opt).then(response => response.json());
+       console.log(result);
 
-        if (result.noSearch) {
-        	 swal({
-                 title: '알림',
-                 text: '검색결과가 없습니다. 검색어를 조건에 맞게 검색하세요',
-                 type: 'info',
-                 button: '확인'
-             });
-        } else {
-            if (searchTypeSelect.value === 'hospital') {
-                // 병원명 검색인 경우 모달 열기
-                openMapModal(result.hospitals);
-            } else {
-                // 다른 페이지로 이동 (증상 검색의 경우)
-                window.location.href = '${cpath}/result';
-            }
-        }
+       if (result.noSearch) {
+          swal({
+             title: '알림',
+             text: '검색결과가 없습니다. 검색어를 조건에 맞게 검색하세요',
+             type: 'info',
+             button: '확인'
+          })
+       } else {
+          if (searchTypeSelect.value === 'hospital') {
+             // 병원명 검색인 경우 모달 열기
+             openMapModal(result.hospitals)
+          } else {
+             // 다른 페이지로 이동 (증상 검색의 경우)
+             window.location.href = '${cpath}/result'
+          }
+       }
     }
 
     // 폼 제출 시 searchHandler 실행
@@ -1695,6 +1870,7 @@
 </script>
 
 <script>
+<!-- 스크롤 효과 스크립트(호준) -->
 window.onload = () => {
     const Slider = function(pages, pagination) {
         let slides = [],
@@ -1708,7 +1884,13 @@ window.onload = () => {
         slides = pages.children;
         count = slides.length;
         for(let i = 0; i < count; i++) {
-            slides[i].style.bottom = -(i * 100) + '%';
+//         	페이지 시작 위치
+			if (i === count - 1) {
+				slides[i].style.bottom = -(i * 100) + '70%';
+			}
+			else {
+            	slides[i].style.bottom = -(i * 100) + '%';
+			}
             
             let btn = document.createElement('li');
             btn.dataset.slide = i;
@@ -1770,6 +1952,8 @@ window.onload = () => {
         clone.classList.add("clone");
     });
 </script>
+
+
 
 <!-- 응급실 목록 -->
 <script>
@@ -1923,20 +2107,19 @@ window.onload = () => {
 	}
 </script>
 
-
 <%--로그인--%>
 <script>
     const cpath = '${cpath}'
     const loginIcon = document.querySelector('div.loginIcon')
-    const loginIcon2 = document.querySelector('div.loginIcon2')
+    const gotoInfo = document.getElementById('div.gotoInfo')
     if (loginIcon) {
         loginIcon.addEventListener('click', function() {
             location.href = cpath + '/member/login'
         })
     }
 
-    if (loginIcon2) {
-        loginIcon2.addEventListener('click', function() {
+    if (gotoInfo) {
+        gotoInfo.addEventListener('click', function() {
             location.href =  '${cpath}/member/info/${login.id}'
         })
     }
@@ -2002,9 +2185,11 @@ window.onload = () => {
             }
             return result
         } else {
-            notificationCountSpan.innerText = '' // 0 이하일 경우 비움
-            notificationCountSpan.classList.add('hidden')
-            return ''
+			if('${login}' != '') {
+               notificationCountSpan.innerText = '' // 0 이하일 경우 비움
+               notificationCountSpan.classList.add('hidden')
+           }
+           return ''
         }
     }
 
@@ -2188,7 +2373,6 @@ window.onload = () => {
     notification.addEventListener('click', readNotification)
     document.addEventListener('DOMContentLoaded', notificationCount)
 </script>
-
 
 <!-- 즐겨찾기 -->
 <script>
@@ -2422,6 +2606,38 @@ window.onload = () => {
             }).then((result) => {if(result.isConfirmed) location.href = '${cpath}/member/login'})
         }
     })
+</script>
+
+<!-- 세번째 페이지 코멘트 스크립트 -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const texts = document.querySelectorAll('.reveal-text'); // 모든 .reveal-text 요소 선택
+
+        function playAnimation() {
+            texts.forEach((element, index) => {
+                // 애니메이션 리셋
+                element.classList.add('reset');
+                element.style.backgroundSize = '0% 100%';
+
+                // 강제로 리플로우 발생
+                void element.offsetWidth;
+
+                // 리셋 클래스 제거 및 애니메이션 시작
+                element.classList.remove('reset');
+                setTimeout(() => {
+                    element.style.backgroundSize = '100% 100%';
+                }, index * 500); // 순차적으로 애니메이션 적용
+            });
+        }
+
+        // 초기 애니메이션 실행
+        playAnimation();
+
+        // 텍스트 클릭 시 전체 애니메이션 재실행
+        texts.forEach(text => {
+            text.addEventListener('click', playAnimation);
+        });
+    });
 </script>
 
 </body>

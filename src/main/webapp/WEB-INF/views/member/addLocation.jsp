@@ -1,19 +1,150 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp" %>
+<style>
+	body{
+        background: linear-gradient(to bottom,#2c3e50, #a2a3a3);
+        width: 100vw;
+        height: 100vh;
+    }
+    .addlocationModal {
+        width: 98%;
+		height: 91%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .addlocationcontent {
+    	width: 380px;
+        height: 230px;
+        padding: 20px;
+        padding-bottom: 43px;
+        background-color: rgba(247, 249, 250, 0.8);
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        text-align: center;
+        z-index: 2;
+         position: relative; 
+         top: 0; 
+    }
+    .addlocationListcontent {
+    	width: 380px;
+        height: 278px;
+        padding-top: 8px;
+	    padding-left: 20px;
+	    padding-bottom: 8px;
+	    padding-right: 20px;
+	    margin: 10px;
+        background-color: rgba(247, 249, 250, 0.8);
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        text-align: center;
+        z-index: 2;
+        position: relative; 
+        top: 0; 
+    }
+    .addlocationListcontent p {
+    	color: #2c3e50;
+        font-size: 25px;
+    }
+    .addlocationoverlay {
+    	background-color: rgba(0, 0, 0, 0.3);
+    	border-radius: 8px;
+    	height: 250px;
+    	padding-top: 20px;
+    	box-sizing: border-box;
+    }
+    .addlocationBtn {
+    	text-align: center;
+    	display: flex;
+    	justify-content: center;
+    }
+    #addLocationForm input[type="text"] {
+       padding: 10px;
+       margin: 5px auto;
+       border: 1px solid #ddd;
+       border-radius: 4px;
+    }  
+    .addlocationBtn input[type="submit"] {
+    	background-color: #2c3e50;
+	    font-size: 17px;
+	    color: white;
+	    width: 190px;
+	    height: 36px;
+	    border: 0;
+	    border-radius: 4px;
+	    text-decoration: none;
+	    
+	    margin-bottom: 0;
+	    padding-top: 0px;
+	    padding-bottom: 3px;
+	    
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    text-align: center;
+    }
+    .addlocationBtn input[type="submit"]:hover {
+    	background-color: #34495e;
+    }
+    .addlocationListoverlay {
+    	background-color: rgba(0, 0, 0, 0.3);
+    	border-radius: 8px;
+    	height: auto;
+    }
+    #addLocationTitle {
+      color: #2c3e50;
+      font-size: 25px;
+      margin: 0;
+   }
+   .gotoBackBtn {
+	    width: 183px;
+	    padding: 8px; /* 여백 축소 */
+	    background: none;
+	    border: 1px solid #2c3e50;
+	    border-radius: 4px; /* 둥글기 축소 */
+	    color: #2c3e50;
+	    cursor: pointer;
+	    transition: background 0.3s ease, color 0.3s ease;
+	    font-size: 0.9rem; /* 텍스트 크기 축소 */
+   }
+   .gotoBackBtn:hover {
+       background: #2c3e50;
+       color: white;
+   }
+</style>
 
-<h3>주소 정보 검색</h3>
-<p>[현재 추가된 주소]</p>
-<c:forEach var="dto" items="${list }">
-	<p>${dto.memberLocation }</p>
-	<hr>
-</c:forEach>
 
+<div id="addlocationModal" class="addlocationModal" >
+	<div class="addlocationcontent">
+		
+		<div class="addlocationoverlay">
+			<h3 id="addLocationTitle">주소 정보 검색</h3>
+			<form method="POST" id="addLocationForm">
+				<p><input type="text" name="memberLocation" placeholder="추가 하실 주소를 입력하세요." required></p>
+				<p class="addlocationBtn"><input type="submit" value="등록" ></p>
+			</form>
+			<p style="text-align: center;">
+				<a href="${cpath }/member/info/${login.id}">
+					<button class="gotoBackBtn">뒤로가기</button>
+				</a>
+			</p>
+		</div>
+	</div>
+		
+	<div class="addlocationListcontent">
+		<div class="addlocationListoverlay">
+			<p>[현재 추가된 주소]</p>
+			<c:forEach var="dto" items="${list }">
+				<ul style="list-style: none;">
+					<li>${dto.memberLocation }</li>
+				</ul>
+			</c:forEach>
+		</div>
+	</div>
+</div>
 
-<form method="POST" id="addLocationForm">
-	<p><input type="text" name="memberLocation" placeholder="추가 하실 주소를 입력하세요." required></p>
-	<p><input type="submit" value="등록" ></p>
-</form>
+<%@ include file="../footer.jsp" %>
 
 <script>
 	//다음 주소 찾기 함수
@@ -71,6 +202,9 @@
 	        })
 	    }
 	})
+	
+	const footer = document.getElementById('footer')
+   	footer.style.backgroundColor = '#a2a3a3'
 </script>
 
 </body>

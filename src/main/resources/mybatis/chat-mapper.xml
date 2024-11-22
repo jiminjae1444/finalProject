@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+			"-//mybatis.org//DTD Mapper 3.0//EN"
+			"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itbank.finalProject.repository.ChatDAO">
+
+	<!-- FAQ에서 response 반환 -->
+	<select id="selectFaqResponse">
+		select response from faq where #{contentStr} like '%' || replace(keyword, ' ', '') || '%'
+	</select>
+	
+	<!-- roomUrl로 chat_room 반환 -->
+	<select id="getChatRoomByUrl">
+		select chat_room.*, member.userid as memberUserid, member.name as memberName
+		    from chat_room
+		    join member
+		        on chat_room.member_id = member.id
+		    where room_url = #{roomUrl}
+	</select>
+	
+	<!-- DB에 chatHistory 저장 -->
+	<select id="insertChatHistory" parameterType="chatHistory">
+		insert into chat_history (room_id, sender_id, content, chat_time)
+			values(#{room_id}, #{sender_id}, #{content}, #{chat_time})
+	</select>
+	
+	<!-- DB에 chat_room 추가 -->
+	<insert id="insertChatRoom" parameterType="chatRoom">
+		insert into chat_room (room_url, member_id, created_at) values (#{room_url}, #{member_id}, #{created_at})
+	</insert>
+	
+	<!-- (상담사) 채팅방 목록 -->
+	<select id="selectChatRoomList">
+		select
+		    chat_room.id, chat_room.room_url, member.name as memberName, member.userid as memberUserid, created_at
+		    from chat_room
+		    join member
+		        on chat_room.member_id = member.id
+		            order by created_at desc
+	</select>
+	
+	<!-- (회원) DB에서 상담내역 불러오기 -->
+	<select id="selectChatHistoryList">
+		select
+		    chat_history.room_id, chat_history.sender_id, chat_history.content, chat_history.chat_time
+		        from chat_room 
+		        join chat_history 
+		            on chat_room.id = chat_history.room_id
+		        where chat_room.room_url = #{roomUrl}
+		        order by chat_time
+	</select>
+	
+	<!--  -->
+	<select id="getRoomUrlByMemberId">
+		select room_url
+		    from chat_room
+		        where member_id = #{id}
+	</select>
+	
+	
+	<!-- chat_room 읽음여부 수정 -->
+	<update id="updateChatRoomIsRead">
+		update chat_room set is_read = is_read * -1 where room_url = #{roomUrl}
+	</update>
+	
+</mapper>
+
+
+
+
+
+
+
+
