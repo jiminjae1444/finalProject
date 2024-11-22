@@ -910,6 +910,7 @@
             }
             return result
         } else {
+
 			if('${login}' != ''){
               
                notificationCountSpan.innerText = '' // 0 이하일 경우 비움
