@@ -487,7 +487,12 @@
                     allowOutsideClick: false,
                     allowEscapeKey: false,
                     showCloseButton: false
-                }).then((result) => {if(result.isConfirmed) location.href = '${cpath}/member/login'})   
+                }).then((result) => {
+                    if(result.isConfirmed){
+                        const currentPageUrl = window.location.href
+                        window.location.href = cpath + '/member/login?redirectUrl=' + encodeURIComponent(currentPageUrl) // 로그인 페이지로 리다이렉션
+                    }
+                })  
             }
          }
       })
