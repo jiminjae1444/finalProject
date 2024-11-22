@@ -10,16 +10,43 @@
 <title>chat</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
+<%-- sweetalert --%>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"
+         integrity="sha512-7VTiy9AhpazBeKQAlhaLRUk+kAMAb8oczljuyJHPsVPWox/QIXDFOnT9DUk1UC8EbnHKRdQowT7sOBe7LAjajQ=="
+         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css"
+       integrity="sha512-gOQQLjHRpD3/SEOtalVq50iDn4opLVup2TF8c4QPI3/NmUPNZOk2FG0ihi8oCU/qYEsw4P6nuEZT2lAG0UNYaw=="
+       crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
 <style>
 	body {
- 	    display: flex;
 	    justify-content: center;
 	    align-items: center;
 	    margin: 0;
 	    padding: 0;
+	    width: 100vw;
  	    height: 100vh;
 	    font-family: Arial, sans-serif;
+	    overflow: hidden;
+	}
+	
+	.chat_container {
+		width: 450px;
+		margin: 80px auto;
+		align-items: center;
+	    position: relative;
+	}
+	
+	.requestChat_container {
+		position: absolute;
+		top: 11px;
+		left: 44px;
+	}
+	
+	#requestChatBtn {
+		width: 33px;
+        cursor: pointer;
+        opacity: 90%;
 	}
 	
 	.chat_frame {
@@ -35,9 +62,9 @@
 	}
 	
 	.chat_header {
-	    padding: 10px;
-	    background-color: #0066cc;
-	    color: white;
+	    padding: 15px;
+	    background-color: #2c3e50;
+	    color: #ffffff;
 	    text-align: center;
 	    font-weight: bold;
 	    font-size: 1.2em;
@@ -90,7 +117,7 @@
 	
 	/* 사용자 메시지 스타일 */
 	.my_message {
-	    background-color: #d1e7dd;
+	    background-color: #d5dde6;
 	}
 	
 	/* 시간 스타일 */
@@ -135,15 +162,15 @@
 	}
 	#faqInputContainer input[type="submit"] {
 	    padding: 8px 16px;
-	    background-color: #0066cc;
-	    color: white;
+	    background-color: #2c3e50;
+	    color: #ffffff;
 	    border: none;
 	    border-radius: 4px;
 	    cursor: pointer;
 	    font-size: 0.9em;
 	}
 	#faqInputContainer input[type="submit"]:hover {
-	    background-color: #005bb5;
+	    background-color: #34495e;
 	}
 	
 	/* 상담채팅 입력창 */
@@ -162,82 +189,77 @@
 	}
 	#counselInputContainer input[type="submit"] {
 	    padding: 8px 16px;
-	    background-color: green;
-	    color: white;
+	    background-color: #1e88e5;
+	    color: #ffffff;
 	    border: none;
 	    border-radius: 4px;
 	    cursor: pointer;
 	    font-size: 0.9em;
 	}
 	#counselInputContainer input[type="submit"]:hover {
-	    background-color: #005bb5;
+	    background-color: #1e73be;
 	}
 
 	/* 채팅방 나가기 버튼(세션 만료) */
     .chatOut_container {
-        display: flex;
-        justify-content: center;
-        margin-top: 10px;
+        position: absolute;
+		top: 11px;
+		right: 40px;
     }
     #chatOutBtn {
-        padding: 10px;
-        background-color: #ff6666;
-        color: white;
-        border: none;
-        border-radius: 4px;
+        width: 33px;
         cursor: pointer;
-        font-size: 14px;
-    }
-    #chatOutBtn:hover {
-        background-color: #e55b5b;
+        opacity: 80%;
     }
 
 	.hidden {
 		display: none;
 	}
 
-
 </style>
 </head>
 <body>
 
-<c:if test="${empty login || (not empty login && login.role == 0)}">
-	<div class="requestChat_container">
-	    <button id="requestChatBtn">1:1 상담 요청</button>
+
+<div class="chat_container">
+	<c:if test="${empty login || (not empty login && login.role == 0)}">
+		<div class="requestChat_container">
+		    <img id="requestChatBtn" src="${cpath }/resources/image/counsel-icon.png">
+		</div>
+	</c:if>
+	<div class="chat_frame">
+	    <div class="chat_header">FAQ 자동응답</div>
+	    <div class="chat_messages">
+	<!--     	<div class="chatRoomNotice"></div> -->
+	<!--     	<div class="chat_content_wrapper my_message_wrapper"> -->
+	<!-- 	        <div class="chat_content my_message">회원 가입이 안되는데 어케요</div> -->
+	<!-- 	        <span class="chat_time">2024.11.10. 오후 11:17</span> -->
+	<!--     	</div> -->
+	<!--     	<div class="chat_content_wrappper other_message_wrapper"> -->
+	<!-- 	        <div class="chat_content other_message">회원가입은 홈페이지 오른쪽 상단의 "회원가입" 버튼을 클릭하여 진행할 수 있습니다.</div> -->
+	<!-- 	        <span class="chat_time">2024.11.10. 오후 11:17</span> -->
+	<!-- 	    </div> -->
+	    </div>
+	    <div class="chat_footer">
+	    	<form id="faqInputContainer">
+	    		<p>
+			        <input id="faqInput" type="text" name="content" placeholder="메시지를 입력하세요" required autofocus autocomplete="off">
+			        <input type="submit" value="전송">
+		        </p>
+	    	</form>
+	    	<form id="counselInputContainer" class="hidden">
+	    		<p>
+			        <input id="counselInput" type="text" name="content" placeholder="메시지를 입력하세요" required autofocus autocomplete="off">
+			        <input type="submit" value="전송">
+		        </p>
+	    	</form>
+	    </div>
 	</div>
-</c:if>
-
-<div class="chat_frame">
-    <div class="chat_header">1:1 상담톡</div>
-    <div class="chat_messages">
-<!--     	<div class="chatRoomNotice"></div> -->
-<!--     	<div class="chat_content_wrapper my_message_wrapper"> -->
-<!-- 	        <div class="chat_content my_message">회원 가입이 안되는데 어케요</div> -->
-<!-- 	        <span class="chat_time">2024.11.10. 오후 11:17</span> -->
-<!--     	</div> -->
-<!--     	<div class="chat_content_wrappper other_message_wrapper"> -->
-<!-- 	        <div class="chat_content other_message">회원가입은 홈페이지 오른쪽 상단의 "회원가입" 버튼을 클릭하여 진행할 수 있습니다.</div> -->
-<!-- 	        <span class="chat_time">2024.11.10. 오후 11:17</span> -->
-<!-- 	    </div> -->
-    </div>
-    <div class="chat_footer">
-    	<form id="faqInputContainer">
-    		<p>
-		        <input id="faqInput" type="text" name="content" placeholder="faq) 메시지를 입력하세요..." required autofocus autocomplete="off">
-		        <input type="submit" value="전송">
-	        </p>
-    	</form>
-    	<form id="counselInputContainer" class="hidden">
-    		<p>
-		        <input id="counselInput" type="text" name="content" placeholder="1:1) 메시지를 입력하세요..." required autofocus autocomplete="off">
-		        <input type="submit" value="전송">
-	        </p>
-    	</form>
-    </div>
-</div>
-
-<div class="chatOut_container">
-    <button id="chatOutBtn">챗봇 나가기</button>
+	<c:if test="${empty login || (not empty login && login.role == 0)}">
+		<div class="chatOut_container">
+		    <img id="chatOutBtn" src="${cpath }/resources/image/delete-icon.png">
+		</div>
+	</c:if>
 </div>
 
 
@@ -352,15 +374,18 @@
 
 	    chatMode = mode
 	    
+        const chat_header = document.querySelector('.chat_header')
 	    // faq 모드일 때
 	    if(chatMode == 'faq') {
-	        faqInput.classList.remove('hidden');
-	        counselInput.classList.add('hidden');
+	        faqInput.classList.remove('hidden')
+	        counselInput.classList.add('hidden')
+	        chat_header.innerText = 'FAQ 자동응답'
 	    }
 	    // counsel 모드일 때
 	    else if(chatMode == 'counsel') {
-	        faqInput.classList.add('hidden');
-	        counselInput.classList.remove('hidden');
+	        faqInput.classList.add('hidden')
+	        counselInput.classList.remove('hidden')
+	        chat_header.innerText = '1:1 실시간 상담'
 	    }
 	}
 	// 초기화 시 호출
@@ -370,7 +395,6 @@
 
 	// 사용자가 1:1 상담요청 클릭
 	async function requestCounselChat(event) {
-		faqHistoryRemoveHandler()
 		changeChatMode('counsel')
 		
 		if(stompConnected) {
@@ -448,16 +472,31 @@
 	}
 	
 	
-	// FAQ 채팅내역 없애기 (세션 만료)
+	// FAQ 채팅내역 없애고 창 닫기 (세션 만료)
 	async function faqHistoryRemoveHandler() {
-		const url = cpath + '/chats/removeFaqHistory'
-		const result = await fetch(url, {method: 'POST'})
-// 		if(result.ok) {
-// 			window.close()
-// 		}
+		swal({
+			title: '채팅 내역 삭제',
+			text: '해당 버튼으로 창 닫기 진행 시 FAQ 자동응답 채팅내역이 삭제됩니다. 계속 진행하시겠습니까?',
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonText: '예',
+ 			cancelButtonText: '아니오',
+ 			closeOnConfirm: false,
+ 			closeOnCancel: true,
+ 		}, async function(isConfirm) {
+ 			if(isConfirm) {
+				const url = cpath + '/chats/removeFaqHistory'
+				const result = await fetch(url, {method: 'POST'})
+				if(result.ok) {
+					window.close()
+				}
+ 			}
+        })
 	}
 	const chatOutBtn = document.getElementById('chatOutBtn')
-	chatOutBtn.onclick = faqHistoryRemoveHandler
+	if(chatOutBtn) {
+		chatOutBtn.onclick = faqHistoryRemoveHandler
+	}
 	
 	
 	// 채팅방에 채팅 내역 추가
@@ -595,6 +634,8 @@
 				}
 			})
 		}
+		if(role != 1)
+		addChatListHandler('other', '※ 현재 자동응답 모드입니다. 상담원과 실시간 상담을 원하시면 상단의 채팅 아이콘을 눌러주세요.', Date.now(), true)
 	}
 	window.addEventListener('DOMContentLoaded', loadChatHistoryHandler)
 	
@@ -617,10 +658,10 @@
 	
 	
 	// 안먹힘
-// 	if(!roomUrl) {
-// 		alert('세션이 만료되어 채팅이 종료됩니다.')
-// 		window.close()
-// 	}
+	if(!roomUrl) {
+		alert('세션이 만료되어 채팅이 종료됩니다.')
+		window.close()
+	}
 
 	
 </script>

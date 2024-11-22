@@ -304,6 +304,14 @@
         color: #34495e;
         margin-bottom: 15px;
     }
+    .review-section img {
+    	width: 25px;
+    	align-items: center;
+    	vertical-align: middle;
+    	margin-bottom: 3px;
+    	margin-left: 8px;
+    	margin-right: 3px;
+    }
 
     .review-card {
         display: flex;
@@ -751,7 +759,7 @@
                 </div>
             </div>
             <div class="review-section">
-                <h3>리뷰</h3>
+                <h3>리뷰 (${reviewCount }) <img src="${cpath}/resources/image/star-icon.png">${reviewAvg }</h3>
                 <div id="reviewListSome">
                     <c:if test="${empty reviewList}">
                         <div class="no-reviews">

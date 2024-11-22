@@ -169,7 +169,7 @@ public class ChatAjaxController {
 	// FAQ 채팅내역 없애기 (세션 만료)
 	@PostMapping("/removeFaqHistory")
 	public void chatRoomOut(HttpSession session) {
-//		session.removeAttribute("roomUrl");
+		session.removeAttribute("roomUrl");
 		session.removeAttribute("faqHistoryList");
 	}
 	

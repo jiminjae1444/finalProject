@@ -814,7 +814,7 @@
 		console.log('roomUrl 받아온 후: ', roomUrl)
 		
 		if(roomUrl) {
-			window.open(cpath + '/chat/room/' + roomUrl, '_blank', 'width=600, height=1080')
+			window.open(cpath + '/chat/room/' + roomUrl, '_blank', 'width=600, height=900')
 		}
 		else {
 			alert('챗봇으로 연결할 수 없습니다')

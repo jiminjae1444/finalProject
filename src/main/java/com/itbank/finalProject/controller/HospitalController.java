@@ -38,7 +38,6 @@ public class HospitalController {
 
     
     // 호준 파트
-    
     private static final String RECENT_HOSPITALS_SESSION_ATTRIBUTE = "recentHospitals";
     private static final int MAX_RECENT_HOSPITALS = 3; // 최근 본 병원 최대 개수
     
@@ -83,71 +82,73 @@ public class HospitalController {
 	
     // 민재 파트
 	 @GetMapping("/search")
-	    public void search(Model model) {
-	        List<SearchHistoryDTO> rankingList = searchHistoryService.getRankingList();
-	        model.addAttribute("rankings",rankingList);
-	    }
+	public void search(Model model) {
+	    List<SearchHistoryDTO> rankingList = searchHistoryService.getRankingList();
+	    model.addAttribute("rankings",rankingList);
+	}
+	
+	@GetMapping("/result")
+	public void result() {}
+	
+	
+	@GetMapping("/hospitalInfo/{id}")
+	public String hospitalInfo(@PathVariable int id, Model model, HttpSession session, HttpServletRequest request) throws UnsupportedEncodingException {
+		HospitalDTO hospitalDTO = hospitalService.getInfo(id,session, request);
+		HospitalTimeDTO hospitalTimeDTO = hospitalTimeService.getTime(id);
+		List<String> jinryoNames = hospitalService.getJinryoNames(id);
+		MemberDTO login =  (MemberDTO) session.getAttribute("login");
+		Integer member_id = (login != null) ? login.getId() : null;
+		
+		// 세션에서 최근 본 병원 목록 가져오기
+		List<HospitalDTO> recentHospitals = (List<HospitalDTO>) session.getAttribute(RECENT_HOSPITALS_SESSION_ATTRIBUTE);
+		if (recentHospitals == null) {
+		    recentHospitals = new ArrayList<>();
+		}
+		
+		// 병원 정보 가져오기 (예: 병원 이름과 진료 이름)
+		HospitalDTO hospitalInfo = hospitalService.getHospitalNameAndTreatmentById(id);
+		String imageUrl = hospitalService.getHospitalImage(hospitalInfo.getId(),session, request);
+		//	        System.out.println(imageUrl);
+		hospitalInfo.setImageUrl(imageUrl);
+		// 병원 ID가 목록에 이미 있으면 해당 병원을 맨 앞으로 이동
+		boolean isAlreadyInList = false;
+		int existingIndex = -1;
+		
+		for (int i = 0; i < recentHospitals.size(); i++) {
+		    if (recentHospitals.get(i).getId() == hospitalInfo.getId()) {
+		        isAlreadyInList = true;
+		        existingIndex = i;
+		        break;
+		    }
+		}
+		
+		if (isAlreadyInList) {
+		    // 이미 목록에 있으면 해당 병원을 삭제하고 맨 앞에 추가
+		    recentHospitals.remove(existingIndex);
+		}
+		
+		// 병원 정보를 맨 앞에 추가
+		recentHospitals.add(0, hospitalInfo);
+		
+		// 최근 본 병원 수가 최대치를 넘지 않도록 제한
+		if (recentHospitals.size() > MAX_RECENT_HOSPITALS) {
+		    recentHospitals.remove(recentHospitals.size() - 1); // 가장 오래된 병원 삭제
+		}
+		
+		if (member_id != null) {
+		    model.addAttribute("bookingInfo", bookingDAO.selectBookingInfo(id, member_id));
+		}
+		// 세션에 최근 본 병원 목록을 저장
+		session.setAttribute(RECENT_HOSPITALS_SESSION_ATTRIBUTE, recentHospitals);
+		model.addAttribute("hospital", hospitalDTO);
+		model.addAttribute("jinryoNames", jinryoNames);
+		model.addAttribute("hospitalTime", hospitalTimeDTO);
+		// 리뷰 파트
+		model.addAttribute("reviewList", reviewService.selectList(id, 0, 3));	// 리뷰 3개 가져오기
+		model.addAttribute("reviewCount", reviewService.selectTotalReviewCount(id));	// 전체 리뷰 개수
+		model.addAttribute("reviewAvg", reviewService.selectReviewAvg(id));		// 평점 평균
+		return "/hospital/view";
+		}
 
-	    @GetMapping("/result")
-	    public void result() {}
 
-
-	    @GetMapping("/hospitalInfo/{id}")
-	    public String hospitalInfo(@PathVariable int id, Model model, HttpSession session, HttpServletRequest request) throws UnsupportedEncodingException {
-	        HospitalDTO hospitalDTO = hospitalService.getInfo(id,session, request);
-	        HospitalTimeDTO hospitalTimeDTO = hospitalTimeService.getTime(id);
-	        List<String> jinryoNames = hospitalService.getJinryoNames(id);
-	    	MemberDTO login =  (MemberDTO) session.getAttribute("login");
-	    	Integer member_id = (login != null) ? login.getId() : null;
-
-	        // 세션에서 최근 본 병원 목록 가져오기
-	        List<HospitalDTO> recentHospitals = (List<HospitalDTO>) session.getAttribute(RECENT_HOSPITALS_SESSION_ATTRIBUTE);
-	        if (recentHospitals == null) {
-	            recentHospitals = new ArrayList<>();
-	        }
-
-	        // 병원 정보 가져오기 (예: 병원 이름과 진료 이름)
-	        HospitalDTO hospitalInfo = hospitalService.getHospitalNameAndTreatmentById(id);
-	        String imageUrl = hospitalService.getHospitalImage(hospitalInfo.getId(),session, request);
-//	        System.out.println(imageUrl);
-	        hospitalInfo.setImageUrl(imageUrl);
-	        // 병원 ID가 목록에 이미 있으면 해당 병원을 맨 앞으로 이동
-	        boolean isAlreadyInList = false;
-	        int existingIndex = -1;
-
-	        for (int i = 0; i < recentHospitals.size(); i++) {
-	            if (recentHospitals.get(i).getId() == hospitalInfo.getId()) {
-	                isAlreadyInList = true;
-	                existingIndex = i;
-	                break;
-	            }
-	        }
-
-	        if (isAlreadyInList) {
-	            // 이미 목록에 있으면 해당 병원을 삭제하고 맨 앞에 추가
-	            recentHospitals.remove(existingIndex);
-	        }
-
-	        // 병원 정보를 맨 앞에 추가
-	        recentHospitals.add(0, hospitalInfo);
-
-	        // 최근 본 병원 수가 최대치를 넘지 않도록 제한
-	        if (recentHospitals.size() > MAX_RECENT_HOSPITALS) {
-	            recentHospitals.remove(recentHospitals.size() - 1); // 가장 오래된 병원 삭제
-	        }
-
-	        if (member_id != null) {
-	            model.addAttribute("bookingInfo", bookingDAO.selectBookingInfo(id, member_id));
-	        }
-	        // 세션에 최근 본 병원 목록을 저장
-	        session.setAttribute(RECENT_HOSPITALS_SESSION_ATTRIBUTE, recentHospitals);
-	        model.addAttribute("hospital", hospitalDTO);
-	        model.addAttribute("jinryoNames", jinryoNames);
-	        model.addAttribute("hospitalTime", hospitalTimeDTO);
-	        // 리뷰 3개 가져오기
-	        model.addAttribute("reviewList", reviewService.selectList(id, 0, 3));
-	        return "/hospital/view";
-	    }
-    
-    
 }
