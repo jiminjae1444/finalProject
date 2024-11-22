@@ -57,11 +57,12 @@ public class MemberController {
 	}
 	
 	// 네이버 로그인
-	@GetMapping("/login")
-	public void login(Model model) {
-		String naverLoginURL = naverLoginComponent.getAuthorizationUrl();
-		model.addAttribute("naverLoginURL", naverLoginURL);
-	}
+	   @GetMapping("/login")
+	   public void login(Model model, @RequestParam(value = "redirectUrl", defaultValue = "") String redirectUrl) {
+	      String naverLoginURL = naverLoginComponent.getAuthorizationUrl();
+	      model.addAttribute("redirectUrl", redirectUrl);
+	      model.addAttribute("naverLoginURL", naverLoginURL);
+	   }
 	
 	@GetMapping("/naverCallback")
 	public void naverCallback(String code, String state, Model model) throws JsonMappingException, JsonProcessingException, URISyntaxException {

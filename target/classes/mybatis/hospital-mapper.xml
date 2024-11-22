@@ -157,6 +157,11 @@
 			   		fetch first #{param5} rows only
 	</select>
     
+    <select id="getReviewToHomepage" resultType="review">
+    	select * from review
+		    order by rating desc, DBMS_RANDOM.VALUE()
+    			fetch first 4 rows only
+    </select>
     
 </mapper>
 

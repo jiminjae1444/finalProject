@@ -23,6 +23,7 @@
             position: fixed;
             right: 50px;
             bottom: 50px;
+            z-index:3;
         }
 
         /*   민재 파트 (홈 검색 기능) */

@@ -31,6 +31,7 @@ import com.google.common.net.MediaType;
 import com.itbank.finalProject.Coordinates;
 import com.itbank.finalProject.NaverMapCrawler;
 import com.itbank.finalProject.model.HospitalDTO;
+import com.itbank.finalProject.model.ReviewDTO;
 import com.itbank.finalProject.model.RouteRequest;
 import com.itbank.finalProject.repository.HospitalDAO;
 
@@ -272,5 +273,9 @@ public class HospitalService {
 
         return response.getBody();
     }
+
+    public List<ReviewDTO> getReviewToHomepage() {
+		return hospitalDAO.getReviewToHomepage();
+	}
     
 }

@@ -781,13 +781,13 @@
         #recentHospitalsContainer {
             width: 180px; /* 컨테이너 너비를 조금 더 줄임 */
             position: fixed; /* 화면에 고정 */
-            top: 80px; /* 상단에서 80px 떨어지게 위치 */
+            top: 130px; /* 상단에서 80px 떨어지게 위치 */
             right: 20px; /* 화면 오른쪽에 위치 */
             background-color: #f9f9f9;
             padding: 10px;
             border-radius: 8px; /* 카드와 동일하게 둥글게 */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            z-index: 2; /* 다른 콘텐츠 위에 표시 */
+            z-index: 5; /* 다른 콘텐츠 위에 표시 */
             max-height: 75vh; /* 화면 높이에 맞게 제한 */
             overflow-y: hidden; /* 스크롤 숨기기 */
             border: 1px solid #e0e0e0; /* 약간의 테두리로 강조 */
@@ -1162,7 +1162,6 @@
 		    background-color: #8a8e92;
 		    padding: 20px;
 		    color: white;
-		    z-index: 2;
 		    display: flex;
 		}
 		footer p {

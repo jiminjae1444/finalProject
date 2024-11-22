@@ -27,6 +27,8 @@ public class ReviewDTO {
 	private String userid;
 	private String profile_img;
 	
+	private String hospital_name;
+	
 	
 	
 	

@@ -3,6 +3,7 @@ package com.itbank.finalProject;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.itbank.finalProject.model.HospitalDTO;
+import com.itbank.finalProject.model.ReviewDTO;
 import com.itbank.finalProject.model.SearchHistoryDTO;
 import com.itbank.finalProject.service.HospitalService;
 import com.itbank.finalProject.service.SearchHistoryService;
@@ -34,6 +35,10 @@ public class HomeController {
 //        log.info("좌표 없는 병원 업데이트");
         //이건 병원 목록 불러올때 좌표값없는 병원 DB에 업데이트 하는데 사용
         hospitalService.getSetList();
+        
+        List<ReviewDTO> homeReview = hospitalService.getReviewToHomepage();
+        model.addAttribute("homeReview", homeReview);
+        
         // 세션에서 최근 본 병원 목록 가져오기
         List<HospitalDTO> recentHospitals = (List<HospitalDTO>) session.getAttribute("recentHospitals");
 //        log.info(recentHospitals);
