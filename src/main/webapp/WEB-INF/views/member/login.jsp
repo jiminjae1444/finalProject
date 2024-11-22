@@ -140,7 +140,7 @@
            
            const formData = new FormData(form)
            
-           fetch('${cpath}/member/login', {
+           fetch('${cpath}/members/login', {
                method: 'POST',
                body: formData
            })
