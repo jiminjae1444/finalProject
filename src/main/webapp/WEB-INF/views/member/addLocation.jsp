@@ -133,23 +133,25 @@
 </style>
 
 
+<div id="addlocationListModal" class="addlocationListModal" >
+
+</div>
+<h3>주소 정보 검색</h3>
 <div id="addlocationModal" class="addlocationModal" >
 	<div class="addlocationcontent">
-		
 		<div class="addlocationoverlay">
-			<h3 id="addLocationTitle">주소 정보 검색</h3>
-			<form method="POST" id="addLocationForm">
-				<p><input type="text" name="memberLocation" placeholder="추가 하실 주소를 입력하세요." required></p>
-				<p class="addlocationBtn"><input type="submit" value="등록" ></p>
-			</form>
-			<p style="text-align: center;">
-				<a href="${cpath }/member/info/${login.id}">
-					<button class="gotoBackBtn">뒤로가기</button>
-				</a>
-			</p>
+		<div class="topText">
+			<div><h3 class="text1">AMD, AddLocation Service</h3></div>
+			<div><p  class="text2">위치 정보를 추가하고, 효율적으로 의료 서비스 정보를 관리 해보세요.</p></div>
 		</div>
-	</div>
-		
+		<form method="POST" id="addLocationForm">
+			<p><input title="추가 하실 위치 정보를 입력" type="text" name="memberLocation" placeholder="추가 하실 위치 정보를 입력하세요." required></p>
+			<p><input title="위치 정보의 별칭을 등록" type="text" name="alias" placeholder="위치 정보의 별칭을 등록하세요" required></p>
+			<p class="addlocationBtn"><input type="submit" value="등록" ></p>
+		</form>
+		<p style="text-align: center;"><a href="${cpath }/member/info/${login.id}"><button>뒤로가기</button></a></p>
+		</div>
+	</div>	
 	<div class="addlocationListcontent">
 		<div class="addlocationListoverlay">
 		<p>[현재 추가된 주소]</p>
@@ -171,7 +173,6 @@
 </div>
 
 <%@ include file="../footer.jsp" %>
-
 <script>
 	//다음 주소 찾기 함수
 	function onComplete(data) {
@@ -188,46 +189,47 @@
 	document.querySelector('input[name="memberLocation"]').onclick = execDaumPostcode
 	
 	// swal 코드
-	document.addEventListener('DOMContentLoaded', function() {
-	    const form = document.getElementById('addLocationForm')
-	    form.onsubmit = function(event) {
-	        event.preventDefault()
-	        
-	        const formData = new FormData(form)
-	        const url = '${cpath}/member/addLocation/${id}' // URL 경로에 {id} 변수를 적용하여 설정
-	
-	        fetch(url, {
-	            method: 'POST',
-	            body: formData
-	        })
-	        .then(response => response.json()) // JSON으로 응답 받기
-	        .then(data => {
-	            if (data.status === 'fail') {
-	                swal({
-	                    title: "주소 추가 실패",
-	                    text: data.message,
-	                    type: "error",
-	                    confirmButtonText: "확인"
-	                })
-	            } else if (data.status === 'success') {
-	                swal({
-	                    title: "주소 추가 성공",
-	                    text: data.message,
-	                    type: "success",
-	                    confirmButtonText: "확인"
-	                }, function() {
-	                    location.href = '${cpath}/member/info/${id}' // 성공 시 이동할 페이지 경로
-	                })
-	            } else {
-	                swal("알림", "예상치 못한 응답을 받았습니다.", "warning")
-	            }
-	        })
-	        .catch(error => {
-	            console.error('Error:', error)
-	            swal("오류", "처리 중 오류가 발생했습니다.", "error")
-	        })
-	    }
-	})
+	// 추가 폼 제출 처리
+    const form = document.getElementById('addLocationForm')
+    form.onsubmit = function(event) {
+        event.preventDefault()
+        
+        const formData = new FormData(form)
+        const url = '${cpath}/members/addLocation/${id}' // URL 경로에 {id} 변수를 적용하여 설정
+
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json()) // JSON으로 응답 받기
+        .then(data => {
+            if (data.status === 'fail') {
+                swal({
+                    title: "주소 추가 실패",
+                    text: data.message,
+                    type: "error",
+                    confirmButtonText: "확인"
+                })
+            } else if (data.status === 'success') {
+                swal({
+                    title: "주소 추가 성공",
+                    text: data.message,
+                    type: "success",
+                    confirmButtonText: "확인"
+                }, function() {
+                    location.href = '${cpath}/member/addLocation/${id}' // 성공 시 이동할 페이지 경로
+                })
+            } else {
+                swal("알림", "예상치 못한 응답을 받았습니다.", "warning")
+            }
+            location.reload()
+        })
+        .catch(error => {
+            console.error('Error:', error)
+            swal("오류", "처리 중 오류가 발생했습니다.", "error")
+        })
+    }
+
 	// 추가 주소 삭제 sweetAlert
     const SubDletError = '${SubDletError}'
     const SubDletMessage = '${SubDletMessage}'
@@ -269,7 +271,6 @@
             button: "확인"
         })
     }
-	
 	const footer = document.getElementById('footer')
    	footer.style.backgroundColor = '#83888d'
 </script>
