@@ -123,7 +123,7 @@
            event.preventDefault()
            
            const formData = new FormData(form)
-           fetch('${cpath}/member/reCheckUserid', {
+           fetch('${cpath}/members/reCheckUserid', {
                method: 'POST',
                body: formData
            })

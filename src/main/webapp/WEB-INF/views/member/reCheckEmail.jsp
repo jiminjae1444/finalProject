@@ -120,7 +120,7 @@
            event.preventDefault()
            
            const formData = new FormData(form)
-           fetch('${cpath}/member/reCheckEmail', {
+           fetch('${cpath}/members/reCheckEmail', {
                method: 'POST',
                body: formData
            })
