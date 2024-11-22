@@ -112,6 +112,24 @@
        background: #2c3e50;
        color: white;
    }
+   .addlocationListditail {
+    	display: flex;
+    	flex-direction: column;
+    }
+    .addlocationListditail p{
+    	margin-top: 0;
+    	padding-left: 30px;
+    	padding-right: 5px;
+    }
+    .addlocationListditails {
+    	display: flex;
+	    margin-left: 40px;
+	    padding: 5px;
+    } 
+    .addlocationListditails input[type="submit"] {
+    	margin: 5px;
+    	margin-top: 0;
+    }
 </style>
 
 
@@ -134,12 +152,20 @@
 		
 	<div class="addlocationListcontent">
 		<div class="addlocationListoverlay">
-			<p>[현재 추가된 주소]</p>
-			<c:forEach var="dto" items="${list }">
-				<ul style="list-style: none;">
-					<li>${dto.memberLocation }</li>
-				</ul>
-			</c:forEach>
+		<p>[현재 추가된 주소]</p>
+		<div class="addlocationListditail">
+		<c:forEach var="dto" items="${list}">
+            <div class="addlocationListditails">
+            	${dto.alias }(${dto.memberLocation})
+            <form method="POST" action="${cpath}/member/updateLocation/${login.id}/${dto.id}" id="deleteForm_${dto.id}">
+            	<input type="submit" value="선택">                   
+            </form>
+            <form method="POST" action="${cpath}/member/deleteLocation/${login.id}/${dto.id}">
+		    	<input type="submit" value="삭제">       
+		    </form>
+		    </div>
+        </c:forEach>
+        </div>
 		</div>
 	</div>
 </div>
@@ -202,6 +228,47 @@
 	        })
 	    }
 	})
+	// 추가 주소 삭제 sweetAlert
+    const SubDletError = '${SubDletError}'
+    const SubDletMessage = '${SubDletMessage}'
+
+    if (SubDletError) {
+        swal({
+            title: "삭제 실패",
+            text: SubDletError,
+            type: "error",
+            button: "확인"
+        })
+    }
+    if (SubDletMessage) {
+        swal({
+            title: "삭제 성공",
+            text: SubDletMessage,
+            type: "success",
+            button: "확인"
+        })
+    }
+    
+ 	// 추가 주소 업뎃 sweetAlert
+ 	const SubUpError = '${SubUpError}'
+    const SubUpMessage = '${SubUpMessage}'
+
+    if (SubUpError) {
+        swal({
+            title: "위치 정보 변경 실패",
+            text: SubUpError,
+            type: "error",
+            button: "확인"
+        })
+    }
+    if (SubUpMessage) {
+        swal({
+            title: "위치 정보 변경 성공",
+            text: SubUpMessage,
+            type: "success",
+            button: "확인"
+        })
+    }
 	
 	const footer = document.getElementById('footer')
    	footer.style.backgroundColor = '#83888d'

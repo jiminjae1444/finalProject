@@ -9,12 +9,19 @@ public class SubLocationDTO {
    private int id;
    private int member_id;
    private String memberLocation;
+   private String alias;
    
    private String userid;
    private String location;
    
+   public String getAlias() {
+      return alias;
+   }
+   public void setAlias(String alias) {
+      this.alias = alias;
+   }
    public int getId() {
-      return id;
+	  return id;
    }
    public void setId(int id) {
       this.id = id;

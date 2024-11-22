@@ -246,22 +246,6 @@
             <p style="font-weight: bold;">NAME/GENDER : <span id="myDetail">${login.name }   / ${login.gender }<span></p>
             <p style="font-weight: bold;">Address : <span id="myDetail">${login.location }<span></p>
         </div>
-        <div>
-            <details>
-                <summary>Add Location List</summary>
-                <p>현재 위치 정보를 추가하여 List를 만들어,<br>Address정보로 등록하실 수 있습니다.</p>
-                <fieldset>
-                    <c:forEach var="dto" items="${list}">
-                        <form method="POST" action="${cpath}/member/info/${dto.id}"
-                            id="deleteForm_${dto.id}">
-                            <p>${dto.memberLocation}
-                                | <input type="submit" value="삭제">
-                            </p>
-                        </form>
-                    </c:forEach>
-                </fieldset>
-            </details>
-        </div>
     <div class="category-buttons">
         <a href="${cpath }/member/bookingList/${login.id}" class="category-button">
             <img src="${cpath }/resources/image/Reservation.png" style="width: 45px; height: 45px;">
@@ -309,28 +293,6 @@
 <%@ include file="../footer.jsp" %>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // 서버에서 전송된 메시지 받기
-        const error2 = '${error2}'
-        const message3 = '${message3}'
-    
-        if (error2) {
-            swal({
-                title: "삭제 실패",
-                text: error2,
-                type: "error",
-                button: "확인"
-            })
-        }
-        if (message3) {
-            swal({
-                title: "삭제 성공",
-                text: message3,
-                type: "success",
-                button: "확인"
-            })
-        }
-    })
     // imgUpdate 모달 코드
     document.addEventListener('DOMContentLoaded', function() {
        const modal = document.getElementById('ImgUploadModal') // 모달

@@ -3,10 +3,6 @@ package com.itbank.finalProject.model;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 //create table member (
 //	    id          integer         generated as identity primary key,
