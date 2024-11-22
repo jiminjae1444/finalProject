@@ -115,7 +115,7 @@
 
 <script>
    document.addEventListener('DOMContentLoaded', function() {
-       const form = document.getElementById('reCheckForm')
+       const form = document.getElementById('EreCheckForm')
        form.onsubmit = function(event) {
            event.preventDefault()
            
