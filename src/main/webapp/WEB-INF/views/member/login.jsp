@@ -127,7 +127,7 @@
 <script>
    document.addEventListener('DOMContentLoaded', function() {
        const message = '${message}'
-       
+       console.log('${redirectUrl}' == '')
        if (message != '') {
            swal('회원 가입 결과', message, 'success')
        }

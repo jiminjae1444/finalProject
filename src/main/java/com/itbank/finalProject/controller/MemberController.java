@@ -58,8 +58,9 @@ public class MemberController {
 	
 	// 네이버 로그인
 	@GetMapping("/login")
-	public void login(Model model) {
+	public void login(Model model, @RequestParam(value = "redirectUrl", defaultValue = "") String redirectUrl) {
 		String naverLoginURL = naverLoginComponent.getAuthorizationUrl();
+		model.addAttribute("redirectUrl", redirectUrl);
 		model.addAttribute("naverLoginURL", naverLoginURL);
 	}
 	
