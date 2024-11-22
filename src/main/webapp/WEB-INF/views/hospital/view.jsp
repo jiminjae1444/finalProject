@@ -761,7 +761,7 @@
                     <c:forEach var="review" items="${reviewList}">
                         <div class="review-card">
                             <div class="review-header">
-                                <img class="profile-img" src="${review.PROFILE_IMG}" alt="User Image">
+                                <img class="profile-img" src="${cpath }/fpupload/image/${empty review.PROFILE_IMG ? 'default.png' : review.PROFILE_IMG}">
                                 <div class="user-info">
                                     <div class="user-id">${review.USERID}</div>
                                     <div class="created-at">${review.CREATED_AT}</div>
@@ -1566,7 +1566,6 @@
            // 결제 버튼 클릭 이벤트
            paymentBtn.onclick = async () => {
                var IMP = window.IMP;
-               IMP.init('imp22288473'); // 아임포트 가맹점 식별 코드
                const paymentData = {
                    pg: 'html5_inicis.INIpayTest',
                    pay_method: 'card', // 결제 수단

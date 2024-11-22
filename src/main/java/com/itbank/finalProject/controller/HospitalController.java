@@ -145,6 +145,7 @@ public class HospitalController {
 	        model.addAttribute("jinryoNames", jinryoNames);
 	        model.addAttribute("hospitalTime", hospitalTimeDTO);
 	        // 리뷰 3개 가져오기
+	        log.info(reviewService.selectList(id, 0, 3));
 	        model.addAttribute("reviewList", reviewService.selectList(id, 0, 3));
 	        return "/hospital/view";
 	    }
