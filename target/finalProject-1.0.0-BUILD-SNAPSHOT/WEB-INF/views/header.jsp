@@ -16,14 +16,24 @@
 	        margin: 0;
 	        padding: 0;
 	        font-family: Arial, sans-serif;
+	        overflow-x: hidden;
     	}
-        /*    챗봇 아이콘 */
-        #chat_icon img {
-            position: fixed;
-            right: 50px;
-            bottom: 50px;
-        }
-
+     		/* 	챗봇 아이콘 */
+	#chat_icon img {
+		position: fixed;
+		right: 40px;
+		bottom: 40px;
+		z-index: 1000;
+		cursor: pointer;
+	}
+	/* 	(상담사) 채팅방 목록 아이콘 */
+	#list_icon img {
+		position: fixed;
+		right: 40px;
+		bottom: 100px;
+		z-index: 1000;
+		cursor: pointer;
+	}
         /*   민재 파트 (홈 검색 기능) */
 
 
@@ -109,6 +119,7 @@
             width: 100%;
             height: 80px;
             display: flex;
+            justify-content: space-between;
             z-index: 100;
             background-color: rgba(255, 255, 255, 0.2);
    			backdrop-filter: blur(3px);
@@ -253,8 +264,8 @@
 
         #notificationCountSpan {
             position: absolute;
-            top: -5px;
-            right: -5px;
+            top: 18px;
+            right: 303px;
             background-color: red;
             color: white;
             border-radius: 50%;
@@ -274,7 +285,7 @@
         #recentHospitalsContainer {
             width: 180px; /* 컨테이너 너비를 조금 더 줄임 */
             position: fixed; /* 화면에 고정 */
-            top: 118px; /* 상단에서 80px 떨어지게 위치 */
+            top: 130px; /* 상단에서 80px 떨어지게 위치 */
             right: 20px; /* 화면 오른쪽에 위치 */
             background-color: #f9f9f9;
             padding: 10px;
@@ -337,43 +348,68 @@
             overflow: hidden;
             text-overflow: ellipsis; /* 긴 이름은 ... 으로 표시 */
         }
+	
+		.header-right {
+			justify-content: flex-end;
+			display: flex;
+			margin: 5px;
+			margin-right: 30px;
+			align-items: center;
+		}
 
-        .loginIcon ,.loginIcon2 {
+        .loginIcon {
             background-image: url('${cpath}/resources/image/로그인아이콘최종.png');
-            position: absolute;
             width: 30px;
             height: 30px;
-            top: 30px;
-            right: 30px;
             background-size: cover;
             cursor: pointer;
+            margin-right: 25px;
+        }
+        #gotoInfo {
+        	color: white;
+        	width: 30px;
+            height: 30px;
+            cursor: pointer;
+            margin-right: 25px;
         }
         .notificationIcon {
             background-image: url('${cpath}/resources/image/알림.png');
-            position: absolute;
             width: 27px;
             height: 27px;
-            top: 33px;
-            right: 150px;
             background-size: cover;
+            margin-right: 25px;
+            cursor: pointer;
         }
         .healthInfoIcon {
         	background-image: url('${cpath}/resources/image/건강정보.png');
-            position: absolute;
             width: 30px;
             height: 30px;
-            top: 31px;
-            right: 90px;
             background-size: cover;
+            margin-right: 25px;
         }
         .myFavoritesIcon{
             background-image: url('${cpath}/resources/image/즐겨찾기.png');
-            position: absolute;
             width: 30px;
             height: 30px;
-            top: 31px;
-            right: 205px;
             background-size: cover;
+            margin-right: 25px;
+            cursor: pointer
+        }
+        #logoutBtn {
+        	width: 100px;
+		    padding: 8px;
+		    background: none;
+		    border: 1px solid white;
+		    border-radius: 4px; /* 둥글기 축소 */
+		    color: white;
+		    cursor: pointer;
+		    transition: background 0.3s ease, color 0.3s ease;
+		    font-size: 0.9rem; /* 텍스트 크기 축소 */
+        }
+        #logoutBtn:hover {
+        	background: #364657;
+        	border: 1px solid #364657;
+       		color: white;
         }
     </style>
 
@@ -622,8 +658,8 @@
         }
     </style>
     
+<!--    footer 스타일 -->
     <style>
-    	/* footer */
 		#footer {
 		    position: relative;
 		    width: 100%;
@@ -723,36 +759,56 @@
 
 <!-- 챗봇 아이콘 -->
 <div id="chat_icon">
-    <a href="${cpath }/chat/room" onclick="window.open(this.href, '_blank', 'width=600, height=1080'); return false;">
-        <img src="${cpath }/resources/image/chat-icon.png" width="50">
-    </a>
+	<a onclick="openChatRoom(); return false;">
+		<img src="${cpath }/resources/image/chat-icon.png" width="50">
+	</a>
 </div>
+
+<!-- (상담사한테만 뜸) 채팅방 목록 아이콘 -->
+<c:if test="${not empty login && login.role == 1 }">
+	<div id="list_icon">
+		<a href="${cpath }/chat/rooms">
+			<img src="${cpath }/resources/image/list-icon.png" width="50">
+		</a>
+	</div>
+</c:if>
 
 
 <header>
+	<!-- 로고 -->
 	<div class="logo">
 		<a href="${cpath }"><img src="${cpath }/resources/image/로고.png"></a>
 	</div>
-    <a href="${cpath }/healthInfo/healthInfo">
-		<div class="healthInfoIcon"></div>
-	</a>
-    <div class="-container">
-        <c:if test="${empty login }">
-        <div class="loginIcon"></div>
-	    </c:if>
-    </div>
-
-    <c:set var="default" value="${cpath }/resources/image/default.png" />
-    <c:if test="${not empty login }">
-        <div class="header-right">
-            <div class="loginIcon2"></div>
-            <div class="notificationIcon" id="notification" data-page="1"><span id="notificationCountSpan" class="hidden"></span></div>
-            <div class="myFavoritesIcon" id="myFavorites" data-page="1"></div>
-            <span>${login.name }</span>
-            <a href="${cpath }/member/logout"><button>로그아웃</button></a>
-
-        </div>
-    </c:if>
+	
+	<!-- 헤더 오른쪽 메뉴 모음 -->
+	<div class="header-right">
+	  
+	  	<c:if test="${not empty login }">
+			<!-- 즐겨찾기 아이콘 -->
+			<div class="myFavoritesIcon" id="myFavorites" data-page="1"></div>
+			      
+			<!-- 알림 아이콘 -->
+			<div class="notificationIcon" id="notification" data-page="1"><span id="notificationCountSpan" class="hidden"></span></div>
+		</c:if>
+		      
+		<!-- 건강정보 아이콘 -->
+		<a href="${cpath }/healthInfo/healthInfo">
+			<div class="healthInfoIcon"></div>
+		</a>
+		
+		<!-- 로그인 아이콘, 로그인했을 시 정보띄우기 -->
+		<c:if test="${empty login }">
+			<div class="loginIcon"></div>
+		</c:if>
+		<c:if test="${not empty login }">
+			<div class="loginInfoArea">
+				<span id="gotoInfo">
+					<a href="${cpath}/member/info/${login.id}">${login.name } 님</a>
+				</span>
+				<a href="${cpath }/member/logout"><button id="logoutBtn">로그아웃</button></a>
+			</div>
+		</c:if>
+	</div>
 </header>
 
 <!--예약 모달 -->
@@ -784,6 +840,22 @@
 </div>
 </c:if>
 
+<!-- 새창에서 챗봇 페이지로 이동 -->
+<script>
+	async function openChatRoom() {
+		const url = cpath + '/chats/room'
+		const roomUrl = await fetch(url).then(resp => resp.text())
+		console.log('roomUrl 받아온 후: ', roomUrl)
+		
+		if(roomUrl) {
+			window.open(cpath + '/chat/room/' + roomUrl, '_blank', 'width=600, height=900')
+		}
+		else {
+			alert('챗봇으로 연결할 수 없습니다')
+		}
+	}
+</script>
+
 <!-- 예약하기 입력 폼 -->
 <form id="bookingInsertForm" class="hidden">
     <p><input type="hidden" name="member_id" value="${login.id }"></p>
@@ -812,16 +884,10 @@
     const cpath = '${cpath}'
     const loginIcon = document.querySelector('div.loginIcon')
     console.log(loginIcon)
-    const loginIcon2 = document.querySelector('div.loginIcon2')
+    
     if (loginIcon) {
         loginIcon.addEventListener('click', function() {
             location.href = cpath + '/member/login'
-        })
-    }
-
-    if (loginIcon2) {
-        loginIcon2.addEventListener('click', function() {
-            location.href =  '${cpath}/member/info/${login.id}'
         })
     }
 </script>
@@ -870,7 +936,8 @@
 
 
 
-    // 아직 안읽은 알림 갯수 가져와서 띄우는 함수
+ 	// 아직 안읽은 알림 갯수 가져와서 띄우는 함수
+
     async function notificationCount(){
         const url = '${cpath}/notificationCount'
         const opt = {
@@ -886,8 +953,11 @@
             }
             return result
         } else {
-            notificationCountSpan.innerText = '' // 0 이하일 경우 비움
-            notificationCountSpan.classList.add('hidden')
+			if('${login}' != ''){
+              
+               notificationCountSpan.innerText = '' // 0 이하일 경우 비움
+               notificationCountSpan.classList.add('hidden')
+           }
             return ''
         }
     }
@@ -1069,7 +1139,9 @@
 
     closeBookingBtn.addEventListener('click', closeBookingModal)
     bookingOverlay.onclick = closeBookingModal
-    notification.addEventListener('click', readNotification)
+    if('${login}' != ''){
+	    notification.addEventListener('click', readNotification)	
+    }
     document.addEventListener('DOMContentLoaded', notificationCount)
 </script>
 
@@ -1288,24 +1360,8 @@
         if(result > 0) openMyFavorites({ target: { dataset: { page: 1 } } })
     }
 
-
-    myFavorites.addEventListener('click', (event) => {
-        if('${login}' != '') openMyFavorites(event)
-        else {
-            Swal.fire({
-                title: '',
-                text: '로그인 해주세요.',
-                icon: 'info',
-                confirmButtonText: '확인',
-                cancelButtonText: '취소',
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                showCancelButton: true,
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-                showCloseButton: false
-            }).then((result) => {if(result.isConfirmed) location.href = '${cpath}/member/login'})
-        }
-    })
+    if('${login}' != '') {
+    	myFavorites.addEventListener('click', (event) => openMyFavorites(event))
+    }
 </script>
 

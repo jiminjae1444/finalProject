@@ -110,6 +110,94 @@
         margin-right: 5px;
     }
 </style>
+
+<style>
+    .input-group {
+        background-color: white; /* 배경색 */
+        display: flex; /* 플렉스 박스 사용 */
+        align-items: center; /* 수직 중앙 정렬 */
+        padding: 10px; /* 패딩 */
+        border: 2px solid #ddd; /* 테두리 색상 */
+        border-radius: 40px; /* 둥근 모서리 */
+        margin-top: -40px; /* 상단 여백 */
+        margin-left: 137px;
+        width: 81%;
+    }
+
+    .search-buttons {
+        margin-right: 10px; /* 버튼과 입력 필드 간의 간격 */
+    }
+
+    .search-form {
+        display: flex; /* 플렉스 박스 사용 */
+        align-items: center; /* 수직 중앙 정렬 */
+        flex-grow: 1; /* 남은 공간 차지 */
+        margin: 0;
+    }
+
+    #searchInput {
+        flex-grow: 1; /* 입력 필드가 가능한 공간을 모두 차지하도록 설정 */
+        padding: 10px; /* 패딩 */
+        border: 1px solid #ddd; /* 테두리 색상 */
+        border-radius: 20px; /* 둥근 모서리 */
+    }
+    .select-wrap {
+        width: 120px; /* 셀렉트 박스의 너비 설정 */
+        height: 40px; /* 셀렉트 박스의 높이 설정 */
+        border: 1px solid #ccc; /* 테두리 색상 */
+        border-radius: 40px 40px 40px 40px;
+        background: url('${cpath}/resources/image/try-me.gif') no-repeat 97% 50% / 25px auto; /* 화살표 이미지 지정 */
+    }
+
+
+    /* select 스타일 */
+    #searchTypeSelect {
+        width: 100%; /* 전체 너비 사용 */
+        height: 100%; /* 전체 높이 사용 */
+        padding: 0 28px 0 10px; /* 패딩 설정 (오른쪽, 왼쪽) */
+        font-size: 15px; /* 폰트 크기 설정 */
+        border: 0; /* 기본 스타일 제거 */
+
+        -webkit-appearance: none; /* Chrome에서 기본 화살표 제거 */
+        -moz-appearance: none; /* Firefox에서 기본 화살표 제거 */
+        appearance: none; /* 모든 브라우저에서 기본 화살표 제거 */
+
+        box-sizing: border-box; /* 셀렉트 박스의 크기 방식 지정 */
+        background: transparent; /* 배경색 투명 처리 */
+    }
+
+    select::-ms-expand {
+        display: none; /* IE10,11에서 기본 화살표 숨기기 */
+    }
+
+    button.search {
+        padding: 10px 15px;
+        border: none;
+        border-radius: 20px;
+        background-color: #2c3e50;
+        color: white;
+        cursor: pointer;
+        margin: 5px;
+    }
+
+    button:hover {
+        background-color: #34495e; /* 호버 시 어두운 파란색 */
+    }
+</style>
+<div class="input-group">
+    <div class="search-buttons">
+        <div class="select-wrap">
+            <select id="searchTypeSelect">
+                <option value="search">증상 검색</option>
+            </select>
+        </div>
+    </div>
+    <form id="searchForm" class="search-form" method="post">
+        <input type="text" id="searchInput" name="search" placeholder="증상 또는 병명을 입력해주세요" required>
+        <button type="button" id="soundSearch" class="search">음성</button>
+        <button type="submit" class="search">검색</button>
+    </form>
+</div>
 <div id="map"></div>
 <%@ include file="footer.jsp" %>
 <script>
@@ -122,6 +210,11 @@
      * 사용자 위치 정보를 기반으로 지도 및 병원 정보를 초기화하는 함수
      */
     async function loadHandler() {
+
+        const lastSearch = localStorage.getItem('lastSearch') // 저장된 검색어 가져오기
+        if (lastSearch) {
+            searchInput.value = lastSearch // 검색어를 입력 필드에 복원
+        }
         // 로그인 사용자 위치 정보가 있는지 확인
         const userLocation = await getUserLocation() // 사용자 정보에서 위치 가져오기
 
@@ -439,6 +532,123 @@
     
     window.addEventListener('DOMContentLoaded', loadHandler)
 
+</script>
+
+<script>
+    const searchTypeSwitch = document.getElementById('searchTypeSwitch');
+    const searchForm = document.getElementById('searchForm')
+    const searchInput = document.getElementById('searchInput')
+    const searchTypeSelect = document.getElementById('searchTypeSelect'); // 셀렉트 요소
+
+
+
+    let recognition   //음성인식에 사용
+    let isRecognitionActive = false // 음성 인식 상태 플래그
+    const soundSearch = document.getElementById('soundSearch')
+    // 음성 인식 초기화
+    if (window.SpeechRecognition || window.webkitSpeechRecognition) {
+        recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)()
+        recognition.lang = 'ko-KR' // 한국어로 설정
+    }
+
+    // 음성 인식 시작 이벤트
+    recognition.onstart = function () {
+        isRecognitionActive = true // 음성 인식이 시작되었음을 표시
+        Swal.fire({
+            title: '알림',
+            text: '음성 인식이 시작되었습니다.',
+            icon: 'success',
+            confirmButtonColor:'#3085d6',
+            confirmButtonText: '확인'
+        })
+    }
+
+    // 음성 인식 종료 이벤트
+    recognition.onend = function () {
+        isRecognitionActive = false // 음성 인식이 종료되었음을 표시
+        Swal.fire({
+            title: '알림',
+            text: '음성 인식이 종료되었습니다.',
+            confirmButtonColor:'#3085d6',
+            icon: 'info',
+            confirmButtonText: '확인'
+        })
+    }
+
+    // 음성 인식 시작 함수
+    function startRecognition() {
+        if (!isRecognitionActive) { // 음성 인식이 실행 중이 아닐 때만 시작
+            recognition.start()
+        } else {
+            Swal.fire({
+                title: '알림',
+                text: '음성 인식이 이미 실행 중입니다.',
+                confirmButtonColor:'#3085d6',
+                icon: 'info',
+                confirmButtonText: '확인'
+            })
+        }
+    }
+    // 음성 인식 결과 처리
+    recognition.onresult = function (event) {
+        let speechToText = event.results[0][0].transcript
+        speechToText = speechToText.trim().replace('.', '') // 마침표 제거
+        searchInput.value = speechToText // 텍스트 입력 필드에 반영
+        console.log('음성 검색 결과: ', speechToText)
+    }
+
+    soundSearch.onclick = startRecognition
+
+    // 초기 플레이스 홀더 설정
+    searchInput.placeholder = '증상 또는 병명을 입력해주세요'  // 기본값
+
+    // 스위치 상태에 따라 플레이스 홀더 및 name 속성 변경
+    searchTypeSelect.addEventListener('change', function() {
+        if (this.value === 'hospital') {
+            // 병원명 검색 선택 시
+            searchInput.placeholder = '병원명을 입력해주세요'
+            searchInput.name = 'hospital'  // 병원명 검색
+        } else {
+            // 증상 검색 선택 시
+            searchInput.placeholder = '증상 또는 병명을 입력해주세요'
+            searchInput.name = 'search'  // 증상 검색
+        }
+    })
+
+
+    // 검색 핸들러
+    async function searchHandler(event) {
+        event.preventDefault()
+        const formData = new FormData(event.target)
+        const query = searchInput.value // 입력된 검색어를 저장
+        localStorage.setItem('lastSearch', query) // 검색어를 localStorage에 저장
+        const url = searchTypeSelect.value === 'hospital' ? '${cpath}/hospitals/searchs/names' : '${cpath}/hospitals/searchs';
+        const opt = {
+            method: 'POST',
+            body: formData
+        }
+        const result = await fetch(url, opt).then(response => response.json());
+        console.log(result);
+
+        if (result.noSearch) {
+            swal({
+                title: '알림',
+                text: '검색결과가 없습니다. 검색어를 조건에 맞게 검색하세요',
+                type: 'info',
+                button: '확인'
+            })
+        } else {
+            if (searchTypeSelect.value === 'hospital') {
+                // 병원명 검색인 경우 모달 열기
+                openMapModal(result.hospitals)
+            } else {
+                // 다른 페이지로 이동 (증상 검색의 경우)
+                window.location.reload()
+            }
+        }
+    }
+    // 폼 제출 시 searchHandler 실행
+    searchForm.addEventListener('submit', searchHandler);
 </script>
 </body>
 </html>
