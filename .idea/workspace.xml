@@ -11,62 +11,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4350750a-29a0-43ea-8a70-32cef6523690" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/itbank/finalProject/NaverMapCrawler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itbank/finalProject/NaverMapCrawler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/itbank/finalProject/service/HospitalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itbank/finalProject/service/HospitalService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/result.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/result.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/HomeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/HomeController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/NaverMapCrawler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/NaverMapCrawler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/controller/ChatController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/controller/ChatController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/controller/MemberAjaxController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/controller/MemberAjaxController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/controller/MemberController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/controller/MemberController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/controller/ReviewAjaxController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/controller/ReviewAjaxController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/controller/ReviewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/controller/ReviewController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/model/MemberDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/model/MemberDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/model/ReviewDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/model/ReviewDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/model/SubLocationDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/model/SubLocationDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/repository/HospitalDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/repository/HospitalDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/repository/MemberDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/repository/MemberDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/repository/ReviewDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/repository/ReviewDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/service/HospitalService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/service/HospitalService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/service/NaverLoginService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/service/NaverLoginService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/service/ReviewService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itbank/finalProject/service/ReviewService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/HomeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/HomeController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/NaverMapCrawler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/NaverMapCrawler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/component/ChatComponent.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/controller/ChatController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/controller/ChatController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/controller/HospitalController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/controller/HospitalController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/controller/MemberAjaxController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/controller/MemberAjaxController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/controller/MemberController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/controller/MemberController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/controller/ReviewAjaxController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/controller/ReviewAjaxController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/controller/ReviewController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/controller/ReviewController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/model/MemberDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/model/MemberDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/model/RoomDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/model/SubLocationDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/model/SubLocationDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/repository/HospitalDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/repository/HospitalDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/repository/MemberDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/repository/MemberDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/repository/ReviewDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/repository/ReviewDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/service/HospitalService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/service/HospitalService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/service/NaverLoginService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/service/NaverLoginService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/service/ReviewService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/classes/com/itbank/finalProject/service/ReviewService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/chat/room.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/chat/room.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/header.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/header.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/home.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/home.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/hospital/hospitalInfo.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/hospital/hospitalInfo.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/hospital/view.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/hospital/view.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/member/addLocation.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/member/addLocation.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/member/bookingList.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/member/bookingList.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/member/imgUpdate.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/member/info.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/member/info.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/member/join.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/member/join.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/member/locationUpdate.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/member/locationUpdate.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/member/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/member/login.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/member/pwUpdate.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/member/pwUpdate.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/member/reCheckEmail.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/member/reCheckEmail.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/member/reCheckUserid.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/member/reCheckUserid.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/member/resetPassword.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/member/resetPassword.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/result.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/result.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/review/view.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/finalProject-1.0.0-BUILD-SNAPSHOT/WEB-INF/views/review/view.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,6 +27,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "jiminjae1444"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/jiminjae1444/finalProject.git",
+    "accountId": "7819fdd4-7c51-45b8-9060-e6ec07ba6dab"
+  }
+}]]></component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
@@ -110,7 +66,7 @@
     "Repository.Attach.Sources": "false",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Tomcat 서버.Tomcat 9.0.91.executor": "Run",
-    "git-widget-placeholder": "9-깃-테슽",
+    "git-widget-placeholder": "develop",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
@@ -242,6 +198,7 @@
       <workItem from="1732075410748" duration="6001000" />
       <workItem from="1732113363596" duration="288000" />
       <workItem from="1732147509740" duration="879000" />
+      <workItem from="1732335458571" duration="650000" />
     </task>
     <servers />
   </component>
