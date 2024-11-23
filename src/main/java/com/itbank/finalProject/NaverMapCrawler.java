@@ -65,7 +65,7 @@ public class NaverMapCrawler {
             driver.quit();  // 드라이버 종료
         }
 
-        log.info("이미지 URL: " + imageUrl);
+//        log.info("이미지 URL: " + imageUrl);
         return imageUrl;
     }
 }

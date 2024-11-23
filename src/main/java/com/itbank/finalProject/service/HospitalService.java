@@ -97,38 +97,38 @@ public class HospitalService {
         return response.getBody();
     }
 
-    @Transactional
-    public List<HospitalDTO> getSearchResult(String search) {
-        if (search != null && !search.isEmpty()) {
-            List<String> searchList = Arrays.stream(search.split(","))
-                    .map(String::trim)
-                    .flatMap(kw-> Stream.of(kw,kw.replace(" ", "")))
-                    .distinct()
-                    .collect(Collectors.toList());
+        @Transactional
+        public List<HospitalDTO> getSearchResult(String search) {
+            if (search != null && !search.isEmpty()) {
+                List<String> searchList = Arrays.stream(search.split(","))
+                        .map(String::trim)
+                        .flatMap(kw-> Stream.of(kw,kw.replace(" ", "")))
+                        .distinct()
+                        .collect(Collectors.toList());
 
-            //분리한 검색어를 db에 저장
-            for (String kw : searchList) {
-                hospitalDAO.insertKeyword(kw);
-            }
+                //분리한 검색어를 db에 저장
+                for (String kw : searchList) {
+                    hospitalDAO.insertKeyword(kw);
+                }
 
-            List<HospitalDTO> bodyList = hospitalDAO.ContainsBodyList(searchList);
-            if (!bodyList.isEmpty()) {
-                // 증상에 대한 결과 가져오기
-                List<HospitalDTO> symptomsList = hospitalDAO.getHospitalsByKeywords(searchList);
+                List<HospitalDTO> bodyList = hospitalDAO.ContainsBodyList(searchList);
+                if (!bodyList.isEmpty()) {
+                    // 증상에 대한 결과 가져오기
+                    List<HospitalDTO> symptomsList = hospitalDAO.getHospitalsByKeywords(searchList);
 
-                // 두 리스트를 합치고 중복을 제거한 후 반환
-                symptomsList.addAll(bodyList);
-                Set<HospitalDTO> resultSet = new HashSet<>(symptomsList);  // 중복 제거
-                List<HospitalDTO> finalList = new ArrayList<>(resultSet);   // 중복 제거 후 리스트로 변환
-                return finalList.isEmpty() ? null : finalList;
+                    // 두 리스트를 합치고 중복을 제거한 후 반환
+                    symptomsList.addAll(bodyList);
+                    Set<HospitalDTO> resultSet = new HashSet<>(symptomsList);  // 중복 제거
+                    List<HospitalDTO> finalList = new ArrayList<>(resultSet);   // 중복 제거 후 리스트로 변환
+                    return finalList.isEmpty() ? null : finalList;
 
+                } else {
+                    return hospitalDAO.getHospitalsByKeywords(searchList);
+                }
             } else {
-                return hospitalDAO.getHospitalsByKeywords(searchList);
+                return null;
             }
-        } else {
-            return null;
         }
-    }
 
     @Transactional
     public List<HospitalDTO> getSearchResultHospital(String hospital) {
