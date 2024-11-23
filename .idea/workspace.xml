@@ -9,20 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4350750a-29a0-43ea-8a70-32cef6523690" name="변경" comment="">
+    <list default="true" id="4350750a-29a0-43ea-8a70-32cef6523690" name="변경" comment="update notification">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/itbank/finalProject/component/FileComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itbank/finalProject/component/FileComponent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/itbank/finalProject/controller/BookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itbank/finalProject/controller/BookingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/itbank/finalProject/repository/BookingDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itbank/finalProject/repository/BookingDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/itbank/finalProject/service/NaverCaptchaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itbank/finalProject/service/NaverCaptchaService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis/booking-mapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis/booking-mapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/header.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/header.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/hospital/hospitalInfo.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/hospital/hospitalInfo.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/hospital/view.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/hospital/view.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/result.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/result.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/css/header.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/header.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mybatis/booking-mapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mybatis/booking-mapper.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -212,11 +205,24 @@
       <workItem from="1732113363596" duration="288000" />
       <workItem from="1732147509740" duration="879000" />
       <workItem from="1732335458571" duration="650000" />
-      <workItem from="1732366150217" duration="1983000" />
+      <workItem from="1732366150217" duration="3110000" />
     </task>
+    <task id="LOCAL-00001" summary="update notification">
+      <option name="closed" value="true" />
+      <created>1732368234214</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1732368234214</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="update notification" />
+    <option name="LAST_COMMIT_MESSAGE" value="update notification" />
   </component>
 </project>

@@ -194,7 +194,7 @@ public class BookingController {
 	public int notificationCount(HttpSession session) {
 		MemberDTO login = (MemberDTO) session.getAttribute("login");
 		if(login == null) return 0;
-		int member_id = login.getId();
+		Integer member_id = login.getId();
 		return bookingDAO.selectNotificationCount(member_id);
 	}
 	
@@ -204,7 +204,7 @@ public class BookingController {
 	public int sendNotificationMail(HttpSession session) {
 		MemberDTO login = (MemberDTO) session.getAttribute("login");
 		if(login == null) return 0;
-		int member_id = login.getId();
+		Integer member_id = login.getId();
 		NotificationDTO dto = bookingDAO.selectNotificationList(0,member_id).get(0);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		String content = dto.getName() + "님의 " + dto.getHospital_name() + " " + sdf.format(dto.getBooking_date()) + " " + dto.getMessage();

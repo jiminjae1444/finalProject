@@ -596,9 +596,11 @@
     // 음성 인식 결과 처리
     recognition.onresult = function (event) {
         let speechToText = event.results[0][0].transcript
-        speechToText = speechToText.trim().replace('.', '') // 마침표 제거
-        searchInput.value = speechToText // 텍스트 입력 필드에 반영
-//         console.log('음성 검색 결과: ', speechToText)
+        // 마침표 제거 및 텍스트 트리밍
+        speechToText = speechToText.trim().replace('.', '')
+        // 단어를 공백 기준으로 분리하고 컴마로 연결
+        const formattedText = speechToText.split(' ').join(', ')
+        searchInput.value = formattedText // 텍스트 입력 필드에 반영
     }
 
     soundSearch.onclick = startRecognition
@@ -608,11 +610,7 @@
 
     // 스위치 상태에 따라 플레이스 홀더 및 name 속성 변경
     searchTypeSelect.addEventListener('change', function() {
-        if (this.value === 'hospital') {
-            // 병원명 검색 선택 시
-            searchInput.placeholder = '병원명을 입력해주세요'
-            searchInput.name = 'hospital'  // 병원명 검색
-        } else {
+        if (this.value !== 'hospital') {
             // 증상 검색 선택 시
             searchInput.placeholder = '증상 또는 병명을 입력해주세요'
             searchInput.name = 'search'  // 증상 검색
@@ -632,7 +630,6 @@
             body: formData
         }
         const result = await fetch(url, opt).then(response => response.json());
-//         console.log(result);
 
         if (result.noSearch) {
             swal({
