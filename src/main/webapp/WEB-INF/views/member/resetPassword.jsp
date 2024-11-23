@@ -187,13 +187,13 @@
       }      
       
       const url = '${cpath}/members/resetPassword'
-      console.log(url)
+//       console.log(url)
       const opt = {
             method: 'POST',
             body: new FormData(event.target)
       }
       const result = await fetch(url, opt).then(resp => resp.json())
-      console.log(result)
+//       console.log(result)
       if(result.success) {
          swal({
             title: '비밀번호 재설정',

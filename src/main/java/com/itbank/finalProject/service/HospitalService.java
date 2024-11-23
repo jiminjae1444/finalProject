@@ -27,7 +27,6 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.net.MediaType;
 import com.itbank.finalProject.Coordinates;
 import com.itbank.finalProject.NaverMapCrawler;
 import com.itbank.finalProject.model.HospitalDTO;
@@ -205,7 +204,7 @@ public class HospitalService {
     public String getHospitalImage(int hospitalId, HttpSession session, HttpServletRequest request) throws UnsupportedEncodingException {
         // 세션에서 이미 캐시된 이미지 URL을 가져오기
         String cachedImageUrl = (String) session.getAttribute("hospitalImage_" + hospitalId);
-        System.out.println(hospitalId);
+//        System.out.println(hospitalId);
         // 캐시된 이미지 URL이 있으면 반환
         if (cachedImageUrl != null) {
             return cachedImageUrl;  // 세션에서 캐시된 이미지 URL 반환
@@ -258,7 +257,7 @@ public class HospitalService {
         // 쿼리 문자열을 수동으로 생성
         String queryString = "serviceKey=" + serviceKey + "&numOfRows=" + numOfRows;
 
-        log.info(url + queryString);  // URL 확인용 로그 출력
+//        log.info(url + queryString);  // URL 확인용 로그 출력
 
         // 최종 URL 생성
         URI uri = URI.create(url + queryString);
@@ -275,7 +274,14 @@ public class HospitalService {
     }
 
     public List<ReviewDTO> getReviewToHomepage() {
-		return hospitalDAO.getReviewToHomepage();
+    	List<ReviewDTO> homeReviewList = hospitalDAO.getReviewToHomepage();
+    	for(ReviewDTO homeReview : homeReviewList) {
+    		String userid = homeReview.getUserid();
+			if(userid == null) return null;
+			userid = userid.substring(0, 3) + "***";
+			homeReview.setUserid(userid);
+    	}
+		return homeReviewList;
 	}
     
 }

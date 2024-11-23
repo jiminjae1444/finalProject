@@ -20,7 +20,7 @@
 		fetch(url, opt)
 			.then(resp => resp.json())
 			.then(json => {
-				console.log(json)
+// 				console.log(json)
 				const str = JSON.stringify(json)
 				opener.document.querySelector('input[name="result"]').value = str
 				window.close()	// fetch가 끝나면 마지막에 창을 닫는다(비동기 함수를 사용시는 await로 작업하는게 좋다)

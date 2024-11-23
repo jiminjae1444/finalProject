@@ -24,6 +24,7 @@ public class ReviewDTO {
 	private String comments;
 	private Date created_at;
 	
+	private String hospital_name;
 	private String userid;
 	private String profile_img;
 	

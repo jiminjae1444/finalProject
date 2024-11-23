@@ -39,7 +39,6 @@ public class MemberDTO {
 	private String gender;
 	private String location;
 	private String naver_id;
-	private String kakao_id;
 	private String birth;
 	private int profile_id;
 	

@@ -147,7 +147,7 @@ label {
          <div class="joincontent">
          <div class="joinMainline">
             <p>
-               <input type="text" name="userid" id="idCheckText" placeholder="ID" autocomplete="off" required autofocus>
+               <input title="최소 4글자 이상 입력해주세요" type="text" name="userid" id="idCheckText" placeholder="ID" autocomplete="off" min="4" required autofocus>
                <input type="button" id="idCheckBtn" value="ID 중복 확인">
             </p>
          </div>
@@ -243,7 +243,7 @@ label {
        if(result.result) {  
            // 캡차 검증 성공 시, 원래 진행하려던 회원가입 폼을 제출합니다.
 //            event.target.submit()
-         console.log(result.result)
+//          console.log(result.result)
        }
        else {  
            // 캡차 검증 실패 시, 메시지를 출력하고 캡차 이미지를 새로 로드합니다.
@@ -261,26 +261,32 @@ label {
    }
    
    // 아이디 중복 확인 스크립트 함수
-   async function idCheckBtnHandler() {
-      const userid = document.querySelector('input[name="userid"]')
-      if(userid.value == '') {
-         return
-      }
-      const url = '${cpath}/members/idCheck?userid=' + userid.value
-      const result = await fetch(url).then(resp => resp.json())
-      
-      swal(result.title, result.content, result.type)
-      
-      const userpw = document.querySelector('input[name="userpw"]')
-      if(result.success) userpw.focus()   // 패스워드를 입력할 수 있도록 커서를 옮겨준다
-      else            userid.select()   // 아이디를 다시 입력하도록 커서를 옮기면서 입력
-      
+   async function idCheckHandler() {
+       const userid = document.querySelector('input[name="userid"]')
+       
+       // ID 길이 확인
+       if (userid.value.length < 4) {
+           swal('ID 길이 부족', '아이디는 최소 4글자 이상이어야 합니다.', 'warning')
+           userid.select() // 아이디 입력 필드로 포커스 이동
+           return
+       }
+       
+       // ID 중복 확인
+       const url = '${cpath}/members/idCheck?userid=' + userid.value
+       const result = await fetch(url).then(resp => resp.json())
+       
+       swal(result.title, result.content, result.type)
+       
+       const userpw = document.querySelector('input[name="userpw"]')
+       if (result.success) userpw.focus() 
+       else                userid.select() 
    }
+
    
    // 함수 선언 부
    window.addEventListener('DOMContentLoaded', loadHandler)
    document.forms[0].onsubmit = submitHandler
-   document.getElementById('idCheckBtn').onclick = idCheckBtnHandler
+   document.getElementById('idCheckBtn').onclick = idCheckHandler
    document.getElementById('joinWithNaver').onclick = joinWithNaverHandler
    document.querySelector('input[name="location"]').onclick = execDaumPostcode
 </script>

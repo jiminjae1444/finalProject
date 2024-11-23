@@ -277,7 +277,7 @@
 	let role = ''
 	if(login) {
 		role = '${login.role}'
-		console.log('role : ', role)
+// 		console.log('role : ', role)
 	}
 
 	
@@ -290,8 +290,8 @@
 	// 상담원/사용자 여부에 따라 다른 환경 제공
 	if(login && role == 1) {
 		roomUrl = clickRoomUrl
-		console.log('상담원임')
-		console.log('clickRoomUrl : ', clickRoomUrl)
+// 		console.log('상담원임')
+// 		console.log('clickRoomUrl : ', clickRoomUrl)
 		joinCounselor(clickRoomUrl)		// stomp 연결
 	}
 
@@ -302,7 +302,7 @@
 	function joinCounselor(clickRoomUrl) {
 		stomp.connect({}, function() {
 			changeChatMode('counsel')
-			console.log("상담원 스톰프 연결 완료")
+// 			console.log("상담원 스톰프 연결 완료")
 			connectCounselor(clickRoomUrl) // 상담원이 연결된 방에 입장 시 연결
 		})
 	}
@@ -316,9 +316,9 @@
 	// 상대방으로부터 메시지 수신
 	async function onReceive(data) {	// data: MESSAGE 객체
 		const message = JSON.parse(data.body)	// message: JSON 객체
-		console.log(message)
+// 		console.log(message)
 		if(message.messageFilterId == myFilterId) {
-			console.log('본인이 보낸 메시지는 필터링: ', message)
+// 			console.log('본인이 보낸 메시지는 필터링: ', message)
 			return
 		}
 		addChatListHandler('other', message.content, Date.now(), true)
@@ -374,7 +374,7 @@
 		if(stompConnected) {
 			return
 		}
-		console.log('roomUrl : ', roomUrl)
+// 		console.log('roomUrl : ', roomUrl)
 		const url = cpath + '/chats/counsel/' + roomUrl
 		const chatRoom = await fetch(url).then(resp => resp.json())
 		
@@ -448,13 +448,13 @@
  				if(chatMode == 'counsel' && login) {	// 상담모드
  					const url = cpath + '/chats/removeCounselHistory/' + roomUrl
  					result = await fetch(url, {method: 'DELETE'})
- 					console.log(url, chatMode)
- 					console.log('chatMode : ', chatMode)
+//  					console.log(url, chatMode)
+//  					console.log('chatMode : ', chatMode)
  				}
  				else {	// FAQ모드
 					const url = cpath + '/chats/removeFaqHistory'
 					result = await fetch(url, {method: 'POST'})
-					console.log(url, chatMode)
+// 					console.log(url, chatMode)
  				}
  			}
 			if(result && result.ok) {
@@ -512,11 +512,11 @@
 			body: formData
 		}
 		const result = await fetch(url, opt).then(resp => resp.json())
-		console.log(result)
+// 		console.log(result)
 		const autoResponse = result.autoResponse
 
 		const chatTime = result.chat_time
-		console.log(chatTime)
+// 		console.log(chatTime)
 		
 		addChatListHandler('auto', autoResponse, chatTime, true)
 		
@@ -565,7 +565,7 @@
 	
 	// stomp 구독 경로로 메시지 전송
 	function sendMessageToOther(roomUrl, userMessage) {
-		console.log('send')
+// 		console.log('send')
 		stomp.send('/app/chat/sendMeassge/' + roomUrl, {}, JSON.stringify({
 			sender_id: loginId,
 			room_url: roomUrl,
@@ -592,10 +592,10 @@
 			const url = cpath + '/chats/faqHistory/' + roomUrl
 			chatHistoryList = await fetch(url).then(resp => resp.json())
 		}
-		console.log('chatHistoryList : ', chatHistoryList)
+// 		console.log('chatHistoryList : ', chatHistoryList)
 		if(chatHistoryList && chatHistoryList.length > 0) {
 			chatHistoryList.forEach(chatHistory => {
-				console.log('chatHistory : ', chatHistory)
+// 				console.log('chatHistory : ', chatHistory)
 				if(!chatHistory.autoResponse) {
 					if(login && loginId == chatHistory.sender_id) {	// db에 저장된 자기 메시지면 오른쪽
 						addChatListHandler('my', chatHistory.content, chatHistory.chat_time)

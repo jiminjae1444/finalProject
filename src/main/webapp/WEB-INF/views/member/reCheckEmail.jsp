@@ -149,7 +149,7 @@
                }
            })
            .catch(error => {
-               console.error('Error:', error)
+//                console.error('Error:', error)
                swal("오류", "처리 중 오류가 발생했습니다.", "error")
            })
        }

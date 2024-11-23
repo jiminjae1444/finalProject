@@ -43,7 +43,7 @@ public class NaverLoginService {
 			SubLocationDTO subDTO = new SubLocationDTO();
 			subDTO.setMember_id(id);
 			subDTO.setMemberLocation(dto.getLocation());
-			subDTO.setAlias("현재 위치");
+			subDTO.setAlias("가입시 등록 위치");
 			row += memberDAO.insertsubLocation(subDTO);
 		}		
 		return row;

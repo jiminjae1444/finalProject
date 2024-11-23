@@ -427,6 +427,7 @@
 	const loginId = '${login.id}'
 	let pageNo = 1
 	const review_wrapper = document.getElementById('review_wrapper')
+	const review_none = document.querySelector('.review_none')
 	
 	
 	// 리뷰폼 별점 색상 변경 함수
@@ -577,13 +578,13 @@
 	const addReview = document.getElementById('addReview')
 	addReview.onsubmit = reviewSubmitHandler
 	
+			
 	
 	// 초기화면에서 최신 리뷰 10개 불러오기
 	async function loadReviewListHandler() {
 		const listUrl = cpath + '/reviews/' + id + '?pageNo=' + pageNo
 		const list = await fetch(listUrl).then(resp => resp.json())
 		if(list.length >= 1) {
-			const review_none = document.querySelector('.review_none')
 			review_none.classList.add('hidden')
 			if(list.length < 10) {
 				document.getElementById('moreReview').classList.add('hidden')

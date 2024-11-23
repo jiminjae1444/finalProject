@@ -48,14 +48,14 @@
 	function trSelectHandler(event) {
 		const tr = event.currentTarget
 		const id = tr.querySelector('td').innerText
-		console.log(id)
+// 		console.log(id)
 		location.href = cpath + '/hospital/' + id
 	}
 
 	async function listHandler() {
 		const url = cpath + '/hospitals'
 		const hospitalList = await fetch(url).then(resp => resp.json())
-		console.log(hospitalList)
+// 		console.log(hospitalList)
 		
 		const tbody = document.querySelector('tbody')
 		hospitalList.forEach(hospital => {

@@ -44,7 +44,6 @@ public class ReviewAjaxController {
 		Double reviewAvg = reviewService.selectReviewAvg(id);
 		map.put("count", totalReviewCount);
 		map.put("avg", reviewAvg);
-//		log.info(map);
 		return map;
 	}
 	
@@ -54,8 +53,6 @@ public class ReviewAjaxController {
 		HashMap<String, Object> map = new HashMap<>();
 		int visitCount = reviewService.selectVisitCount(memberId, id);		// 2주 내 해당 병원 방문 횟수
 		int reviewCount = reviewService.selectWriteReviewCount(memberId, id);	// 2주 내 해당 병원에 작성한 리뷰 개수
-		log.info("visitCount : " + visitCount);
-		log.info("reviewCount : " + reviewCount);
 		
 		map.put("visitCount", visitCount);
 		map.put("reviewCount", reviewCount);

@@ -38,7 +38,7 @@
 		insert into notification (member_id, booking_id, message) values (#{member_id}, #{id}, '예약시간 하루 전입니다.')
 	</insert>
 	
-	<select id="selectNotificationList" resultType="notification">
+	<select id="selectNotificationList" resultType="notification" >
 		select 
 			n.*,
 			h.hospital_name as hospital_name,

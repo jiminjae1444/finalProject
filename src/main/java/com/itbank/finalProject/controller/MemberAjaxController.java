@@ -42,7 +42,6 @@ public class MemberAjaxController {
 		MemberDTO login = naverLoginService.selectNaverLogin(naver_id);
 		form = String.format(form, login != null);
 		session.setAttribute("login", login);
-		System.out.println(login);
 		return form;
 	}
 	
@@ -51,15 +50,12 @@ public class MemberAjaxController {
 	public HashMap<String, Object> captcha(HttpSession session) throws URISyntaxException, IOException {
 	    // 키 발급받기 (세션에 저장)
 	    String response = naverCaptchaService.getCaptchakey();
-	    System.out.println(response);
 	    
 	    JsonNode tree = objectMapper.readTree(response);
-	    System.out.println(tree.toPrettyString());
 	    
 	    String captchakey = tree.get("key").asText();
 	    
 	    // 세션에 저장 시, "captchaKey"라는 일관된 이름을 사용해야 합니다.
-	    System.out.printf("captchaKey : " + captchakey);
 	    session.setAttribute("captchaKey", captchakey);
 
 	    // 키를 사용하여 이미지 파일 생성
@@ -76,12 +72,8 @@ public class MemberAjaxController {
 	public String captcha(String user, HttpSession session) throws URISyntaxException {
 	    // 세션에서 키를 가져올 때도 동일하게 "captchaKey"를 사용해야 합니다.
 	    String captchakey = (String) session.getAttribute("captchaKey");
-	    System.out.printf("captchaKey : " + captchakey);
-	    System.out.println();
-	    System.out.println(user);
 	    // 네이버 API로 캡차 인증 요청을 보내고, 결과를 JSON으로 반환
 	    String json = naverCaptchaService.verifyCapcha(captchakey, user);
-	    System.out.printf("json :", json);
 	    return json;
 	}
 	
@@ -168,7 +160,6 @@ public class MemberAjaxController {
 		@PostMapping(value="/addLocation/{id}" , produces = "application/json; charset=utf-8")
 		public Map<String, String> addLocation(@PathVariable int id, SubLocationDTO dto) {
 			Map<String, String> response = new HashMap<>();
-			System.out.println(dto.getMemberLocation());
 			
 			boolean isDuplicate = naverLoginService.checkDuplicateLocation(dto);
 		    if (isDuplicate) {

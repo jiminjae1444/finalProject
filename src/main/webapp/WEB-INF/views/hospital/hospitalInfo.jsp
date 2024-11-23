@@ -210,7 +210,7 @@
      hospitals.forEach(hospital => {
          hospital.addEventListener('click', function() {
              let num = this.getAttribute('data-id');
-             console.log(num);
+//              console.log(num);
              location.href = '${cpath}/hospitalInfo/' + num;
          });
      });

@@ -134,6 +134,10 @@
         flex-grow: 1; /* 남은 공간 차지 */
         margin: 0;
     }
+    	
+	.search-form #soundSearch {
+		width: 40px;
+	}
 
     #searchInput {
         flex-grow: 1; /* 입력 필드가 가능한 공간을 모두 차지하도록 설정 */
@@ -194,8 +198,8 @@
     </div>
     <form id="searchForm" class="search-form" method="post">
         <input type="text" id="searchInput" name="search" placeholder="증상 또는 병명을 입력해주세요" required>
-        <button type="button" id="soundSearch" class="search">음성</button>
-        <button type="submit" class="search">검색</button>
+         <button type="submit" class="search">검색</button>
+         <img src="${cpath }/resources/image/voice-icon.png" id="soundSearch">
     </form>
 </div>
 <div id="map"></div>
@@ -388,7 +392,7 @@
             addCurrentLocationMarker(lat, lng) // 현재 위치 마커 추가
             addHospitalMarkers(nearHospitals) // 병원 마커 추가
         } else {
-            console.error('데이터를 가져오는 데 실패했습니다.')
+//             console.error('데이터를 가져오는 데 실패했습니다.')
         }
     }
     // 현재 위치 마커 추가
@@ -413,7 +417,7 @@
 
     async function getHospitalImageAndDetails(id, infoWindowContent, position) {
         if (hospitalImageCache[id]) {
-            console.log("이미 이미지 요청이 완료된 병원입니다.")
+//             console.log("이미 이미지 요청이 완료된 병원입니다.")
             return  // 이미지가 이미 요청되었으면 아무 작업도 하지 않고 종료
         }
 
@@ -594,7 +598,7 @@
         let speechToText = event.results[0][0].transcript
         speechToText = speechToText.trim().replace('.', '') // 마침표 제거
         searchInput.value = speechToText // 텍스트 입력 필드에 반영
-        console.log('음성 검색 결과: ', speechToText)
+//         console.log('음성 검색 결과: ', speechToText)
     }
 
     soundSearch.onclick = startRecognition
@@ -628,7 +632,7 @@
             body: formData
         }
         const result = await fetch(url, opt).then(response => response.json());
-        console.log(result);
+//         console.log(result);
 
         if (result.noSearch) {
             swal({

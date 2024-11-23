@@ -25,7 +25,6 @@ public interface BookingDAO {
 
 	int notificationBookingTimeOver(BookingDTO dto);
 
-	List<NotificationDTO> selectNotificationList(int selectStart);
 
 	int notificationBooking(BookingDTO bookingDTO);
 
@@ -48,5 +47,7 @@ public interface BookingDAO {
 	int deleteMyFavorites(int id);
 
 	int deleteMyfavoritesAll();
+
+	List<NotificationDTO> selectNotificationList(@Param("selectStart")int selectStart);
 
 }

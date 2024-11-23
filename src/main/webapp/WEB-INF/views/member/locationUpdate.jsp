@@ -127,7 +127,7 @@
 		const opt = {
 				method : 'POST'
 		}
-		console.log(formData.get('location'))
+// 		console.log(formData.get('location'))
 		const result = await fetch(url, opt).then(resp => resp.json())
 		if(result != 1) {
 			swal({

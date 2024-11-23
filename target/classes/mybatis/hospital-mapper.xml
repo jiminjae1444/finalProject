@@ -158,9 +158,14 @@
 	</select>
     
     <select id="getReviewToHomepage" resultType="review">
-    	select * from review
-		    order by rating desc, DBMS_RANDOM.VALUE()
-    			fetch first 4 rows only
+    	select hospital.id as hospital_id, hospital.hospital_name, member.userid, review.comments, review.rating
+		    from review
+		    join hospital
+		        on review.hospital_id = hospital.id
+		    join member
+		        on review.member_id = member.id
+				    order by rating desc, DBMS_RANDOM.VALUE()
+		    			fetch first 4 rows only
     </select>
     
 </mapper>

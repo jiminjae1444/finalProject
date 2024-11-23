@@ -952,8 +952,8 @@
                     var hospitalLat = ${hospital.lat}; // 서버에서 전달받은 병원 위도
                     var hospitalLng = ${hospital.lng}; // 서버에서 전달받은 병원 경도
 
-                    console.log("사용자 주소 위치:", userLat, userLng); // 주소에서 가져온 사용자 위치
-                    console.log("병원 위치:", hospitalLat, hospitalLng); // 병원 위치 확인
+//                     console.log("사용자 주소 위치:", userLat, userLng); // 주소에서 가져온 사용자 위치
+//                     console.log("병원 위치:", hospitalLat, hospitalLng); // 병원 위치 확인
 
                     getDirections(userLat, userLng, hospitalLat, hospitalLng); // 경로 찾기
                 } else {
@@ -1012,7 +1012,7 @@
             displayRoute(itineraries)
         } catch (error) {
             await closeRouteModal()
-            console.error("경로 API 호출 중 오류:", error)
+//             console.error("경로 API 호출 중 오류:", error)
             swal({
                 title: '오류',
                 text: '예기치 못한 오류가 발생했습니다',
@@ -1383,7 +1383,7 @@
         const date1 = new Date(bookingDate1)
         const date2 = new Date(bookingDate2.replace(' ', 'T'))
         const oldTimeDifference = parseInt(Math.abs(date1 - date2))
-        console.log(Math.abs(oldTimeDifference))
+//         console.log(Math.abs(oldTimeDifference))
         const data = {}
         formData.forEach((value, key) => {
             data[key] = value
@@ -1518,7 +1518,7 @@
    document.addEventListener('DOMContentLoaded', () => {
 
        const paymentStatus = sessionStorage.getItem('paymentStatus')
-       console.log(paymentStatus)
+//        console.log(paymentStatus)
 
 
 
@@ -1587,7 +1587,7 @@
                };
 
                IMP.request_pay(paymentData, function (rsp) {
-                   console.log(rsp);
+//                    console.log(rsp);
                    if (rsp.success) {
                        Swal.fire({
                            title: '결제 성공',
@@ -1674,7 +1674,7 @@
                    // paymentData가 null이면 sessionStorage에서 가져옴
                    const storedPaymentData = paymentData || JSON.parse(sessionStorage.getItem('paymentData'));
                    if (storedPaymentData) {
-                       console.log('결제 취소:', storedPaymentData.merchant_uid)
+//                        console.log('결제 취소:', storedPaymentData.merchant_uid)
                        // 서버에 취소 요청 보내기
                        const cancelUrl = cpath + '/cancelPayment'
                        const response = await fetch(cancelUrl, {

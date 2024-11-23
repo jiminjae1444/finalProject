@@ -92,9 +92,7 @@ public class HospitalsController {
         String resp = HospitalService.getRoutes(routeRequest);
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(resp);
-        log.info(jsonNode.toPrettyString());
         JsonNode itineraries =jsonNode.get("metaData").get("plan").get("itineraries");
-        log.info(itineraries.toPrettyString());
         response.put("itineraries", itineraries);
         response.put("success", true);
         return response;
@@ -128,7 +126,6 @@ public class HospitalsController {
     public HashMap<String, Object> viewCount(@PathVariable("id") int id) {
         HashMap<String , Object> response = new HashMap<>();
         List<DailyViewCountDTO> dto =  dailyViewCountService.getViewCount(id);
-        log.info(dto.toString());
         response.put("viewCount", dto);
         return response;
     }

@@ -20,7 +20,7 @@ public class NaverCaptchaService {
 	
 	private String clientId = "M4u1avfGi8wAkmxdgARO";
 	private String clientSecret = "J_l7paFpD4";
-	private String saveDirectory = "D:\\fpupload\\captcha";
+	private String saveDirectory = "C:\\fpupload\\captcha";
 	private RestTemplate restTemplate = new RestTemplate();
 
 	public NaverCaptchaService() {

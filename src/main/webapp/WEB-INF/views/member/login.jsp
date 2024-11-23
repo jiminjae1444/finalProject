@@ -167,7 +167,7 @@
                }
            })
            .catch(error => {
-               console.error('Error:', error)
+//                console.error('Error:', error)
                swal("오류", "로그인 처리 중 오류가 발생했습니다.", "error")
            })
        }
@@ -181,7 +181,7 @@
    
            // 2초마다 한번씩 팝업이 닫혔는지 확인
            const timer = setInterval(function() {
-               console.log(popup.closed)
+//                console.log(popup.closed)
                if (popup.closed) {
                    afterClosePopup()
                    clearInterval(timer)
@@ -191,7 +191,7 @@
            function afterClosePopup() {
                const json = document.querySelector('input[name="result"]').value
                const result = JSON.parse(json)
-               console.log(result)
+//                console.log(result)
                if (result.success == false) {
                    swal({
                        title: '연동된 계정이 없습니다',

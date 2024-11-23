@@ -424,6 +424,10 @@
 		flex-grow: 1; /* 남은 공간 차지 */
 		margin: 0;
 	}
+	
+	.search-form #soundSearch {
+		width: 40px;
+	}
 
 	#searchInput {
 		flex-grow: 1; /* 입력 필드가 가능한 공간을 모두 차지하도록 설정 */
@@ -468,10 +472,6 @@
 		color: white;
 		cursor: pointer;
 		margin: 5px;
-	}
-
-	button:hover {
-		background-color: #34495e; /* 호버 시 어두운 파란색 */
 	}
 </style>
 
@@ -1258,6 +1258,23 @@
         	align-items: center;
         	display: flex;
         }
+        .reviewCard_hospitalName {
+        	font-size: 16px;
+	        font-weight: bold;
+	        color: #34495e;
+        }
+        .reviewCard_userid {
+        	font-size: 14px;
+	        color: #7f8c8d;
+        }
+        .reviewCard_comments {
+        	font-size: 16px;
+        }
+        .reviewCard span {
+        	font-size: 16px;
+	        font-weight: bold;
+	        color: #f39c12;
+        }
     </style>
 <!-- 챗봇 아이콘 -->
 <div id="chat_icon">
@@ -1340,8 +1357,8 @@
             </div>
             <form id="searchForm" class="search-form" method="post">
                <input type="text" id="searchInput" name="search" placeholder="증상 또는 병명을 입력해주세요" required>
-               <button type="button" id="soundSearch" class="search">음성</button>
                <button type="submit" class="search">검색</button>
+               <img src="${cpath }/resources/image/voice-icon.png" id="soundSearch">
             </form>
          </div>
 		
@@ -1582,10 +1599,9 @@
 		<div class="reviewContainer">
 			<c:forEach var="dto" items="${homeReview }">
 				<div class="reviewCard">
-					<p><a href="${cpath }/hospitalInfo/${dto.hospital_id}">${dto.hospital_id }</a>
-					<p>${dto.member_id }</p>
-					<p>${dto.comments }</p>
-					<p class="hospital_id"></p> 
+					<p class="reviewCard_hospitalName"><a href="${cpath }/hospitalInfo/${dto.hospital_id}">${dto.hospital_name }</a>
+					<p class="reviewCard_userid">${dto.userid }</p>
+					<p class="reviewCard_comments">${dto.comments }</p>
 				<c:forEach var="i" begin="1" end="${dto.rating }">
 				    <span>★</span>
 				</c:forEach>	
@@ -1639,7 +1655,7 @@
 	async function openChatRoom() {
 		const url = cpath + '/chats/room'
 		const roomUrl = await fetch(url).then(resp => resp.text())
-		console.log('roomUrl 받아온 후: ', roomUrl)
+// 		console.log('roomUrl 받아온 후: ', roomUrl)
 		
 		if(roomUrl) {
 			window.open(cpath + '/chat/room/' + roomUrl, '_blank', 'width=600, height=1080')
@@ -1713,7 +1729,7 @@
        let speechToText = event.results[0][0].transcript
        speechToText = speechToText.trim().replace('.', '') // 마침표 제거
        searchInput.value = speechToText // 텍스트 입력 필드에 반영
-       console.log('음성 검색 결과: ', speechToText)
+//        console.log('음성 검색 결과: ', speechToText)
     }
 
     soundSearch.onclick = startRecognition
@@ -1746,7 +1762,7 @@
           body: formData
        }
        const result = await fetch(url, opt).then(response => response.json());
-       console.log(result);
+//        console.log(result);
 
        if (result.noSearch) {
           swal({
@@ -2127,7 +2143,7 @@ window.onload = () => {
 			body: data
 		};
 		const result = await fetch(url, opt).then(response => response.json());
-		console.log(result);
+// 		console.log(result);
 
 		if (result.noSearch) {
 			swal({
@@ -2216,9 +2232,9 @@ window.onload = () => {
             method : 'GET'
         }
         const result = await fetch(url, opt).then(resp => resp.json())
-        if (result > 0) {
+        if (result > 0 && '${login}' != '') {
             notificationCountSpan.classList.remove('hidden')
-            if (result >= 10) {
+            if (result >= 10 ) {
                 notificationCountSpan.innerText = '9+' // 10 이상은 '9+'로 표시
             } else {
                 notificationCountSpan.innerText = result // 10 미만은 해당 숫자 표시
@@ -2453,7 +2469,7 @@ window.onload = () => {
         let tag = ''
         tag += '<tr><button id="deleteMyFavoritesAllBtn">일괄 삭제하기</button></tr>'
         const result = await fetch(url, opt).then(resp => resp.json())
-        console.log(result)
+//         console.log(result)
         result.forEach(favorite => {
             tag += '<tr>'
             tag += '<th><a href="${cpath }/hospitalInfo/' + favorite.hospital_id + '">' + favorite.hospital_name + '</a></th>'
@@ -2507,7 +2523,7 @@ window.onload = () => {
         event.preventDefault()
         const id = parseInt(event.target.dataset.id)
         const thisPage = parseInt(event.target.dataset.page)
-        console.log(thisPage)
+//         console.log(thisPage)
         const url = '${cpath}/deleteMyFavorites/' + id
         const opt = {
             method: 'DELETE'
@@ -2579,7 +2595,7 @@ window.onload = () => {
 
     // 즐겨찾기 목록 여는 함수
     async function openMyFavorites(event) {
-        console.log(event.target.dataset.page)
+//         console.log(event.target.dataset.page)
         const thisPage = parseInt(event.target.dataset.page)
         const startPage = (Math.floor((thisPage + 4) / 5) - 1) * 5 + 1
 

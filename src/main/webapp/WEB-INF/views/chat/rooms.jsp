@@ -170,9 +170,9 @@
 
 <script>
 	let roomUrl = '${roomUrl}'
-	console.log('roomUrl : ', roomUrl)
+// 	console.log('roomUrl : ', roomUrl)
 	const role = '${login.role}'
-	console.log('role : ', role)
+// 	console.log('role : ', role)
 	
 	const counselor = '상담원'
 	const tbody = document.querySelector('#chatRoomList tbody')
@@ -219,7 +219,7 @@
 	// 새로 상담 요청이 들어오면 기존 채팅방은 알림만 갱신하고, 새로운 채팅방은 목록에 추가
 	listStomp.connect({}, function() {
 		listStomp.subscribe('/broker/roomList/', function(message) {
-			console.log('listStomp.subscribe : ', message)
+// 			console.log('listStomp.subscribe : ', message)
 			const chatRoom = JSON.parse(message.body)
 			roomUrl = chatRoom.room_url
 			const trs = document.querySelectorAll('.chatRoom') // 모든 채팅방의 tr 선택

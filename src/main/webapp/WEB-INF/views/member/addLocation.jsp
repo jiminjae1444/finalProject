@@ -184,12 +184,12 @@
 		<div class="addlocationoverlay">
 			<h3 id="addLocationTitle">주소 정보 검색</h3>
 			<form method="POST" id="addLocationForm">
-				<p><input type="text" name="memberLocation" placeholder="추가 하실 주소를 입력하세요." required></p>
+				<p><input type="text" name="memberLocation" value="${login.location }" required></p>
 				<p><input title="위치 정보의 별칭을 등록" type="text" name="alias" placeholder="위치 정보의 별칭을 등록하세요" required></p>
 				<p class="addlocationBtn"><input type="submit" value="등록" ></p>
 			</form>
 			<p style="text-align: center;">
-				<a href="${cpath }/member/info/${login.id}">
+				<a href=" ${cpath}/member/addLocation/${id}">
 					<button class="gotoBackBtn">뒤로가기</button>
 				</a>
 			</p>
@@ -274,7 +274,7 @@
 	            }
 	        })
 	        .catch(error => {
-	            console.error('Error:', error)
+// 	            console.error('Error:', error)
 	            swal("오류", "처리 중 오류가 발생했습니다.", "error")
 	        })
 	    }

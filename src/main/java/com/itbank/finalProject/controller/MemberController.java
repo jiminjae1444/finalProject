@@ -68,9 +68,7 @@ public class MemberController {
 	public void naverCallback(String code, String state, Model model) throws JsonMappingException, JsonProcessingException, URISyntaxException {
 		String accessToken = naverLoginComponent.getAccessToken(code, state);
 		accessToken = objectMapper.readTree(accessToken).get("access_token").asText();
-		System.out.println(accessToken);
 		String userProfile = naverLoginComponent.getProfile(accessToken);
-		System.out.println(userProfile);
 		model.addAttribute("userProfile", userProfile);
 	}
 	
@@ -121,7 +119,6 @@ public class MemberController {
 	// 주소 수정 
 	@GetMapping("/locationUpdate/{id}")
 	public String locationUpdate(@PathVariable int id) {
-		System.out.println("locationUpdate 호출됨: memberId = " + id);
 		return "/member/locationUpdate";
 	}
 
@@ -133,7 +130,6 @@ public class MemberController {
 	
 	@PostMapping("/pwUpdate/{id}")
 	public String pwUpdate(@PathVariable int id, @RequestParam("currentPw") String currentPw, @RequestParam("newPw") String newPw, RedirectAttributes rttr, HttpSession session) {
-		System.out.println(currentPw);
 	    MemberDTO userInfo = naverLoginService.getUserByUserPw(currentPw, id);
 	    if (userInfo != null) {
 	        userInfo.setUserpw(newPw);
@@ -201,30 +197,32 @@ public class MemberController {
 	
 	@PostMapping("/updateLocation/{member_id}/{id}")
 	public String updateLocation(@PathVariable int member_id, 
-								 SubLocationDTO dto, 
-								 RedirectAttributes rttr,
-								 HttpSession session) {
-		
-		try {
-	        int row = naverLoginService.updateMemberLocation(dto); // 회원 정보 수정후
-	        if (row > 0) {
-	        	MemberDTO login = naverLoginService.selectOne(member_id);  // 단일 조회를 이용하여 새로운 회원 정보를 불러온다
-	        	session.setAttribute("login", login);	// 그리고 이전 회원 정보에 덮어 씌운다
-	            rttr.addFlashAttribute("SubUpMessage", "위치 정보가 성공적으로 업데이트되었습니다.");
-	        } else {
-	            rttr.addFlashAttribute("SubUpError", "위치 정보 업데이트에 실패했습니다.");
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        rttr.addFlashAttribute("SubUpError", "서버 오류가 발생했습니다.");
-	    }
-	    return "redirect:/member/info/" + member_id;
+	                         SubLocationDTO dto, 
+	                         RedirectAttributes rttr,
+	                         HttpSession session) {
+	      
+		  try {
+		       int row = naverLoginService.updateMemberLocation(dto); // 회원 정보 수정후
+		   if (row > 0) {
+		      MemberDTO location = naverLoginService.selectOne(member_id);  // 단일 조회를 이용하여 새로운 회원 정보를 불러온다
+		      MemberDTO login = (MemberDTO) session.getAttribute("login");
+		      login.setLocation(location.getLocation());
+		      session.setAttribute("login", login);   // 그리고 이전 회원 정보에 덮어 씌운다
+		       rttr.addFlashAttribute("SubUpMessage", "위치 정보가 성공적으로 업데이트되었습니다.");
+		   } else {
+		       rttr.addFlashAttribute("SubUpError", "위치 정보 업데이트에 실패했습니다.");
+		       }
+		   } catch (Exception e) {
+		       e.printStackTrace();
+		       rttr.addFlashAttribute("SubUpError", "서버 오류가 발생했습니다.");
+		   }
+		   return "redirect:/member/info/" + member_id;
 	}
+
 	
 		
 	@GetMapping({"", "/", "/{tmp}"})
 	public String tmp() {
-		log.info("tmp");
 		return "redirect:/";
 	}
 	

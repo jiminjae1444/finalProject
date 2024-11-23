@@ -109,7 +109,6 @@ public class ChatAjaxController {
 	    ChatHistoryDTO chatHistoryDTO = new ChatHistoryDTO();
 	    
 	    chatHistoryDTO = chatService.addFaqMessage(session, content);
-	    log.info("chatHistoryDTO : " + chatHistoryDTO);
 	    return chatHistoryDTO;
 	}
 	
