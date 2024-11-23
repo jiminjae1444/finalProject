@@ -155,7 +155,7 @@
 
     /* 리뷰 댓글 섹션 */
     .review_comments {
-        font-size: 14px;
+        font-size: 16px;
         color: #2c3e50;
         margin-top: 5px;
     }

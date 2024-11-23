@@ -42,29 +42,6 @@ public class ChatService {
 		}
 		return chatRoomList;
 	}	
-	
-//	public List<HashMap<String, Object>> selectChatRoomList(HttpSession session) {
-//		List<HashMap<String, Object>> chatRoomList = new ArrayList<>();
-//		
-//		// 회원) DB 채팅방 목록
-//		List<ChatRoomDTO> memberChatRooms = chatDAO.selectChatRoomList();
-//		for(ChatRoomDTO memberChatRoom : memberChatRooms) {
-//			HashMap<String, Object> chatRoom = new HashMap<>();
-//			chatRoom.put("id", memberChatRoom.getId());
-//			chatRoom.put("room_url", memberChatRoom.getRoom_url());
-//			chatRoom.put("memberName", memberChatRoom.getMemberName());
-//			chatRoom.put("memberUserid", memberChatRoom.getMemberUserid());
-//			chatRoom.put("created_at", memberChatRoom.getCreated_at());
-//			chatRoomList.add(chatRoom);
-//		}
-//		
-//		// 비회원) 세션 채팅방 목록
-//		List<HashMap<String, Object>> guestChatRooms = (List<HashMap<String,Object>>) session.getAttribute("guestChatRoomList");
-//		if(guestChatRooms != null) {
-//			chatRoomList.addAll(guestChatRooms);
-//		}
-//		return chatRoomList;
-//	}	
 		
 	    
 	// 비회원의 상담 채팅방을 만들고 세션에 저장
@@ -86,7 +63,7 @@ public class ChatService {
 	}
 	
 
-	// 채팅방 URL 생성
+	// 채팅방 새로운 URL 생성
 	public String createRoomUrl() {
 		return UUID.randomUUID().toString().replace("-", "");
 	}
@@ -114,6 +91,7 @@ public class ChatService {
 		return chatRoom;
 	}
 
+	
 	// FAQ) DB에서 자동응답 찾아오기
 	public String getAutoResponse(ChatHistoryDTO content) {
 		String autoResponse = "";
@@ -146,7 +124,6 @@ public class ChatService {
 	}
 	
 	
-	
 	// 비회원이 상담요청할 때 6자리 랜덤 문자열
 	public String generateGuestId() {
 		return UUID.randomUUID().toString().replace("-", "").substring(0, 6);
@@ -168,37 +145,35 @@ public class ChatService {
 		return chatHistoryDTO;
 	}
 
+	
 	// 회원이랑) 1:1 상담채팅 메시지 처리
 	public void saveChatMessage(HttpSession session, MemberDTO login, String roomUrl, ChatHistoryDTO content) {
-		ChatHistoryDTO chatHistoryDTO = new ChatHistoryDTO();
+		ChatHistoryDTO counselHistoryDTO = new ChatHistoryDTO();
 		
-		chatHistoryDTO.setRoom_id(getChatRoomByUrl(roomUrl).getId());
-		chatHistoryDTO.setSender_id(content.getSender_id());
-		chatHistoryDTO.setContent(content.getContent());
-		chatHistoryDTO.setRoom_url(roomUrl);
-		chatHistoryDTO.setChat_time(content.getChat_time());
-		log.info("chatHistoryDTO : " + chatHistoryDTO);
-		chatDAO.insertChatHistory(chatHistoryDTO);	// chat_history를 DB에 저장
+		counselHistoryDTO.setRoom_id(getChatRoomByUrl(roomUrl).getId());
+		counselHistoryDTO.setSender_id(content.getSender_id());
+		counselHistoryDTO.setContent(content.getContent());
+		counselHistoryDTO.setRoom_url(roomUrl);
+		counselHistoryDTO.setChat_time(content.getChat_time());
+		log.info("counselHistoryDTO : " + counselHistoryDTO);
+		chatDAO.insertChatHistory(counselHistoryDTO);	// chat_history를 DB에 저장
 	}
 	
 	// 비회원이랑) 1:1 상담채팅 메시지 세션에 저장
 	public void addGuestChatMessage(HttpSession session, String roomUrl, ChatHistoryDTO content) {
-		ChatHistoryDTO guestChatHistoryDTO = new ChatHistoryDTO();
-	    List<ChatHistoryDTO> guestChatHistoryList = (List<ChatHistoryDTO>) session.getAttribute("guestChatHistoryList");
-	    if(guestChatHistoryList == null) {
-	    	guestChatHistoryList = new ArrayList<>();
+		ChatHistoryDTO guestCounselHistoryDTO = new ChatHistoryDTO();
+	    List<ChatHistoryDTO> guestCounselHistoryList = (List<ChatHistoryDTO>) session.getAttribute("guestCounselHistoryList");
+	    if(guestCounselHistoryList == null) {
+	    	guestCounselHistoryList = new ArrayList<>();
 	    }
 	    
-	    guestChatHistoryDTO.setSender_id(content.getSender_id());
-	    guestChatHistoryDTO.setRoom_url(roomUrl);
-	    guestChatHistoryDTO.setContent(content.getContent());
-	    guestChatHistoryDTO.setChat_time(content.getChat_time());
+	    guestCounselHistoryDTO.setSender_id(content.getSender_id());	// 비회원이면 sender_id = ''
+	    guestCounselHistoryDTO.setRoom_url(roomUrl);
+	    guestCounselHistoryDTO.setContent(content.getContent());
+	    guestCounselHistoryDTO.setChat_time(content.getChat_time());
 	    
-//	    log.info("guestChatHistoryDTO : " + guestChatHistoryDTO);
-	    
-	    guestChatHistoryList.add(guestChatHistoryDTO);
-	    log.info("guestChatHistoryList : " + guestChatHistoryList);
-        session.setAttribute("guestChatHistoryList", guestChatHistoryList);
+	    guestCounselHistoryList.add(guestCounselHistoryDTO);
+        session.setAttribute("guestCounselHistoryList", guestCounselHistoryList);
 	}
 
 
@@ -206,11 +181,15 @@ public class ChatService {
 		return chatDAO.getRoomUrlByMemberId(id);
 	}
 
-	
-	// chat_room 읽음여부 수정
-	public int updateChatRoomIsRead(String roomUrl) {
-		int row = chatDAO.updateChatRoomIsRead(roomUrl);
-		return row;
+
+	// 채팅내역 삭제하려면 chat_history부터 삭제
+	public void deleteChatHistory(int roomId) {
+		chatDAO.deleteChatHistory(roomId);
+	}
+
+	// 그다음 채팅방 삭제
+	public void deleteChatRoom(int roomId) {
+		chatDAO.deleteChatRoom(roomId);
 	}
 
 

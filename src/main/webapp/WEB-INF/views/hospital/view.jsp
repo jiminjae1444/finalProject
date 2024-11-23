@@ -305,12 +305,12 @@
         margin-bottom: 15px;
     }
     .review-section img {
-    	width: 25px;
+    	width: 40px;
     	align-items: center;
     	vertical-align: middle;
     	margin-bottom: 3px;
     	margin-left: 8px;
-    	margin-right: 3px;
+    	margin-right: 10px;
     }
 
     .review-card {

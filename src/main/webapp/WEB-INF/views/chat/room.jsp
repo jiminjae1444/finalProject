@@ -11,12 +11,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
 <%-- sweetalert --%>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"
-         integrity="sha512-7VTiy9AhpazBeKQAlhaLRUk+kAMAb8oczljuyJHPsVPWox/QIXDFOnT9DUk1UC8EbnHKRdQowT7sOBe7LAjajQ=="
-         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css"
-       integrity="sha512-gOQQLjHRpD3/SEOtalVq50iDn4opLVup2TF8c4QPI3/NmUPNZOk2FG0ihi8oCU/qYEsw4P6nuEZT2lAG0UNYaw=="
-       crossorigin="anonymous" referrerpolicy="no-referrer"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"
+        integrity="sha512-7VTiy9AhpazBeKQAlhaLRUk+kAMAb8oczljuyJHPsVPWox/QIXDFOnT9DUk1UC8EbnHKRdQowT7sOBe7LAjajQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css"
+      integrity="sha512-gOQQLjHRpD3/SEOtalVq50iDn4opLVup2TF8c4QPI3/NmUPNZOk2FG0ihi8oCU/qYEsw4P6nuEZT2lAG0UNYaw=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"/>
 
 <style>
 	body {
@@ -229,17 +229,7 @@
 	</c:if>
 	<div class="chat_frame">
 	    <div class="chat_header">FAQ 자동응답</div>
-	    <div class="chat_messages">
-	<!--     	<div class="chatRoomNotice"></div> -->
-	<!--     	<div class="chat_content_wrapper my_message_wrapper"> -->
-	<!-- 	        <div class="chat_content my_message">회원 가입이 안되는데 어케요</div> -->
-	<!-- 	        <span class="chat_time">2024.11.10. 오후 11:17</span> -->
-	<!--     	</div> -->
-	<!--     	<div class="chat_content_wrappper other_message_wrapper"> -->
-	<!-- 	        <div class="chat_content other_message">회원가입은 홈페이지 오른쪽 상단의 "회원가입" 버튼을 클릭하여 진행할 수 있습니다.</div> -->
-	<!-- 	        <span class="chat_time">2024.11.10. 오후 11:17</span> -->
-	<!-- 	    </div> -->
-	    </div>
+	    <div class="chat_messages"></div>
 	    <div class="chat_footer">
 	    	<form id="faqInputContainer">
 	    		<p>
@@ -263,11 +253,10 @@
 </div>
 
 
-
 <script>
 	const cpath = '${cpath}'
 	let roomUrl = '${roomUrl}'
-	let clickRoomUrl = '${clickRoomUrl}'
+	let clickRoomUrl = '${clickRoomUrl}'	// 상담원이 채팅방목록에서 클릭으로 입장한 채팅방 roomUrl
 	const faqHistoryList = '${faqHistoryList}'
 	const guestCounselHistoryList = '${guestCounselHistoryList}'
 // 	console.log(faqHistoryList)
@@ -275,29 +264,25 @@
 	
 	const sockJS = new SockJS(cpath + '/counselChatConnection')	// 웹소켓 생성
 	const stomp = Stomp.over(sockJS)
+	let stompConnected = false
 	
 	// 채팅 모드 구분
-	let chatMode = '${chatMode}'
+	let chatMode = '${chatMode}'	// 'counsel' / 'faq'
 	
 	// 사용자/상담원 구분
 	const login = '${login}'
 	const loginId = '${login.id}'
 	const guestId = '${guestId}'
 	const myFilterId = login ? loginId : guestId
-	console.log('myFilterId : ', myFilterId)		
-	
 	let role = ''
 	if(login) {
 		role = '${login.role}'
 		console.log('role : ', role)
 	}
-	
-	let stompConnected = false
+
 	
 	// 페이지가 로드되면 스톰프 연결 시도
 	stomp.connect({}, function() {
-		console.log('firstConnect 성공')
-		
 		// 상담원이 사용자한테 보낸 메시지
 		stomp.subscribe('/broker/room/message/' + roomUrl, onReceive)
 	})
@@ -325,30 +310,19 @@
 	function connectCounselor(clickRoomUrl) {
 		stomp.subscribe('/broker/room/info/' + clickRoomUrl)
 		stomp.subscribe('/broker/room/message/' + clickRoomUrl, onReceive)
-		
 		stomp.send('/app/joinCounselor/' + clickRoomUrl, {}, JSON.stringify({}))
 	}
 	
 	// 상대방으로부터 메시지 수신
 	async function onReceive(data) {	// data: MESSAGE 객체
-		console.log(data)
 		const message = JSON.parse(data.body)	// message: JSON 객체
 		console.log(message)
-// 		console.log('message.messageFilterId : ', message.messageFilterId)
-// 		console.log('myFilterId : ', myFilterId)
 		if(message.messageFilterId == myFilterId) {
 			console.log('본인이 보낸 메시지는 필터링: ', message)
 			return
 		}
 		addChatListHandler('other', message.content, Date.now(), true)
 		
-// 		const formData = new FormData()
-// 		for(let key in message) {
-// 	        formData.append(key, message[key])
-// 			console.log(key, message[key])
-// 		}
-//         formData.set('chat_time', new Date().toISOString())
-        
 		const url = cpath + '/chats/counselChat/' + message.room_url
 		const opt = {
 			method: 'POST',
@@ -388,8 +362,8 @@
 	        chat_header.innerText = '1:1 실시간 상담'
 	    }
 	}
-	// 초기화 시 호출
-// 	changeChatMode(chatMode)
+
+	
 	
 	/* 사용자 */
 
@@ -398,31 +372,22 @@
 		changeChatMode('counsel')
 		
 		if(stompConnected) {
-			alert('상담원 연결 대기중입니다. 잠시만 기다려주세요.')
 			return
 		}
-		
-// 		switchChatRoomIsRead(roomUrl)
-		
 		console.log('roomUrl : ', roomUrl)
 		const url = cpath + '/chats/counsel/' + roomUrl
 		const chatRoom = await fetch(url).then(resp => resp.json())
-// 		console.log('chatRoom : ', chatRoom)
 		
-		// STOMP 연결이 준비되면 웹소켓으로 roomUrl 전송
+		// STOMP 연결이 준비되면 상담원한테 chatRoom 정보 전송
 	    if(chatRoom) {
-        	// STOMP 연결 시도		// 상담원이 채팅방에 입장하면, 해당 채팅방을 스톰프 연결로 알림
+        	// STOMP 연결 시도		// 상담원이 채팅방에 입장하면, 해당 채팅방정보를 보냄
 	        if(stomp.connected) {
-	        	console.log('이미 Stomp 연결 완료) ', chatRoom)
 	            connecting(chatRoom)	// 스톰프 연결 후 처리
 	        } else {
-	        	console.log('아직 Stomp 연결 안됨')
 	            stomp.connect({}, function() {
-	            	console.log('Stomp 연결중... ', chatRoom)
 	            	stompConnected = true
 	                connecting(chatRoom)
 	            })
-	        	console.log('Stomp 연결 완료) ', ret)
 	        }
 	    }
 	}
@@ -431,14 +396,8 @@
 		requestChat.onclick = requestCounselChat
 	}
 	
-	// 채팅방 is_read 변경
-// 	function switchChatRoomIsRead(roomUrl) {
-// 		const url = cpath + '/chats/room/isRead/' + roomUrl
-// 		fetch(url)
-// 	}
 	
-	
-	// STOMP 연결 후 사용자가 상담요청 보낼 때
+	// 사용자가 상담요청 보냈을 때 STOMP 연결 후 처리 과정
 	function connecting(chatRoom) {
 		showNotice('상담원과 연결중입니다.')
 		
@@ -454,29 +413,29 @@
 		}))
 	}
 	
-	
-	// stomp 연결이 완료됐을 때 호출되는 함수
+	// stomp 연결이 완료됐을 때 호출되는 함수 (연결 완료 알림메시지)
 	function onConnect(message) {
 		const data = message.body
 		showNotice(data)
 	}
 	
+	// 알림메시지를 채팅화면에 띄우는 함수
 	function showNotice(message) {
 	    // .chat_messages 안에 .chatRoomNotice를 추가하거나 업데이트
 	    const chat_messages = document.querySelector('.chat_messages')
 	    
-    	const chatRoomNotice = document.createElement('div');
-    	chatRoomNotice.className = 'chatRoomNotice';
-        document.querySelector('.chat_messages').appendChild(chatRoomNotice);
-	    chatRoomNotice.innerText = message;
+    	const chatRoomNotice = document.createElement('div')
+    	chatRoomNotice.className = 'chatRoomNotice'
+        document.querySelector('.chat_messages').appendChild(chatRoomNotice)
+	    chatRoomNotice.innerText = message
 	}
 	
 	
-	// FAQ 채팅내역 없애고 창 닫기 (세션 만료)
+	// 채팅내역 없애고 창 닫기 (세션 만료)
 	async function faqHistoryRemoveHandler() {
 		swal({
 			title: '채팅 내역 삭제',
-			text: '해당 버튼으로 창 닫기 진행 시 FAQ 자동응답 채팅내역이 삭제됩니다. 계속 진행하시겠습니까?',
+			text: '채팅내역이 삭제됩니다. 계속 진행하시겠습니까?',
 			type: 'warning',
 			showCancelButton: true,
 			confirmButtonText: '예',
@@ -484,13 +443,23 @@
  			closeOnConfirm: false,
  			closeOnCancel: true,
  		}, async function(isConfirm) {
+			let result = ''
  			if(isConfirm) {
-				const url = cpath + '/chats/removeFaqHistory'
-				const result = await fetch(url, {method: 'POST'})
-				if(result.ok) {
-					window.close()
-				}
+ 				if(chatMode == 'counsel' && login) {	// 상담모드
+ 					const url = cpath + '/chats/removeCounselHistory/' + roomUrl
+ 					result = await fetch(url, {method: 'DELETE'})
+ 					console.log(url, chatMode)
+ 					console.log('chatMode : ', chatMode)
+ 				}
+ 				else {	// FAQ모드
+					const url = cpath + '/chats/removeFaqHistory'
+					result = await fetch(url, {method: 'POST'})
+					console.log(url, chatMode)
+ 				}
  			}
+			if(result && result.ok) {
+				window.close()
+			}
         })
 	}
 	const chatOutBtn = document.getElementById('chatOutBtn')
@@ -501,27 +470,27 @@
 	
 	// 채팅방에 채팅 내역 추가
 	function addChatListHandler(sender, content, chatTime, isLeft = false) {
-	    const chatMessages = document.querySelector('.chat_messages');
-	    const chatContentWrapper = document.createElement('div');
-	    chatContentWrapper.classList.add('chat_content_wrapper');
+	    const chatMessages = document.querySelector('.chat_messages')
+	    const chatContentWrapper = document.createElement('div')
+	    chatContentWrapper.classList.add('chat_content_wrapper')
 
 	    if(!isLeft) {
-	        chatContentWrapper.classList.add('my_message_wrapper');
+	        chatContentWrapper.classList.add('my_message_wrapper')
 	    }
 
-	    const chatContent = document.createElement('div');
-	    chatContent.classList.add('chat_content', isLeft ? 'other_message' : 'my_message');
-	    chatContent.innerText = content;
+	    const chatContent = document.createElement('div')
+	    chatContent.classList.add('chat_content', isLeft ? 'other_message' : 'my_message')
+	    chatContent.innerText = content
 
-	    const chatTimeSpan = document.createElement('span');
-	    chatTimeSpan.classList.add('chat_time');
-        chatTimeSpan.innerText = formatChatTime(new Date(chatTime));  // 문자열이면 Date 객체로 변환 후 포맷팅
+	    const chatTimeSpan = document.createElement('span')
+	    chatTimeSpan.classList.add('chat_time')
+        chatTimeSpan.innerText = formatChatTime(new Date(chatTime))  // 문자열이면 Date 객체로 변환 후 포맷팅
 
-	    chatContentWrapper.appendChild(chatContent);
-	    chatContentWrapper.appendChild(chatTimeSpan);
-	    chatMessages.appendChild(chatContentWrapper);
+	    chatContentWrapper.appendChild(chatContent)
+	    chatContentWrapper.appendChild(chatTimeSpan)
+	    chatMessages.appendChild(chatContentWrapper)
 	    
-	    chatMessages.scrollTop = chatMessages.scrollHeight;
+	    chatMessages.scrollTop = chatMessages.scrollHeight
 	}
 	
 
@@ -570,7 +539,6 @@
 	    
 		addChatListHandler('my', userMessage, Date.now())
 		
-// 	    const formData = new FormData(event.target)
 		const url = cpath + '/chats/counselChat/' + roomUrl
 		const opt = {
 			method: 'POST',
@@ -610,32 +578,46 @@
 	
 	// 채팅방에 입장했을 때 세션에 저장된 채팅내역이 있으면 불러오기
 	async function loadChatHistoryHandler() {
-		const url = cpath + '/chats/history/' + roomUrl
-		const chatHistoryList = await fetch(url).then(resp => resp.json())
+		let chatHistoryList = ''
+		// 1:1 상담내역이 있는지 먼저 확인
+		if(login) {
+			const url = cpath + '/chats/memberCounselHistory/' + roomUrl
+			chatHistoryList = await fetch(url).then(resp => resp.json())
+		}
+		else {
+			const url = cpath + '/chats/guestCounselHistory/' + roomUrl
+			chatHistoryList = await fetch(url).then(resp => resp.json())
+		}
+		if(!chatHistoryList || chatHistoryList.length <= 0) {	// 1:1 상담내역이 없으면
+			const url = cpath + '/chats/faqHistory/' + roomUrl
+			chatHistoryList = await fetch(url).then(resp => resp.json())
+		}
 		console.log('chatHistoryList : ', chatHistoryList)
 		if(chatHistoryList && chatHistoryList.length > 0) {
 			chatHistoryList.forEach(chatHistory => {
 				console.log('chatHistory : ', chatHistory)
-				if(login && loginId == chatHistory.sender_id) {	// db에 저장된 사용자 메시지면 오른쪽
-					addChatListHandler('my', chatHistory.content, chatHistory.chat_time)
+				if(!chatHistory.autoResponse) {
+					if(login && loginId == chatHistory.sender_id) {	// db에 저장된 자기 메시지면 오른쪽
+						addChatListHandler('my', chatHistory.content, chatHistory.chat_time)
+					}
+					else if(login && loginId != chatHistory.sender_id) { // db에 저장된 상대방 메시지면 왼쪽
+						addChatListHandler('other', chatHistory.content, chatHistory.chat_time, true)
+					}
+					else if(!login && !chatHistory.sender_id) {	// 비회원) 상담채팅 세션에 저장된 자기 메시지면 오른쪽
+						addChatListHandler('my', chatHistory.content, chatHistory.chat_time)
+					}
+					else if(!login && chatHistory.sender_id) {	// 비회원) 상담채팅 세션에 저장된 상담원 메시지면 왼쪽
+						addChatListHandler('other', chatHistory.content, chatHistory.chat_time, true)
+					}
 				}
-				else if(login && loginId != chatHistory.sender_id) { // db에 저장된 상담원 메시지면 왼쪽
-					addChatListHandler('other', chatHistory.content, chatHistory.chat_time, true)
-				}
-				else if(!login && !chatHistory.autoResponse && !chatHistory.sender_id) {	// 상담채팅 세션에 저장된 사용자 메시지면 오른쪽
-					addChatListHandler('my', chatHistory.content, chatHistory.chat_time)
-				}
-				else if(!login && !chatHistory.autoResponse && chatHistory.sender_id) {	// 상담채팅 세션에 저장된 상담원 메시지면 왼쪽
-					addChatListHandler('other', chatHistory.content, chatHistory.chat_time, true)
-				}
-				else if(chatHistory.autoResponse) {	// FAQ
+				else {	// FAQ 내역이 있으면
 					addChatListHandler('user', chatHistory.content, chatHistory.chat_time)
 					addChatListHandler('auto', chatHistory.autoResponse, chatHistory.chat_time, true)
 				}
 			})
 		}
 		if(role != 1)
-		addChatListHandler('other', '※ 현재 자동응답 모드입니다. 상담원과 실시간 상담을 원하시면 상단의 채팅 아이콘을 눌러주세요.', Date.now(), true)
+		addChatListHandler('other', '📣 현재 자동응답 모드입니다. 상담원과 실시간 상담을 원하시면 상단의 채팅 아이콘을 눌러주세요.', Date.now(), true)
 	}
 	window.addEventListener('DOMContentLoaded', loadChatHistoryHandler)
 	
@@ -643,17 +625,17 @@
 	
 	// 시간을 '2024.11.10. 오후 10:42' 형태로 포맷팅
 	function formatChatTime(date) {
-	    const hours = date.getHours();
-	    const minutes = date.getMinutes();
-	    const ampm = hours >= 12 ? '오후' : '오전';  // 오전/오후 구분
-	    const formattedHours = hours % 12 || 12;  // 12시간제로 변환, 0은 12로 변경
-	    const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;  // 2자리로 표시
+	    const hours = date.getHours()
+	    const minutes = date.getMinutes()
+	    const ampm = hours >= 12 ? '오후' : '오전'  // 오전/오후 구분
+	    const formattedHours = hours % 12 || 12  // 12시간제로 변환, 0은 12로 변경
+	    const formattedMinutes = minutes < 10 ? '0' + minutes : minutes  // 2자리로 표시
 	
-	    const day = date.getDate();
-	    const month = date.getMonth() + 1;  // 월은 0부터 시작하므로 +1
-	    const year = date.getFullYear();
+	    const day = date.getDate()
+	    const month = date.getMonth() + 1  // 월은 0부터 시작하므로 +1
+	    const year = date.getFullYear()
 	
-	    return year + '.' + (month < 10 ? '0' + month : month) + '.' + (day < 10 ? '0' + day : day) + '. ' + ampm + ' ' + formattedHours + ':' + formattedMinutes;
+	    return year + '.' + (month < 10 ? '0' + month : month) + '.' + (day < 10 ? '0' + day : day) + '. ' + ampm + ' ' + formattedHours + ':' + formattedMinutes
 	}
 	
 	

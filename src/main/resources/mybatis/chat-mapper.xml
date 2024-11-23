@@ -51,7 +51,7 @@
 		        order by chat_time
 	</select>
 	
-	<!--  -->
+	<!-- 회원 아이디로 roomUrl 가져오기 -->
 	<select id="getRoomUrlByMemberId">
 		select room_url
 		    from chat_room
@@ -59,10 +59,15 @@
 	</select>
 	
 	
-	<!-- chat_room 읽음여부 수정 -->
-	<update id="updateChatRoomIsRead">
-		update chat_room set is_read = is_read * -1 where room_url = #{roomUrl}
-	</update>
+	<!-- chat_history 삭제 -->
+	<delete id="deleteChatHistory">
+		delete from chat_history where room_id = #{roomId}
+	</delete>
+	
+	<!-- chat_room 삭제 -->
+	<delete id="deleteChatRoom">
+		delete from chat_room where id = #{roomId}
+	</delete>
 	
 </mapper>
 
