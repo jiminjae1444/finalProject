@@ -229,7 +229,7 @@
                 text: "로그인된 사용자 주소를 기반으로 위치를 설정하시겠습니까?",
                 icon: "question",
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
+                confirmButtonColor: '#9cd2f1',
                 cancelButtonColor: '#d33',
                 confirmButtonText: "네",
                 cancelButtonText: "아니요"
@@ -251,7 +251,7 @@
                 text: "로그인을 하시겠습니까?",
                 icon: "warning",
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
+                confirmButtonColor: '#9cd2f1',
                 cancelButtonColor: '#d33',
                 confirmButtonText: "예",
                 cancelButtonText: "아니요"
@@ -271,7 +271,7 @@
                 text: "사용자의 현재 위치 정보를 사용하시겠습니까?",
                 icon: "question",
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
+                confirmButtonColor: '#9cd2f1',
                 cancelButtonColor: '#d33',
                 confirmButtonText: "네",
                 cancelButtonText: "아니요"
@@ -562,7 +562,7 @@
             title: '알림',
             text: '음성 인식이 시작되었습니다.',
             icon: 'success',
-            confirmButtonColor:'#3085d6',
+            confirmButtonColor:'#9cd2f1',
             confirmButtonText: '확인'
         })
     }
@@ -573,7 +573,7 @@
         Swal.fire({
             title: '알림',
             text: '음성 인식이 종료되었습니다.',
-            confirmButtonColor:'#3085d6',
+            confirmButtonColor:'#9cd2f1',
             icon: 'info',
             confirmButtonText: '확인'
         })

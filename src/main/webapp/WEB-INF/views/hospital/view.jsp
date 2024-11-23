@@ -1147,7 +1147,7 @@
                  text: '예약이 하루 남았습니다.',
                  icon: 'info',
                  confirmButtonText: '확인',
-                    confirmButtonColor: '#3085d6',
+                    confirmButtonColor: '#9cd2f1',
                     allowOutsideClick: false,
                  allowEscapeKey: false,
                  showCloseButton: false
@@ -1216,7 +1216,7 @@
                 text: '예약을 진행하시려면 로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?',
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
+                confirmButtonColor: '#9cd2f1',
                 cancelButtonColor: '#d33',
                 confirmButtonText: '예, 로그인하러 가기',
                 cancelButtonText: '아니오'
@@ -1252,7 +1252,7 @@
                 allowOutsideClick: false,
                 allowEscapeKey: false,
                 showCloseButton: false,
-                confirmButtonColor: '#3085d6' // 확인 버튼 색상
+                confirmButtonColor: '#9cd2f1' // 확인 버튼 색상
             })
             if (confirmResult.isConfirmed) {
                 return
@@ -1266,7 +1266,7 @@
                 text: '예약 시간이 30분 이내입니다. 정말로 예약하시겠습니까?',
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
+                confirmButtonColor: '#9cd2f1',
                 cancelButtonColor: '#d33',
                 confirmButtonText: '예, 예약합니다',
                 cancelButtonText: '아니오'
@@ -1296,7 +1296,7 @@
                 allowOutsideClick: false,
                 allowEscapeKey: false,
                 showCloseButton: false,
-                confirmButtonColor: '#3085d6'
+                confirmButtonColor: '#9cd2f1'
             }).then((result) => {
                 if (result.isConfirmed) {
                     notificationBooking();
@@ -1311,7 +1311,7 @@
                 allowOutsideClick: false,
                 allowEscapeKey: false,
                 showCloseButton: false,
-                confirmButtonColor: '#3085d6'
+                confirmButtonColor: '#9cd2f1'
             })
         } else if (result == 3) {
             Swal.fire({
@@ -1322,7 +1322,7 @@
                 allowOutsideClick: false,
                 allowEscapeKey: false,
                 showCloseButton: false,
-                confirmButtonColor: '#3085d6'
+                confirmButtonColor: '#9cd2f1'
             })
         } else {
             Swal.fire({
@@ -1333,7 +1333,7 @@
                 allowOutsideClick: false,
                 allowEscapeKey: false,
                 showCloseButton: false,
-                confirmButtonColor: '#3085d6'
+                confirmButtonColor: '#9cd2f1'
             })
         }
     }
@@ -1356,7 +1356,7 @@
                  allowOutsideClick: false,
                  allowEscapeKey: false,
                  showCloseButton: false,
-                    confirmButtonColor: '#3085d6'
+                    confirmButtonColor: '#9cd2f1'
                }).then((result) => {if(result.isConfirmed) sendNotificationMail()})
          } 
          
@@ -1369,7 +1369,7 @@
               allowOutsideClick: false,
               allowEscapeKey: false,
               showCloseButton: false,
-                confirmButtonColor: '#3085d6'
+                confirmButtonColor: '#9cd2f1'
             })    
    }
    
@@ -1403,7 +1403,7 @@
                 allowOutsideClick: false,
                 allowEscapeKey: false,
                 showCloseButton: false,
-                confirmButtonColor: '#3085d6'
+                confirmButtonColor: '#9cd2f1'
             })
             if (confirmResult.isConfirmed) {
                 return
@@ -1417,7 +1417,7 @@
                 text: '변경 시 예약시간이 30분 이내입니다. 정말로 예약을 변경하시겠습니까?',
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
+                confirmButtonColor: '#9cd2f1',
                 cancelButtonColor: '#d33',
                 confirmButtonText: '예, 변경합니다',
                 cancelButtonText: '아니오'
@@ -1436,7 +1436,7 @@
                 allowOutsideClick: false,
                 allowEscapeKey: false,
                 showCloseButton: false,
-                confirmButtonColor: '#3085d6'
+                confirmButtonColor: '#9cd2f1'
             })
             if (confirmResult.isConfirmed) {
                 return
@@ -1461,7 +1461,7 @@
                 allowOutsideClick: false,
                 allowEscapeKey: false,
                 showCloseButton: false,
-                confirmButtonColor: '#3085d6'
+                confirmButtonColor: '#9cd2f1'
             }).then((result) => {if(result.isConfirmed) notificationBookingUpdate()})
 
         }
@@ -1473,7 +1473,7 @@
             allowOutsideClick: false,
             allowEscapeKey: false,
             showCloseButton: false,
-            confirmButtonColor: '#3085d6'
+            confirmButtonColor: '#9cd2f1'
         })
 
         // 예외 상황 처리
@@ -1485,7 +1485,7 @@
                 allowOutsideClick: false,
                 allowEscapeKey: false,
                 showCloseButton: false,
-                confirmButtonColor: '#3085d6'
+                confirmButtonColor: '#9cd2f1'
             })
 
     }
@@ -1507,7 +1507,7 @@
               allowOutsideClick: false,
               allowEscapeKey: false,
               showCloseButton: false,
-                confirmButtonColor: '#3085d6'
+                confirmButtonColor: '#9cd2f1'
             }).then((result) => {if(result.isConfirmed) sendNotificationMail()})
       } 
       
@@ -1545,7 +1545,7 @@
                    icon: 'question',
                    confirmButtonText: '확인',
                    cancelButtonText: '취소',
-                   confirmButtonColor: '#3085d6',
+                   confirmButtonColor: '#9cd2f1',
                    cancelButtonColor: '#d33',
                    showCancelButton: true,
                    allowOutsideClick: false,
@@ -1562,7 +1562,7 @@
                    icon: 'question',
                    confirmButtonText: '확인',
                    cancelButtonText: '취소',
-                   confirmButtonColor: '#3085d6',
+                   confirmButtonColor: '#9cd2f1',
                    cancelButtonColor: '#d33',
                    showCancelButton: true,
                    allowOutsideClick: false,
@@ -1594,7 +1594,7 @@
                            text: '결제가 성공적으로 완료되었습니다.',
                            icon: 'success',
                            confirmButtonText: '확인',
-                           confirmButtonColor: '#3085d6'
+                           confirmButtonColor: '#9cd2f1'
                        }).then(() => {
                            // 결제 상태를 sessionStorage에 저장
                            sessionStorage.setItem('paymentStatus', 'success');
@@ -1610,7 +1610,7 @@
                            text: '결제가 실패하였습니다. 사유: ' + rsp.error_msg,
                            icon: 'error',
                            confirmButtonText: '확인',
-                           confirmButtonColor: '#3085d6'
+                           confirmButtonColor: '#9cd2f1'
                        });
                    }
                });
@@ -1631,7 +1631,7 @@
                  icon: 'question',
                  confirmButtonText: '확인',
                  cancelButtonText: '취소',
-                   confirmButtonColor: '#3085d6',
+                   confirmButtonColor: '#9cd2f1',
                    cancelButtonColor: '#d33',
                  showCancelButton: true,
                  allowOutsideClick: false,
@@ -1668,7 +1668,7 @@
                    confirmButtonText: '네',
                    cancelButtonText: '아니오',
                    confirmButtonColor: '#d33',
-                   cancelButtonColor: '#3085d6'
+                   cancelButtonColor: '#9cd2f1'
                })
                if (confirmCancel.isConfirmed) {
                    // paymentData가 null이면 sessionStorage에서 가져옴
@@ -1695,7 +1695,7 @@
                                text: '결제가 성공적으로 취소되었습니다.',
                                icon: 'success',
                                confirmButtonText: '확인',
-                               confirmButtonColor: '#3085d6'
+                               confirmButtonColor: '#9cd2f1'
                            })
                            // 결제 취소 상태를 로컬 저장소에 기록
                            sessionStorage.setItem('paymentStatus', 'cancelled')
@@ -1709,7 +1709,7 @@
                                text: '결제 취소가 실패하였습니다. 사유: ' + result.message,
                                icon: 'error',
                                confirmButtonText: '확인',
-                               confirmButtonColor: '#3085d6'
+                               confirmButtonColor: '#9cd2f1'
                            })
                        }
                    } else {
@@ -1718,7 +1718,7 @@
                            text: '결제 데이터가 존재하지 않습니다.',
                            icon: 'warning',
                            confirmButtonText: '확인',
-                           confirmButtonColor: '#3085d6'
+                           confirmButtonColor: '#9cd2f1'
                        })
                    }
                }
@@ -1748,7 +1748,7 @@
                     allowOutsideClick: false,
                     allowEscapeKey: false,
                     showCloseButton: false,
-                    confirmButtonColor: '#3085d6', // 확인 버튼 색상
+                    confirmButtonColor: '#9cd2f1', // 확인 버튼 색상
                     cancelButtonColor: '#d33'
                 }).then((result) => {if(result.isConfirmed) myFavorite(event)})
             }
@@ -1763,7 +1763,7 @@
                     allowOutsideClick: false,
                     allowEscapeKey: false,
                     showCloseButton: false,
-                    confirmButtonColor: '#3085d6', // 확인 버튼 색상
+                    confirmButtonColor: '#9cd2f1', // 확인 버튼 색상
                     cancelButtonColor: '#d33'
                 }).then((result) => {if(result.isConfirmed) myFavorite(event)})
             }
@@ -1778,7 +1778,7 @@
                     allowOutsideClick: false,
                     allowEscapeKey: false,
                     showCloseButton: false,
-                    confirmButtonColor: '#3085d6', // 확인 버튼 색상
+                    confirmButtonColor: '#9cd2f1', // 확인 버튼 색상
                     cancelButtonColor: '#d33'
                 }).then((result) => {
                     if(result.isConfirmed){

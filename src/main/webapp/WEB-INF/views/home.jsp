@@ -1693,7 +1693,7 @@
           title: '알림',
           text: '음성 인식이 시작되었습니다.',
           icon: 'success',
-          confirmButtonColor:'#3085d6',
+          confirmButtonColor:'#9cd2f1',
           confirmButtonText: '확인'
        })
     }
@@ -1704,7 +1704,7 @@
        Swal.fire({
           title: '알림',
           text: '음성 인식이 종료되었습니다.',
-          confirmButtonColor:'#3085d6',
+          confirmButtonColor:'#9cd2f1',
           icon: 'info',
           confirmButtonText: '확인'
        })
@@ -1718,7 +1718,7 @@
           Swal.fire({
              title: '알림',
              text: '음성 인식이 이미 실행 중입니다.',
-             confirmButtonColor:'#3085d6',
+             confirmButtonColor:'#9cd2f1',
              icon: 'info',
              confirmButtonText: '확인'
           })
@@ -2488,7 +2488,7 @@ window.onload = () => {
                     showCancelButton: true,
                     confirmButtonText: '확인',
                     cancelButtonText: '취소',
-                    confirmButtonColor: '#3085d6',
+                    confirmButtonColor: '#9cd2f1',
                     cancelButtonColor: '#d33',
                     reverseButtons: true, // 취소 버튼을 왼쪽에 배치하려면 추가
                 }).then((result) => {
@@ -2508,7 +2508,7 @@ window.onload = () => {
                     icon: 'question',
                     confirmButtonText: '확인',
                     cancelButtonText: '취소',
-                    confirmButtonColor: '#3085d6',
+                    confirmButtonColor: '#9cd2f1',
                     cancelButtonColor: '#d33',
                     showCancelButton: true,
                     allowOutsideClick: false,

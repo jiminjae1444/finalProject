@@ -1,6 +1,5 @@
 package com.itbank.finalProject.repository;
 
-import java.awt.Component;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -28,7 +27,7 @@ public interface BookingDAO {
 
 	int notificationBooking(BookingDTO bookingDTO);
 
-	int selectNotificationCount();
+	int selectNotificationCount(int member_id);
 
 	int readNotification(@Param("selectStart")int selectStart, @Param("selectEnd")int selectEnd);
 
@@ -48,6 +47,5 @@ public interface BookingDAO {
 
 	int deleteMyfavoritesAll();
 
-	List<NotificationDTO> selectNotificationList(@Param("selectStart")int selectStart);
-
+	List<NotificationDTO> selectNotificationList(@Param("selectStart")int selectStart, @Param("member_id") int member_id);
 }

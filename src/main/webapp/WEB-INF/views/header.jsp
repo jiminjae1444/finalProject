@@ -43,15 +43,6 @@
 <%--    포트원 결제--%>
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 
-
-<style>
-     #notificationTable {
-                width: 100%;
-                border-collapse: collapse;
-                margin-top: 20px;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      }
-</style>
 </head>
 <body>
 <!-- 즐겨찾기 테이블 -->
@@ -506,7 +497,7 @@
                     showCancelButton: true,
                     confirmButtonText: '확인',
                     cancelButtonText: '취소',
-                    confirmButtonColor: '#3085d6',
+                    confirmButtonColor: '#9cd2f1',
                     cancelButtonColor: '#d33',
                     reverseButtons: true, // 취소 버튼을 왼쪽에 배치하려면 추가
                 }).then((result) => {
@@ -526,7 +517,7 @@
                     icon: 'question',
                     confirmButtonText: '확인',
                     cancelButtonText: '취소',
-                    confirmButtonColor: '#3085d6',
+                    confirmButtonColor: '#9cd2f1',
                     cancelButtonColor: '#d33',
                     showCancelButton: true,
                     allowOutsideClick: false,

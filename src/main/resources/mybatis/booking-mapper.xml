@@ -39,7 +39,7 @@
 	</insert>
 	
 	<select id="selectNotificationList" resultType="notification" >
-		select 
+			select
 			n.*,
 			h.hospital_name as hospital_name,
 			b.booking_date as booking_date,
@@ -47,11 +47,12 @@
 			m.email as email
 			from notification n
 			join booking b
-				on b.id = n.booking_id
+			on b.id = n.booking_id
 			join hospital h
-				on h.id = b.hospital_id
+			on h.id = b.hospital_id
 			join member m
-				on n.member_id = m.id
+			on n.member_id = m.id
+			where n.member_id = #{member_id}
 			order by n.id desc
 			OFFSET #{selectStart} ROWS FETCH NEXT 7 ROWS ONLY
 	</select>
@@ -65,7 +66,7 @@
 	</insert>
 	
 	<select id="selectNotificationCount" >
-		select count(*) from notification where read = 0
+		select count(*) from notification where read = 0 and id =#{member_id}
 	</select>
 	
 	<update id="readNotification">
