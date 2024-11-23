@@ -156,7 +156,7 @@
 <div class="allWrap">
 		<div class="infoWrap">
 			<c:forEach var="hospital_List" items="${hospital_List }">
-				<div class="hospitals">
+				<div class="hospitals" data-id="${hospital_List.id}">
 				 	<div class="list-left">
 						<p><a href="${cpath }/hospitalInfo/${hospital_List.id}" data-id="${hospital_List.id}" class="loadingAtag">${hospital_List.hospital_name }</a></p>
 						<p>${hospital_List.address }</p>
@@ -204,6 +204,17 @@
     const gu_code = arr[arr.indexOf(sido_code) + 1]
     const url = cpath + '/hospital/selectLocation/' + jinryo_code + '/' + sido_code + '/' + gu_code + '/pageNo='
 
+    let hospitals = document.querySelectorAll('.hospitals');
+    
+    // 병원 목록 클릭이벤트
+     hospitals.forEach(hospital => {
+         hospital.addEventListener('click', function() {
+             let num = this.getAttribute('data-id');
+             console.log(num);
+             location.href = '${cpath}/hospitalInfo/' + num;
+         });
+     });
+    
     // 현재 페이지 번호 가져오기
     const currentPage = new URLSearchParams(window.location.search).get('pageNo') || '1'
 
@@ -487,7 +498,12 @@
                     allowOutsideClick: false,
                     allowEscapeKey: false,
                     showCloseButton: false
-                }).then((result) => {if(result.isConfirmed) location.href = '${cpath}/member/login'})   
+                }).then((result) => {
+                    if(result.isConfirmed){
+                        const currentPageUrl = window.location.href
+                        window.location.href = cpath + '/member/login?redirectUrl=' + encodeURIComponent(currentPageUrl) // 로그인 페이지로 리다이렉션
+                    }
+                })  
             }
          }
       })

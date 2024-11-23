@@ -47,13 +47,13 @@
     }
     /* 예약 취소 및 변경 버튼 스타일 */
     #bookingCancelBtn, #bookingUpdateBtn,#bookingInsertBtn , #paymentBtn ,#cancelPaymentBtn {
-        padding: 12px 20px; /* 패딩 */
-        font-size: 1.1em; /* 폰트 크기 */
-        font-weight: bold; /* 폰트 두께 */
-        color: #fff; /* 글자 색상 */
-        border: none; /* 테두리 없음 */
-        border-radius: 5px; /* 둥근 모서리 */
-        cursor: pointer; /* 커서 모양 변경 */
+        padding: 12px 20px; 
+        font-size: 1.1em; 
+        font-weight: bold; 
+        color: #fff; 
+        border: none; 
+        border-radius: 5px; 
+        cursor: pointer; 
         transition: background-color 0.3s ease, transform 0.2s ease; /* 배경색 변화와 변형 애니메이션 */
     }
     #bookingInsertBtn {
@@ -303,6 +303,14 @@
         font-size: 20px;
         color: #34495e;
         margin-bottom: 15px;
+    }
+    .review-section img {
+    	width: 25px;
+    	align-items: center;
+    	vertical-align: middle;
+    	margin-bottom: 3px;
+    	margin-left: 8px;
+    	margin-right: 3px;
     }
 
     .review-card {
@@ -751,7 +759,7 @@
                 </div>
             </div>
             <div class="review-section">
-                <h3>리뷰</h3>
+                <h3>리뷰 (${reviewCount }) <img src="${cpath}/resources/image/star-icon.png">${reviewAvg }</h3>
                 <div id="reviewListSome">
                     <c:if test="${empty reviewList}">
                         <div class="no-reviews">
@@ -761,7 +769,7 @@
                     <c:forEach var="review" items="${reviewList}">
                         <div class="review-card">
                             <div class="review-header">
-                                <img class="profile-img" src="${review.PROFILE_IMG}" alt="User Image">
+                                <img class="profile-img" src="${cpath }/fpupload/image/${empty review.PROFILE_IMG ? 'default.png' : review.PROFILE_IMG}">
                                 <div class="user-info">
                                     <div class="user-id">${review.USERID}</div>
                                     <div class="created-at">${review.CREATED_AT}</div>
@@ -1566,7 +1574,6 @@
            // 결제 버튼 클릭 이벤트
            paymentBtn.onclick = async () => {
                var IMP = window.IMP;
-               IMP.init('imp22288473'); // 아임포트 가맹점 식별 코드
                const paymentData = {
                    pg: 'html5_inicis.INIpayTest',
                    pay_method: 'card', // 결제 수단
