@@ -2492,7 +2492,7 @@ window.onload = () => {
                     confirmButtonText: '확인',
                     cancelButtonText: '취소',
                     confirmButtonColor: '#9cd2f1',
-                    cancelButtonColor: '#d33',
+                    cancelButtonColor: '#c1c1c1',
                     reverseButtons: true, // 취소 버튼을 왼쪽에 배치하려면 추가
                 }).then((result) => {
                     if (result.isConfirmed) {
@@ -2512,7 +2512,7 @@ window.onload = () => {
                     confirmButtonText: '확인',
                     cancelButtonText: '취소',
                     confirmButtonColor: '#9cd2f1',
-                    cancelButtonColor: '#d33',
+                    cancelButtonColor: '#c1c1c1',
                     showCancelButton: true,
                     allowOutsideClick: false,
                     allowEscapeKey: false,

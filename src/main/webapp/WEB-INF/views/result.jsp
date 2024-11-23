@@ -230,7 +230,7 @@
                 icon: "question",
                 showCancelButton: true,
                 confirmButtonColor: '#9cd2f1',
-                cancelButtonColor: '#d33',
+                cancelButtonColor: '#c1c1c1',
                 confirmButtonText: "네",
                 cancelButtonText: "아니요"
             })
@@ -252,7 +252,7 @@
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: '#9cd2f1',
-                cancelButtonColor: '#d33',
+                cancelButtonColor: '#c1c1c1',
                 confirmButtonText: "예",
                 cancelButtonText: "아니요"
             })
@@ -272,7 +272,7 @@
                 icon: "question",
                 showCancelButton: true,
                 confirmButtonColor: '#9cd2f1',
-                cancelButtonColor: '#d33',
+                cancelButtonColor: '#c1c1c1',
                 confirmButtonText: "네",
                 cancelButtonText: "아니요"
             })

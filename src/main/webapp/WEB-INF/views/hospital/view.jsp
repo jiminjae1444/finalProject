@@ -903,7 +903,7 @@
             confirmButtonText: "주소 사용",
             cancelButtonText: "현재 위치 사용",
             confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
+            cancelButtonColor: '#c1c1c1',
         });
 
         // "주소 사용"을 선택했을 때
@@ -1217,7 +1217,7 @@
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#9cd2f1',
-                cancelButtonColor: '#d33',
+                cancelButtonColor: '#c1c1c1',
                 confirmButtonText: '예, 로그인하러 가기',
                 cancelButtonText: '아니오'
             })
@@ -1267,7 +1267,7 @@
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#9cd2f1',
-                cancelButtonColor: '#d33',
+                cancelButtonColor: '#c1c1c1',
                 confirmButtonText: '예, 예약합니다',
                 cancelButtonText: '아니오'
             })
@@ -1418,7 +1418,7 @@
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#9cd2f1',
-                cancelButtonColor: '#d33',
+                cancelButtonColor: '#c1c1c1',
                 confirmButtonText: '예, 변경합니다',
                 cancelButtonText: '아니오'
             })
@@ -1546,7 +1546,7 @@
                    confirmButtonText: '확인',
                    cancelButtonText: '취소',
                    confirmButtonColor: '#9cd2f1',
-                   cancelButtonColor: '#d33',
+                   cancelButtonColor: '#c1c1c1',
                    showCancelButton: true,
                    allowOutsideClick: false,
                    allowEscapeKey: false,
@@ -1563,7 +1563,7 @@
                    confirmButtonText: '확인',
                    cancelButtonText: '취소',
                    confirmButtonColor: '#9cd2f1',
-                   cancelButtonColor: '#d33',
+                   cancelButtonColor: '#c1c1c1',
                    showCancelButton: true,
                    allowOutsideClick: false,
                    allowEscapeKey: false,
@@ -1632,7 +1632,7 @@
                  confirmButtonText: '확인',
                  cancelButtonText: '취소',
                    confirmButtonColor: '#9cd2f1',
-                   cancelButtonColor: '#d33',
+                   cancelButtonColor: '#c1c1c1',
                  showCancelButton: true,
                  allowOutsideClick: false,
                  allowEscapeKey: false,
@@ -1667,7 +1667,7 @@
                    showCancelButton: true,
                    confirmButtonText: '네',
                    cancelButtonText: '아니오',
-                   confirmButtonColor: '#d33',
+                   confirmButtonColor: '#c1c1c1',
                    cancelButtonColor: '#9cd2f1'
                })
                if (confirmCancel.isConfirmed) {
@@ -1749,7 +1749,7 @@
                     allowEscapeKey: false,
                     showCloseButton: false,
                     confirmButtonColor: '#9cd2f1', // 확인 버튼 색상
-                    cancelButtonColor: '#d33'
+                    cancelButtonColor: '#c1c1c1'
                 }).then((result) => {if(result.isConfirmed) myFavorite(event)})
             }
             else if('${login}' != '' && await getFavorite(id) != 1) {
@@ -1764,7 +1764,7 @@
                     allowEscapeKey: false,
                     showCloseButton: false,
                     confirmButtonColor: '#9cd2f1', // 확인 버튼 색상
-                    cancelButtonColor: '#d33'
+                    cancelButtonColor: '#c1c1c1'
                 }).then((result) => {if(result.isConfirmed) myFavorite(event)})
             }
             else {
@@ -1779,7 +1779,7 @@
                     allowEscapeKey: false,
                     showCloseButton: false,
                     confirmButtonColor: '#9cd2f1', // 확인 버튼 색상
-                    cancelButtonColor: '#d33'
+                    cancelButtonColor: '#c1c1c1'
                 }).then((result) => {
                     if(result.isConfirmed){
                         const currentPageUrl = window.location.href

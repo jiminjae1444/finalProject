@@ -121,21 +121,26 @@ public class BookingController {
 		BookingDTO dto = bookingDAO.selectBookingInfo(hospital_id, member_id);
 		return bookingDAO.notificationBookingOneDay(dto);
 	}
-	
+
 	// 알림 읽음 처리하는 patch 요청
 	@PatchMapping(value = "/readNotification/{thisPage}" ,produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public void readNotification(@PathVariable("thisPage") int thisPage) {
+	public void readNotification(@PathVariable("thisPage") int thisPage, HttpSession session) {
 		int selectStart = (thisPage - 1) * 7;
 		int selectEnd = selectStart + 7;
-		bookingDAO.readNotification(selectStart, selectEnd);
+		MemberDTO dto = (MemberDTO) session.getAttribute("login");
+		int member_id = dto.getId();
+		bookingDAO.readNotification(selectStart, selectEnd, member_id);
 	}
-	
+
+
 	// 알림 페이지 최대 수 get 요청
 	@GetMapping(value="/notificationMaxPage" , produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public int notificationMaxPage() {
-		int notificationAllCount = bookingDAO.selectNotificationAllCount();
+	public int notificationMaxPage(HttpSession session) {
+		MemberDTO dto = (MemberDTO) session.getAttribute("login");
+		int member_id = dto.getId();
+		int notificationAllCount = bookingDAO.selectNotificationAllCount(member_id);
 		return ((notificationAllCount + 6) / 7);
 	}
 	
@@ -221,20 +226,27 @@ public class BookingController {
 
 	@DeleteMapping(value = "/deleteNotificationAll" , produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public int deleteNotificationAll() {
-		return bookingDAO.deleteNotificationAll();
+	public int deleteNotificationAll(HttpSession session) {
+		MemberDTO dto = (MemberDTO) session.getAttribute("login");
+		int member_id = dto.getId();
+		return bookingDAO.deleteNotificationAll(member_id);
 	}
 
 	@DeleteMapping(value = "/deleteMyFavorites/{id}" , produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public int deleteMyFavorites(@PathVariable("id") int id) {
-		return bookingDAO.deleteMyFavorites(id);
+	public int deleteMyFavorites(@PathVariable("id") int id,  HttpSession session) {
+		MemberDTO dto = (MemberDTO) session.getAttribute("login");
+		int member_id = dto.getId();
+		return bookingDAO.deleteMyFavorites(id, member_id);
 	}
+
 
 	@DeleteMapping(value = "/deleteMyfavoritesAll" , produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public int deleteMyfavoritesAll() {
-		return bookingDAO.deleteMyfavoritesAll();
+	public int deleteMyfavoritesAll(HttpSession session) {
+		MemberDTO dto = (MemberDTO) session.getAttribute("login");
+		int member_id = dto.getId();
+		return bookingDAO.deleteMyfavoritesAll(member_id);
 	}
 
 }

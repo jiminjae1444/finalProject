@@ -30,8 +30,8 @@
 			order by f.id desc
 			OFFSET #{selectStart} ROWS FETCH NEXT 5 ROWS ONLY
 	</select>
-	
+
 	<select id="myFavoritesMaxPage" resultType="int">
-		select count(*) from favorite
+		select count(*) from favorite where member_id = #{member_id}
 	</select>
 </mapper>

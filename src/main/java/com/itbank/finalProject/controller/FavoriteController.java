@@ -37,12 +37,15 @@ public class FavoriteController {
 		int selectStart = (thisPage - 1) * 5;
 		return favoriteDAO.myFavoritesList(member_id, selectStart);
 	}
-	
+
 	@GetMapping(value="/myFavoritesMaxPage" , produces = "application/json; charset=utf-8")
-	public int myFavoritesMaxPage() {
-		return (favoriteDAO.myFavoritesMaxPage() + 4) / 5;
-	} 
-	
+	public int myFavoritesMaxPage(HttpSession session) {
+		MemberDTO dto = (MemberDTO) session.getAttribute("login");
+		int member_id = dto.getId();
+		return (favoriteDAO.myFavoritesMaxPage(member_id) + 4) / 5;
+	}
+
+
 	@GetMapping(value="/myFavorite/{id}", produces = "application/json; charset=utf-8")
     public int myFavorite(HttpSession session, @PathVariable("id") int hospital_id) {
     	MemberDTO dto = (MemberDTO) session.getAttribute("login");

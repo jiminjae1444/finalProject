@@ -16,6 +16,6 @@ public interface FavoriteDAO {
 
 	List<FavoriteDTO> myFavoritesList(@Param("member_id") int member_id, @Param("selectStart")int selectStart);
 
-	int myFavoritesMaxPage();
+	int myFavoritesMaxPage(int member_id);
 
 }
