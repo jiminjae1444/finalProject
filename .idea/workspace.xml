@@ -9,9 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4350750a-29a0-43ea-8a70-32cef6523690" name="변경" comment="bookingList style">
+    <list default="true" id="4350750a-29a0-43ea-8a70-32cef6523690" name="변경" comment="infowindowStyle">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/addLocation.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/addLocation.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/result.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/result.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -203,7 +204,7 @@
       <workItem from="1732147509740" duration="879000" />
       <workItem from="1732335458571" duration="650000" />
       <workItem from="1732366150217" duration="6939000" />
-      <workItem from="1732373966549" duration="1421000" />
+      <workItem from="1732373966549" duration="6852000" />
     </task>
     <task id="LOCAL-00001" summary="update notification">
       <option name="closed" value="true" />
@@ -253,7 +254,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732374718848</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="infowindowStyle">
+      <option name="closed" value="true" />
+      <created>1732375429778</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1732375429778</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -265,6 +274,7 @@
     <MESSAGE value="update notification sweetalert change color" />
     <MESSAGE value="same sql query" />
     <MESSAGE value="bookingList style" />
-    <option name="LAST_COMMIT_MESSAGE" value="bookingList style" />
+    <MESSAGE value="infowindowStyle" />
+    <option name="LAST_COMMIT_MESSAGE" value="infowindowStyle" />
   </component>
 </project>

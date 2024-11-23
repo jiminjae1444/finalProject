@@ -119,9 +119,9 @@
         padding: 10px; /* 패딩 */
         border: 2px solid #ddd; /* 테두리 색상 */
         border-radius: 40px; /* 둥근 모서리 */
-        margin-top: -40px; /* 상단 여백 */
-        margin-left: 137px;
-        width: 81%;
+        margin-top: 10px; /* 상단 여백 */
+        margin-left: 200px;
+        width: 80%;
     }
 
     .search-buttons {
@@ -214,7 +214,6 @@
      * 사용자 위치 정보를 기반으로 지도 및 병원 정보를 초기화하는 함수
      */
     async function loadHandler() {
-
         const lastSearch = localStorage.getItem('lastSearch') // 저장된 검색어 가져오기
         if (lastSearch) {
             searchInput.value = lastSearch // 검색어를 입력 필드에 복원
@@ -259,7 +258,8 @@
 
             if (goToLogin.isConfirmed) {
                 // 로그인 페이지로 이동
-                window.location.href = '${cpath}/member/login' // 로그인 페이지의 URL을 여기에 입력
+                let currentPageUrl = window.location.href
+                window.location.href = '${cpath}/member/login/redirectUrl=' + encodeURIComponent(currentPageUrl) // 로그인 페이지의 URL을 여기에 입력
                 return
             }
         }

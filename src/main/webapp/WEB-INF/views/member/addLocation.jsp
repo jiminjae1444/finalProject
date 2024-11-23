@@ -189,7 +189,7 @@
 				<p class="addlocationBtn"><input type="submit" value="등록" ></p>
 			</form>
 			<p style="text-align: center;">
-				<a href=" ${cpath}/member/addLocation/${id}">
+				<a href=" ${cpath}/member/info/${id}">
 					<button class="gotoBackBtn">뒤로가기</button>
 				</a>
 			</p>
