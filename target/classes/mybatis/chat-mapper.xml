@@ -6,12 +6,12 @@
 <mapper namespace="com.itbank.finalProject.repository.ChatDAO">
 
 	<!-- FAQ에서 response 반환 -->
-	<select id="selectFaqResponse">
+	<select id="selectFaqResponse" resultType="java.lang.String">
 		select response from faq where #{contentStr} like '%' || replace(keyword, ' ', '') || '%'
 	</select>
 	
 	<!-- roomUrl로 chat_room 반환 -->
-	<select id="getChatRoomByUrl">
+	<select id="getChatRoomByUrl" resultType="com.itbank.finalProject.model.ChatRoomDTO">
 		select chat_room.*, member.userid as memberUserid, member.name as memberName
 		    from chat_room
 		    join member

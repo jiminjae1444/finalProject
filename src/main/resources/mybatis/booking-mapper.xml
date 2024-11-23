@@ -57,10 +57,6 @@
 			OFFSET #{selectStart} ROWS FETCH NEXT 7 ROWS ONLY
 	</select>
 	
-	<select id="selectNotificationAllCount" >
-		select count(*) from notification 
-	</select>
-	
 	<insert id="notificationBooking" parameterType="notification">
 		insert into notification (member_id, booking_id, message) values (#{member_id}, #{id}, ' 예약되었습니다.')
 	</insert>
