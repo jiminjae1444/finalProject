@@ -3,133 +3,169 @@
 <%@ include file="../header.jsp" %>
 
 <style>
-body {
-    background: linear-gradient(to bottom, #2c3e50, #a4a4a4);
-    width: 100vw;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
+   body {
+      background: linear-gradient(to bottom, #2c3e50, #a4a4a4);
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+   }
 
-.bookingListModal {
-    height: 91%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
+   .bookingListModal {
+      height: 91%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+   }
 
-.bookingListContent {
-    width: 80%;
-    max-width: 1000px;
-    background-color: rgba(247, 249, 250, 0.9);
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    overflow-y: auto;
-}
+   .bookingListContent {
+      width: 80%;
+      max-width: 1000px;
+      background-color: rgba(247, 249, 250, 0.9);
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      overflow-y: auto;
+   }
 
-.topBox {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-}
+   .topBox {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+   }
 
-.profile-image {
-    text-align: center;
-    margin-bottom: 15px;
-}
+   .profile-image {
+      text-align: center;
+      margin-bottom: 15px;
+   }
 
-.profile-image .size {
-    width: 150px;
-    height: 150px;
-    border-radius: 10px;
-    object-fit: cover;
-    border: 3px solid #34495e;
-}
+   .profile-image .size {
+      width: 150px;
+      height: 150px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 3px solid #34495e;
+   }
 
-.titleText {
-    font-size: 24px;
-    font-weight: bold;
-    color: #34495e;
-    margin-top: 10px;
-}
+   .titleText {
+      font-size: 24px;
+      font-weight: bold;
+      color: #34495e;
+      margin-top: 10px;
+   }
 
-.guide {
-    text-align: center;
-    font-size: 16px;
-    color: gray;
-    margin-top: 5px;
-}
+   .guide {
+      text-align: center;
+      font-size: 16px;
+      color: gray;
+      margin-top: 5px;
+   }
 
-#thisIsList {
-    text-align: center;
-    font-size: 20px;
-    font-weight: bold;
-    color: #2c3e50;
-    margin-bottom: 20px;
-}
+   #thisIsList {
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      color: #2c3e50;
+      margin-bottom: 20px;
+   }
 
-.mainTable {
-    width: 100%;
-    margin-top: 20px;
-}
+   .mainTable {
+      width: 100%;
+      margin-top: 20px;
+   }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #fff;
-}
+   table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+   }
 
-table th, table td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
+   table th, table td {
+      padding: 12px; /* 셀 패딩 증가 */
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+   }
+   table th {
+      background-color: #34495e;
+      color: white;
+      font-weight: bold;
+   }
 
-table th {
-    background-color: #34495e;
-    color: white;
-    font-weight: bold;
-}
+   table td {
+      font-size: 15px;
+   }
 
-table td {
-    font-size: 16px;
-}
+   table a {
+      color: #2c3e50;
+      text-decoration: none;
+   }
 
-table a {
-    color: #2c3e50;
-    text-decoration: none;
-}
+   table a:hover {
+      text-decoration: underline;
+   }
 
-table a:hover {
-    text-decoration: underline;
-}
+   bodyTr:hover {
+      background-color: #f4f4f4;
+   }
 
-bodyTr:hover {
-    background-color: #f4f4f4;
-}
+   .gotoBackBtn {
+      width: 183px;
+      padding: 8px; /* 여백 축소 */
+      background: none;
+      border: 1px solid #2c3e50;
+      border-radius: 4px; /* 둥글기 축소 */
+      color: #2c3e50;
+      cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease;
+      font-size: 0.9rem; /* 텍스트 크기 축소 */
+   }
+
+   .gotoBackBtn:hover {
+      background-color: #34495e;
+      color: white;
+   }
+
+   /* 예약 일시와 예약 날짜를 위한 스타일 */
+   .bookingDateTime {
+      font-size: 16px;
+      color: #34495e;
+      font-weight: bold;
+      margin-bottom: 5px; /* 공간 축소 */
+   }
+
+   .bookingDateTime .date {
+      font-size: 14px;
+      color: #7f8c8d;
+      margin-top: 3px;
+   }
+
+   .bookingDateTime .time {
+      font-size: 14px;
+      color: #2ecc71; /* 예약일시 강조 색상 (녹색) */
+   }
 
 
 .gotoBackBtn {
-    background-color: #2c3e50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
+   width: 183px;
+   padding: 8px; /* 여백 축소 */
+   background: none;
+   border: 1px solid #2c3e50;
+   border-radius: 4px; /* 둥글기 축소 */
+   color: #2c3e50;
+   cursor: pointer;
+   transition: background 0.3s ease, color 0.3s ease;
+   font-size: 0.9rem; /* 텍스트 크기 축소 */
 }
 
 .gotoBackBtn:hover {
     background-color: #34495e;
+   color: white;
 }
 
 </style>
-<h3>${list.size()}</h3>
 <div class="bookingListModal">
    <div class="bookingListContent">
       <div class="topBox">
@@ -153,22 +189,27 @@ bodyTr:hover {
                </tr>
             </thead>
             <tbody class="tbody1">
-               <c:forEach var="dto" items="${list}">
-                  <tr class="bodyTr">
-                     <td>
-                         <div><a href="${cpath }/hospitalInfo/${dto.hospital_id}" style="list-style: none;">${dto.hospital_name}</a></div>
-                     </td>
-                     <td>
-                         <div>${dto.address}</div>
-                     </td>
-                     <td>
-                         <div>${dto.booked_at}/${dto.booking_date}</div>
-                     </td>
-                     <td>
-                         <div>${dto.status}</div>
-                     </td>
-                  </tr>
-               </c:forEach>
+            <c:forEach var="dto" items="${list}">
+               <tr class="bodyTr">
+                  <td>
+                     <div><a href="${cpath }/hospitalInfo/${dto.hospital_id}" style="list-style: none;">${dto.hospital_name}</a></div>
+                  </td>
+                  <td>
+                     <div>${dto.address}</div>
+                  </td>
+                  <td>
+                     <div class="bookingDateTime">
+                        <!-- 예약 일시 -->
+                        <div class="date">${dto.booked_at}</div>
+                        <!-- 예약 날짜 -->
+                        <div class="time">${dto.booking_date}</div>
+                     </div>
+                  </td>
+                  <td>
+                     <div>${dto.status}</div>
+                  </td>
+               </tr>
+            </c:forEach>
             </tbody>
          </table>
       </div>
