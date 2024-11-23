@@ -129,6 +129,7 @@ bodyTr:hover {
 }
 
 </style>
+<h3>${list.size()}</h3>
 <div class="bookingListModal">
    <div class="bookingListContent">
       <div class="topBox">

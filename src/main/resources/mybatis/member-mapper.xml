@@ -154,10 +154,12 @@
 		where userid = #{userid}
 	</select>
 	
-	<select id="selectMemberByBookingList" parameterType="int">
+	<select id="selectMemberByBookingList" parameterType="int" resultType="com.itbank.finalProject.model.BookingDTO">
 		SELECT 
 		    b.id,
 		    m.userid,
+			m.id as member_id,
+			h.id as hospital_id,
 		    h.HOSPITAL_NAME,
 		    h.ADDRESS,
 		    b.booking_date,
@@ -185,7 +187,7 @@
 	    WHERE memberLocation = #{memberLocation} AND member_id = #{member_id}
 	</select>
 	
-	<select id="selectAddLocationList" parameterType="int">
+	<select id="selectAddLocationList" parameterType="int" resultType="com.itbank.finalProject.model.SubLocationDTO">
 		SELECT
 			    s.id,
 			    s.memberLocation,

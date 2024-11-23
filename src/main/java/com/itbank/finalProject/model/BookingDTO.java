@@ -13,6 +13,8 @@ public class BookingDTO {
 	private Date booking_date;
 	private Date booked_at;
 	private String status;
-	
+
+	private String hospital_name;
+	private String address;
 	
 }

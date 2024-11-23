@@ -158,6 +158,7 @@ public class MemberController {
 	@GetMapping("/bookingList/{id}")
 	public String bookingList(@PathVariable int id, Model model) {
 		List<BookingDTO> list = naverLoginService.getMemberByBookingList(id);
+		log.info(list);
 		model.addAttribute("list", list);
 	    return "member/bookingList";
 	}
