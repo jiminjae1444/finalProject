@@ -21,7 +21,7 @@
 
     div.infoWindowContentSelf {
         background-color: white;
-        border: 1px solid #4caf50;
+        border: 1px solid #34495e;
         border-radius: 8px;
         padding: 10px;
         font-size: 14px;

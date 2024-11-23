@@ -1345,7 +1345,6 @@
       </div>
       
 	  <div class="main_right">
-		
 		   <div class="input-group">
             <div class="search-buttons">
                <div class="select-wrap">
