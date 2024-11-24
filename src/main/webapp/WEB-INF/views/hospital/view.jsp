@@ -1574,6 +1574,7 @@
            // 결제 버튼 클릭 이벤트
            paymentBtn.onclick = async () => {
                var IMP = window.IMP
+               IMP.init('imp22288473') // '가맹점 식별코드'는 아임포트에서 발급받은 본인의 식별키를 입력
                const paymentData = {
                    pg: 'html5_inicis.INIpayTest',
                    pay_method: 'card', // 결제 수단

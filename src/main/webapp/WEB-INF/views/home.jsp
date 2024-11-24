@@ -53,7 +53,7 @@
     }
     @keyframes moveBackground {     /* 배경화면 이동효과 */
         from {
-			background-position: -100% 0;
+			background-position: -100 0;
         }
         to {
             background-position: 0 0;
