@@ -216,7 +216,7 @@ public class MemberController {
 		       e.printStackTrace();
 		       rttr.addFlashAttribute("SubUpError", "서버 오류가 발생했습니다.");
 		   }
-		   return "redirect:/member/info/" + member_id;
+		   return "redirect:/member/addLocation/" + member_id;
 	}
 
 	

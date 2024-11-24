@@ -267,7 +267,7 @@
 	                    type: "success",
 	                    confirmButtonText: "확인"
 	                }, function() {
-	                    location.href = '${cpath}/member/info/${id}' // 성공 시 이동할 페이지 경로
+	                    location.reload()
 	                })
 	            } else {
 	                swal("알림", "예상치 못한 응답을 받았습니다.", "warning")
