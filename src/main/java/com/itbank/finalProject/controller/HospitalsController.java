@@ -2,6 +2,7 @@ package com.itbank.finalProject.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -44,6 +45,10 @@ public class HospitalsController {
     public HashMap<String, Object> search(@RequestParam String search, HttpSession session) {
         HashMap<String, Object> response = new HashMap<>();
         List<HospitalDTO> hospitalList = hospitalService.getSearchResult(search);
+        // null 체크 및 기본값 설정
+        if (hospitalList == null) {
+            hospitalList = new ArrayList<>();
+        }
         response.put("success", !hospitalList.isEmpty());
         response.put("noSearch", hospitalList.isEmpty());
         response.put("result", hospitalList);
@@ -92,9 +97,7 @@ public class HospitalsController {
         String resp = HospitalService.getRoutes(routeRequest);
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(resp);
-        log.info(jsonNode.toPrettyString());
         JsonNode itineraries =jsonNode.get("metaData").get("plan").get("itineraries");
-        log.info(itineraries.toPrettyString());
         response.put("itineraries", itineraries);
         response.put("success", true);
         return response;
@@ -128,7 +131,6 @@ public class HospitalsController {
     public HashMap<String, Object> viewCount(@PathVariable("id") int id) {
         HashMap<String , Object> response = new HashMap<>();
         List<DailyViewCountDTO> dto =  dailyViewCountService.getViewCount(id);
-        log.info(dto.toString());
         response.put("viewCount", dto);
         return response;
     }

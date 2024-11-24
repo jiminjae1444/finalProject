@@ -53,7 +53,7 @@
     }
     @keyframes moveBackground {     /* 배경화면 이동효과 */
         from {
-            background-position: -100 0;
+			background-position: -100 0;
         }
         to {
             background-position: 0 0;
@@ -357,8 +357,8 @@
 <style>
 	.ranking-list {
 		position:absolute;
-		top: 56%;
-		left: 4%;
+		top: 55%;
+		left: 11%;
 		list-style: none;
 		padding: 0;
 		margin: 0;
@@ -409,6 +409,7 @@
 		border: 2px solid #ddd; /* 테두리 색상 */
 		border-radius: 40px; /* 둥근 모서리 */
 		margin-top: 430px; /* 상단 여백 */
+		margin-left: 60px;
 		position: absolute;
 		width: 70%;
 	}
@@ -422,6 +423,10 @@
 		align-items: center; /* 수직 중앙 정렬 */
 		flex-grow: 1; /* 남은 공간 차지 */
 		margin: 0;
+	}
+	
+	.search-form #soundSearch {
+		width: 40px;
 	}
 
 	#searchInput {
@@ -467,10 +472,6 @@
 		color: white;
 		cursor: pointer;
 		margin: 5px;
-	}
-
-	button:hover {
-		background-color: #34495e; /* 호버 시 어두운 파란색 */
 	}
 </style>
 
@@ -533,12 +534,24 @@
 
 <!-- 헤더 스타일 -->
 <style>
-	/*    챗봇 아이콘 */
-        #chat_icon img {
-            position: fixed;
-            right: 50px;
-            bottom: 50px;
-        }
+		/* 	챗봇 아이콘 */
+	#chat_icon img {
+		position: fixed;
+		right: 40px;
+		bottom: 40px;
+		z-index: 1000;
+		cursor: pointer;
+	}
+	/* 	(상담사) 채팅방 목록 아이콘 */
+	#list_icon img {
+		position: fixed;
+		right: 40px;
+		bottom: 100px;
+		z-index: 1000;
+		cursor: pointer;
+	}
+
+
 
         /*   민재 파트 (홈 검색 기능) */
 
@@ -759,8 +772,8 @@
 
         #notificationCountSpan {
             position: absolute;
-            top: -5px;
-            right: -5px;
+            top: 20px;
+            right: 267px;
             background-color: red;
             color: white;
             border-radius: 50%;
@@ -780,13 +793,13 @@
         #recentHospitalsContainer {
             width: 180px; /* 컨테이너 너비를 조금 더 줄임 */
             position: fixed; /* 화면에 고정 */
-            top: 80px; /* 상단에서 80px 떨어지게 위치 */
+            top: 130px; /* 상단에서 80px 떨어지게 위치 */
             right: 20px; /* 화면 오른쪽에 위치 */
             background-color: #f9f9f9;
             padding: 10px;
             border-radius: 8px; /* 카드와 동일하게 둥글게 */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            z-index: 2; /* 다른 콘텐츠 위에 표시 */
+            z-index: 5; /* 다른 콘텐츠 위에 표시 */
             max-height: 75vh; /* 화면 높이에 맞게 제한 */
             overflow-y: hidden; /* 스크롤 숨기기 */
             border: 1px solid #e0e0e0; /* 약간의 테두리로 강조 */
@@ -871,6 +884,7 @@
             height: 27px;
             background-size: cover;
             margin-right: 25px;
+            cursor: pointer;
         }
         .healthInfoIcon {
         	background-image: url('${cpath}/resources/image/건강정보.png');
@@ -885,6 +899,7 @@
             height: 30px;
             background-size: cover;
             margin-right: 25px;
+            cursor: pointer;
         }
         #logoutBtn {
         	width: 100px;
@@ -898,7 +913,11 @@
 		    font-size: 0.9rem; /* 텍스트 크기 축소 */
 		    margin-right: 10px;
         }
-        
+        #logoutBtn:hover {
+        	background: #364657;
+        	border: 1px solid #364657;
+       		color: white;
+        }
     </style>
 
 <%--    알림 메시지 스타일--%>
@@ -1155,7 +1174,6 @@
 		    background-color: #8a8e92;
 		    padding: 20px;
 		    color: white;
-		    z-index: 2;
 		    display: flex;
 		}
 		footer p {
@@ -1240,8 +1258,39 @@
         	align-items: center;
         	display: flex;
         }
+        .reviewCard_hospitalName {
+        	font-size: 16px;
+	        font-weight: bold;
+	        color: #34495e;
+        }
+        .reviewCard_userid {
+        	font-size: 14px;
+	        color: #7f8c8d;
+        }
+        .reviewCard_comments {
+        	font-size: 16px;
+        }
+        .reviewCard span {
+        	font-size: 16px;
+	        font-weight: bold;
+	        color: #f39c12;
+        }
     </style>
+<!-- 챗봇 아이콘 -->
+<div id="chat_icon">
+	<a onclick="openChatRoom(); return false;">
+		<img src="${cpath }/resources/image/chat-icon.png" width="50">
+	</a>
+</div>
 
+<!-- (상담사한테만 뜸) 채팅방 목록 아이콘 -->
+<c:if test="${not empty login && login.role == 1 }">
+	<div id="list_icon">
+		<a href="${cpath }/chat/rooms">
+			<img src="${cpath }/resources/image/list-icon.png" width="50">
+		</a>
+	</div>
+</c:if>
 <!-- 즐겨찾기 테이블 -->
 <table id="myFavoritesTable" class="hidden">
     <thead></thead>
@@ -1296,7 +1345,6 @@
       </div>
       
 	  <div class="main_right">
-		
 		   <div class="input-group">
             <div class="search-buttons">
                <div class="select-wrap">
@@ -1308,8 +1356,8 @@
             </div>
             <form id="searchForm" class="search-form" method="post">
                <input type="text" id="searchInput" name="search" placeholder="증상 또는 병명을 입력해주세요" required>
-               <button type="button" id="soundSearch" class="search">음성</button>
                <button type="submit" class="search">검색</button>
+               <img src="${cpath }/resources/image/voice-icon.png" id="soundSearch">
             </form>
          </div>
 		
@@ -1550,10 +1598,9 @@
 		<div class="reviewContainer">
 			<c:forEach var="dto" items="${homeReview }">
 				<div class="reviewCard">
-					<p><a href="${cpath }/hospitalInfo/${dto.hospital_id}">${dto.hospital_id }</a>
-					<p>${dto.member_id }</p>
-					<p>${dto.comments }</p>
-					<p class="hospital_id"></p> 
+					<p class="reviewCard_hospitalName"><a href="${cpath }/hospitalInfo/${dto.hospital_id}">${dto.hospital_name }</a>
+					<p class="reviewCard_userid">${dto.userid }</p>
+					<p class="reviewCard_comments">${dto.comments }</p>
 				<c:forEach var="i" begin="1" end="${dto.rating }">
 				    <span>★</span>
 				</c:forEach>	
@@ -1602,9 +1649,21 @@
 
 
 
-
-
-
+<!-- 새창에서 챗봇 페이지로 이동 -->
+<script>
+	async function openChatRoom() {
+		const url = cpath + '/chats/room'
+		const roomUrl = await fetch(url).then(resp => resp.text())
+// 		console.log('roomUrl 받아온 후: ', roomUrl)
+		
+		if(roomUrl) {
+			window.open(cpath + '/chat/room/' + roomUrl, '_blank', 'width=600, height=1080')
+		}
+		else {
+			alert('챗봇으로 연결할 수 없습니다')
+		}
+	}
+</script>
 <!-- 민재 검색 스크립트 -->
 <script>
     let markers = []
@@ -1633,7 +1692,7 @@
           title: '알림',
           text: '음성 인식이 시작되었습니다.',
           icon: 'success',
-          confirmButtonColor:'#3085d6',
+          confirmButtonColor:'#9cd2f1',
           confirmButtonText: '확인'
        })
     }
@@ -1644,7 +1703,7 @@
        Swal.fire({
           title: '알림',
           text: '음성 인식이 종료되었습니다.',
-          confirmButtonColor:'#3085d6',
+          confirmButtonColor:'#9cd2f1',
           icon: 'info',
           confirmButtonText: '확인'
        })
@@ -1658,7 +1717,7 @@
           Swal.fire({
              title: '알림',
              text: '음성 인식이 이미 실행 중입니다.',
-             confirmButtonColor:'#3085d6',
+             confirmButtonColor:'#9cd2f1',
              icon: 'info',
              confirmButtonText: '확인'
           })
@@ -1666,13 +1725,33 @@
     }
     // 음성 인식 결과 처리
     recognition.onresult = function (event) {
-       let speechToText = event.results[0][0].transcript
-       speechToText = speechToText.trim().replace('.', '') // 마침표 제거
-       searchInput.value = speechToText // 텍스트 입력 필드에 반영
-       console.log('음성 검색 결과: ', speechToText)
+		let speechToText = event.results[0][0].transcript
+		// 마침표 제거 및 텍스트 트리밍
+		speechToText = speechToText.trim().replace('.', '')
+		// 단어를 공백 기준으로 분리하고 컴마로 연결
+		const formattedText = speechToText.split(' ').join(' , ')
+       searchInput.value = formattedText // 텍스트 입력 필드에 반영
+//        console.log('음성 검색 결과: ', speechToText)
     }
 
-    soundSearch.onclick = startRecognition
+	// 버튼 클릭 시 음성 검색 사용 여부 확인
+	soundSearch.onclick = function () {
+		Swal.fire({
+			title: '음성 검색',
+			text: '음성 검색은 단어만 검색가능합니다 사용하시겠습니까?',
+			icon: 'question',
+			showCancelButton: true,
+			confirmButtonColor: '#9cd2f1',
+			cancelButtonColor: '#c1c1c1',
+			confirmButtonText: '사용',
+			cancelButtonText: '취소'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				// 사용자가 "사용"을 선택한 경우 음성 검색 실행
+				startRecognition()
+			}
+		})
+	}
 
     // 초기 플레이스 홀더 설정
     searchInput.placeholder = '증상 또는 병명을 입력해주세요'  // 기본값
@@ -1694,13 +1773,15 @@
     async function searchHandler(event) {
        event.preventDefault();
        const formData = new FormData(event.target);
+		const query = searchInput.value // 입력된 검색어를 저장
+		localStorage.setItem('lastSearch', query) // 검색어를 localStorage에 저장
        const url = searchTypeSelect.value === 'hospital' ? '${cpath}/hospitals/searchs/names' : '${cpath}/hospitals/searchs';
        const opt = {
           method: 'POST',
           body: formData
        }
        const result = await fetch(url, opt).then(response => response.json());
-       console.log(result);
+//        console.log(result);
 
        if (result.noSearch) {
           swal({
@@ -2081,7 +2162,7 @@ window.onload = () => {
 			body: data
 		};
 		const result = await fetch(url, opt).then(response => response.json());
-		console.log(result);
+// 		console.log(result);
 
 		if (result.noSearch) {
 			swal({
@@ -2112,10 +2193,9 @@ window.onload = () => {
             location.href = cpath + '/member/login'
         })
     }
-
     if (gotoInfo) {
         gotoInfo.addEventListener('click', function() {
-            location.href =  '${cpath}/member/info/${login.id}'
+           location.href =  '${cpath}/member/info/${login.id}'
         })
     }
 </script>
@@ -2171,20 +2251,20 @@ window.onload = () => {
             method : 'GET'
         }
         const result = await fetch(url, opt).then(resp => resp.json())
-        if (result > 0) {
+        if (result > 0 && '${login}' != '') {
             notificationCountSpan.classList.remove('hidden')
-            if (result >= 10) {
+            if (result >= 10 ) {
                 notificationCountSpan.innerText = '9+' // 10 이상은 '9+'로 표시
             } else {
                 notificationCountSpan.innerText = result // 10 미만은 해당 숫자 표시
             }
             return result
         } else {
-			if('${login}' != '') {
-               notificationCountSpan.innerText = '' // 0 이하일 경우 비움
-               notificationCountSpan.classList.add('hidden')
-           }
-           return ''
+			if('${login}' != ''){
+	            notificationCountSpan.innerText = '' // 0 이하일 경우 비움
+	            notificationCountSpan.classList.add('hidden')
+        	}
+            return ''
         }
     }
 
@@ -2365,7 +2445,9 @@ window.onload = () => {
 
     closeBookingBtn.addEventListener('click', closeBookingModal)
     bookingOverlay.onclick = closeBookingModal
-    notification.addEventListener('click', readNotification)
+    if('${login}' != ''){
+	    notification.addEventListener('click', readNotification)	
+    }
     document.addEventListener('DOMContentLoaded', notificationCount)
 </script>
 
@@ -2406,7 +2488,7 @@ window.onload = () => {
         let tag = ''
         tag += '<tr><button id="deleteMyFavoritesAllBtn">일괄 삭제하기</button></tr>'
         const result = await fetch(url, opt).then(resp => resp.json())
-        console.log(result)
+//         console.log(result)
         result.forEach(favorite => {
             tag += '<tr>'
             tag += '<th><a href="${cpath }/hospitalInfo/' + favorite.hospital_id + '">' + favorite.hospital_name + '</a></th>'
@@ -2425,8 +2507,8 @@ window.onload = () => {
                     showCancelButton: true,
                     confirmButtonText: '확인',
                     cancelButtonText: '취소',
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
+                    confirmButtonColor: '#9cd2f1',
+                    cancelButtonColor: '#c1c1c1',
                     reverseButtons: true, // 취소 버튼을 왼쪽에 배치하려면 추가
                 }).then((result) => {
                     if (result.isConfirmed) {
@@ -2445,8 +2527,8 @@ window.onload = () => {
                     icon: 'question',
                     confirmButtonText: '확인',
                     cancelButtonText: '취소',
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
+                    confirmButtonColor: '#9cd2f1',
+                    cancelButtonColor: '#c1c1c1',
                     showCancelButton: true,
                     allowOutsideClick: false,
                     allowEscapeKey: false,
@@ -2460,7 +2542,7 @@ window.onload = () => {
         event.preventDefault()
         const id = parseInt(event.target.dataset.id)
         const thisPage = parseInt(event.target.dataset.page)
-        console.log(thisPage)
+//         console.log(thisPage)
         const url = '${cpath}/deleteMyFavorites/' + id
         const opt = {
             method: 'DELETE'
@@ -2532,7 +2614,7 @@ window.onload = () => {
 
     // 즐겨찾기 목록 여는 함수
     async function openMyFavorites(event) {
-        console.log(event.target.dataset.page)
+//         console.log(event.target.dataset.page)
         const thisPage = parseInt(event.target.dataset.page)
         const startPage = (Math.floor((thisPage + 4) / 5) - 1) * 5 + 1
 
@@ -2581,26 +2663,11 @@ window.onload = () => {
         const result = await fetch(url, opt).then(resp => resp.json())
         if(result > 0) openMyFavorites({ target: { dataset: { page: 1 } } })
     }
+    if('${login}' != '') {
+    	myFavorites.addEventListener('click', (event) => openMyFavorites(event))
+    }
 
-
-    myFavorites.addEventListener('click', (event) => {
-        if('${login}' != '') openMyFavorites(event)
-        else {
-            Swal.fire({
-                title: '',
-                text: '로그인 해주세요.',
-                icon: 'info',
-                confirmButtonText: '확인',
-                cancelButtonText: '취소',
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                showCancelButton: true,
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-                showCloseButton: false
-            }).then((result) => {if(result.isConfirmed) location.href = '${cpath}/member/login'})
-        }
-    })
+   
 </script>
 
 <!-- 세번째 페이지 코멘트 스크립트 -->

@@ -33,9 +33,30 @@ public class ReviewService {
 			if(userid == null) return null;
 			userid = userid.substring(0, 3) + userid.substring(3).replaceAll(".", "*");
 			review.put("USERID", userid);
-
 		}
 		return reviewMap;
+	}
+
+
+	// 2주 내 해당 병원 방문 횟수
+	public int selectVisitCount(int memberId, int id) {
+		return reviewDAO.selectVisitCount(memberId, id);
+	}
+
+
+	// 2주 내 해당 병원 리뷰 작성 개수
+	public int selectWriteReviewCount(int memberId, int id) {
+		return reviewDAO.selectWriteReviewCount(memberId, id);
+	}
+
+	// 조회한 병원의 전체 리뷰 개수
+	public int selectTotalReviewCount(int id) {
+		return reviewDAO.selectTotalReviewCount(id);
+	}
+
+	// 조회한 병원의 리뷰 평균 평점
+	public Double selectReviewAvg(int id) {
+		return reviewDAO.selectReviewAvg(id);
 	}
 	
 	

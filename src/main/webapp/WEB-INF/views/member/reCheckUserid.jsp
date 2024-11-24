@@ -123,7 +123,7 @@
            event.preventDefault()
            
            const formData = new FormData(form)
-           fetch('${cpath}/member/reCheckUserid', {
+           fetch('${cpath}/members/reCheckUserid', {
                method: 'POST',
                body: formData
            })
@@ -152,14 +152,14 @@
                }
            })
            .catch(error => {
-               console.error('Error:', error)
+//                console.error('Error:', error)
                swal("오류", "처리 중 오류가 발생했습니다.", "error")
            })
        }
    })
    
    const footer = document.getElementById('footer')
-   footer.style.backgroundColor = '#a2a3a3'
+   footer.style.backgroundColor = '#83888d'
 </script>
 
 </body>

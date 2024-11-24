@@ -3,10 +3,6 @@ package com.itbank.finalProject.model;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 //create table member (
 //	    id          integer         generated as identity primary key,
@@ -43,7 +39,6 @@ public class MemberDTO {
 	private String gender;
 	private String location;
 	private String naver_id;
-	private String kakao_id;
 	private String birth;
 	private int profile_id;
 	

@@ -26,6 +26,6 @@ public class ChatHistoryDTO {
 	
 	private String room_url;
 	private String autoResponse;
-	private String messageFilterId;
+	private String messageFilterId;		// 본인이 본인 메시지를 구독하면서 생기는 메시지 중복수신 문제를 막아줌
 	
 }

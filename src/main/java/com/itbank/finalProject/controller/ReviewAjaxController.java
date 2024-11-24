@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,16 +36,39 @@ public class ReviewAjaxController {
 		return map;
 	}
 	
+	// 병원의 리뷰개수, 평균 평점
+	@GetMapping(value = "/reviewCount/{id}" , produces = "application/json; charset=utf-8")
+	public HashMap<String, Object> selectReviewCountAndAvg(@PathVariable int id) {
+		HashMap<String, Object> map = new HashMap<>();
+		int totalReviewCount = reviewService.selectTotalReviewCount(id);
+		Double reviewAvg = reviewService.selectReviewAvg(id);
+		map.put("count", totalReviewCount);
+		map.put("avg", reviewAvg);
+		return map;
+	}
+	
+	// 리뷰 작성 가능 여부 확인
+	@GetMapping(value = "/checkReview/{memberId}/{id}", produces = "application/json; charset=utf-8")
+	public HashMap<String, Object> checkReview(@PathVariable("memberId") int memberId, @PathVariable("id") int id) {
+		HashMap<String, Object> map = new HashMap<>();
+		int visitCount = reviewService.selectVisitCount(memberId, id);		// 2주 내 해당 병원 방문 횟수
+		int reviewCount = reviewService.selectWriteReviewCount(memberId, id);	// 2주 내 해당 병원에 작성한 리뷰 개수
+		
+		map.put("visitCount", visitCount);
+		map.put("reviewCount", reviewCount);
+		return map;
+	}
+	
 	// 리뷰 작성
-	@PostMapping("/{id}/write")
+	@PostMapping(value = "/{id}/write", produces = "application/json; charset=utf-8")
 	public int write(ReviewDTO dto) {
-		return reviewDAO.insert(dto);
+		return reviewDAO.insertReview(dto);
 	}
 	
 	// 리뷰 삭제
-	@DeleteMapping("/{id}/delete/{reviewId}")
-	public int delete(@PathVariable("reviewId") int reviewId) {
-		return reviewDAO.delete(reviewId);
+	@DeleteMapping(value = "/{id}/delete/{reviewId}", produces = "application/json; charset=utf-8")
+	public int deleteReview(@PathVariable("reviewId") int reviewId) {
+		return reviewDAO.deleteReview(reviewId);
 	}
 	
 }

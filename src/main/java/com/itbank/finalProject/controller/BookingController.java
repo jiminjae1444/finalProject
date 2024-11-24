@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.*;
 
+import com.itbank.finalProject.model.MemberDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -26,6 +27,9 @@ import com.itbank.finalProject.model.NotificationDTO;
 import com.itbank.finalProject.repository.BookingDAO;
 
 import lombok.extern.log4j.Log4j;
+
+import javax.servlet.http.HttpSession;
+
 @Controller
 @Log4j
 public class BookingController {
@@ -117,32 +121,40 @@ public class BookingController {
 		BookingDTO dto = bookingDAO.selectBookingInfo(hospital_id, member_id);
 		return bookingDAO.notificationBookingOneDay(dto);
 	}
-	
+
 	// 알림 읽음 처리하는 patch 요청
 	@PatchMapping(value = "/readNotification/{thisPage}" ,produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public void readNotification(@PathVariable("thisPage") int thisPage) {
+	public void readNotification(@PathVariable("thisPage") int thisPage, HttpSession session) {
 		int selectStart = (thisPage - 1) * 7;
 		int selectEnd = selectStart + 7;
-		bookingDAO.readNotification(selectStart, selectEnd);
+		MemberDTO dto = (MemberDTO) session.getAttribute("login");
+		int member_id = dto.getId();
+		bookingDAO.readNotification(selectStart, selectEnd, member_id);
 	}
-	
+
+
 	// 알림 페이지 최대 수 get 요청
 	@GetMapping(value="/notificationMaxPage" , produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public int notificationMaxPage() {
-		int notificationAllCount = bookingDAO.selectNotificationAllCount();
+	public int notificationMaxPage(HttpSession session) {
+		MemberDTO dto = (MemberDTO) session.getAttribute("login");
+		int member_id = dto.getId();
+		int notificationAllCount = bookingDAO.selectNotificationAllCount(member_id);
 		return ((notificationAllCount + 6) / 7);
 	}
 	
 	// 알림 페이지별 리스트 get 요청
 	@GetMapping(value = "/notificationList/{thisPage}" , produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public List<NotificationDTO> notificationList(@PathVariable("thisPage") int thisPage) {
+	public List<NotificationDTO> notificationList(@PathVariable("thisPage") int thisPage, HttpSession session) {
+		MemberDTO dto = (MemberDTO) session.getAttribute("login");
+		int member_id = dto.getId();
 		int selectStart = (thisPage - 1) * 7;
-		return bookingDAO.selectNotificationList(selectStart);
+		return bookingDAO.selectNotificationList(selectStart, member_id);
 	}
-	
+
+
 	// 예약 변경 patch 요청
 	@PatchMapping(value="/bookingUpdate" , produces = "application/json; charset=utf-8")
 	@ResponseBody
@@ -184,18 +196,24 @@ public class BookingController {
 	// 아직 안읽은 알림 개수 get 요청
 	@GetMapping(value = "/notificationCount", produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public int notificationCount() {
-		return bookingDAO.selectNotificationCount();
+	public int notificationCount(HttpSession session) {
+		MemberDTO login = (MemberDTO) session.getAttribute("login");
+		if(login == null) return 0;
+		int member_id = login.getId();
+		return bookingDAO.selectNotificationCount(member_id);
 	}
 	
 	// 알림테이블에 가장 최근에 추가된 내용 메일보내기 post 요청
 	@PostMapping(value="/sendNotificationMail" , produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public int sendNotificationMail() {
-		NotificationDTO dto = bookingDAO.selectNotificationList(0).get(0);
+	public int sendNotificationMail(HttpSession session) {
+		MemberDTO login = (MemberDTO) session.getAttribute("login");
+		if(login == null) return 0;
+		int member_id = login.getId();
+		NotificationDTO dto = bookingDAO.selectNotificationList(0,member_id).get(0);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		String content = dto.getName() + "님의 " + dto.getHospital_name() + " " + sdf.format(dto.getBooking_date()) + " " + dto.getMessage();
-		log.info(content);
+//		log.info(content);
 		// return nmc.sendNotificationMail(dto.getEmail(), "아프지맙시닥 알림", content);
 		return 1;
 	}
@@ -208,20 +226,27 @@ public class BookingController {
 
 	@DeleteMapping(value = "/deleteNotificationAll" , produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public int deleteNotificationAll() {
-		return bookingDAO.deleteNotificationAll();
+	public int deleteNotificationAll(HttpSession session) {
+		MemberDTO dto = (MemberDTO) session.getAttribute("login");
+		int member_id = dto.getId();
+		return bookingDAO.deleteNotificationAll(member_id);
 	}
 
 	@DeleteMapping(value = "/deleteMyFavorites/{id}" , produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public int deleteMyFavorites(@PathVariable("id") int id) {
-		return bookingDAO.deleteMyFavorites(id);
+	public int deleteMyFavorites(@PathVariable("id") int id,  HttpSession session) {
+		MemberDTO dto = (MemberDTO) session.getAttribute("login");
+		int member_id = dto.getId();
+		return bookingDAO.deleteMyFavorites(id, member_id);
 	}
+
 
 	@DeleteMapping(value = "/deleteMyfavoritesAll" , produces = "application/json; charset=utf-8")
 	@ResponseBody
-	public int deleteMyfavoritesAll() {
-		return bookingDAO.deleteMyfavoritesAll();
+	public int deleteMyfavoritesAll(HttpSession session) {
+		MemberDTO dto = (MemberDTO) session.getAttribute("login");
+		int member_id = dto.getId();
+		return bookingDAO.deleteMyfavoritesAll(member_id);
 	}
 
 }

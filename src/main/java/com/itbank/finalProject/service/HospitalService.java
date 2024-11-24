@@ -27,10 +27,10 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.net.MediaType;
 import com.itbank.finalProject.Coordinates;
 import com.itbank.finalProject.NaverMapCrawler;
 import com.itbank.finalProject.model.HospitalDTO;
+import com.itbank.finalProject.model.ReviewDTO;
 import com.itbank.finalProject.model.RouteRequest;
 import com.itbank.finalProject.repository.HospitalDAO;
 
@@ -39,11 +39,11 @@ import lombok.extern.log4j.Log4j;
 @Service
 @Log4j
 public class HospitalService {
-	
+
     @Autowired
     HospitalDAO hospitalDAO;
 
-    
+
     // 호준 파트
 	public List<HospitalDTO> selectSidoList(int jinryo_code) {
 		return hospitalDAO.selectSidoList(jinryo_code);
@@ -64,7 +64,7 @@ public class HospitalService {
 	public List<HospitalDTO> selectPagingHospitalList(int jinryo_code, int sido_code, int gu_code, int offset, int fetch) {
 		return hospitalDAO.selectPagingHospitalList(jinryo_code, sido_code, gu_code, offset, fetch);
 	}
-    
+
     private NaverMapCrawler naverMapCrawler;
 
     public HospitalService(NaverMapCrawler naverMapCrawler) {
@@ -98,36 +98,45 @@ public class HospitalService {
 
     @Transactional
     public List<HospitalDTO> getSearchResult(String search) {
-        if (search != null && !search.isEmpty()) {
-            List<String> searchList = Arrays.stream(search.split(","))
-                    .map(String::trim)
-                    .flatMap(kw-> Stream.of(kw,kw.replace(" ", "")))
-                    .distinct()
-                    .collect(Collectors.toList());
+        if (search == null || search.isEmpty()) {
+            return null;  // 검색어가 없으면 null 반환
+        }
 
-            //분리한 검색어를 db에 저장
+        // 검색어를 분리하고 중복 제거
+        List<String> searchList = Arrays.stream(search.split(","))
+                .map(String::trim)
+                .flatMap(kw -> Stream.of(kw, kw.replace(" ", "")))  //공백 제거
+                .distinct()  //중복 제거
+                .collect(Collectors.toList());
+
+        // 병원 정보 조회
+        List<HospitalDTO> bodyList = hospitalDAO.ContainsBodyList(searchList);
+        List<HospitalDTO> finalResult = null;
+
+        if (!bodyList.isEmpty()) {
+            // 부위가 포함되어 있으면
+            List<HospitalDTO> symptomsList = hospitalDAO.getHospitalsByKeywords(searchList);
+            symptomsList.retainAll(bodyList);
+
+            // 중복 제거 후 최종 결과 리스트 생성
+            Set<HospitalDTO> resultSet = new HashSet<>(symptomsList);
+            finalResult = new ArrayList<>(resultSet);
+        } else {
+            // 부위 결과가 없으면 증상 검색 결과만 가져오기
+            finalResult = hospitalDAO.getHospitalsByKeywords(searchList);
+        }
+
+        // 검색 결과가 있을 때만 검색어를 DB에 저장
+        if (finalResult != null && !finalResult.isEmpty()) {
             for (String kw : searchList) {
                 hospitalDAO.insertKeyword(kw);
             }
-
-            List<HospitalDTO> bodyList = hospitalDAO.ContainsBodyList(searchList);
-            if (!bodyList.isEmpty()) {
-                // 증상에 대한 결과 가져오기
-                List<HospitalDTO> symptomsList = hospitalDAO.getHospitalsByKeywords(searchList);
-
-                // 두 리스트를 합치고 중복을 제거한 후 반환
-                symptomsList.addAll(bodyList);
-                Set<HospitalDTO> resultSet = new HashSet<>(symptomsList);  // 중복 제거
-                List<HospitalDTO> finalList = new ArrayList<>(resultSet);   // 중복 제거 후 리스트로 변환
-                return finalList.isEmpty() ? null : finalList;
-
-            } else {
-                return hospitalDAO.getHospitalsByKeywords(searchList);
-            }
-        } else {
-            return null;
         }
+
+        // 결과가 없으면 null 반환, 있으면 최종 결과 반환
+        return finalResult.isEmpty() ? null : finalResult;
     }
+
 
     @Transactional
     public List<HospitalDTO> getSearchResultHospital(String hospital) {
@@ -204,7 +213,7 @@ public class HospitalService {
     public String getHospitalImage(int hospitalId, HttpSession session, HttpServletRequest request) throws UnsupportedEncodingException {
         // 세션에서 이미 캐시된 이미지 URL을 가져오기
         String cachedImageUrl = (String) session.getAttribute("hospitalImage_" + hospitalId);
-        System.out.println(hospitalId);
+//        System.out.println(hospitalId);
         // 캐시된 이미지 URL이 있으면 반환
         if (cachedImageUrl != null) {
             return cachedImageUrl;  // 세션에서 캐시된 이미지 URL 반환
@@ -257,7 +266,7 @@ public class HospitalService {
         // 쿼리 문자열을 수동으로 생성
         String queryString = "serviceKey=" + serviceKey + "&numOfRows=" + numOfRows;
 
-        log.info(url + queryString);  // URL 확인용 로그 출력
+//        log.info(url + queryString);  // URL 확인용 로그 출력
 
         // 최종 URL 생성
         URI uri = URI.create(url + queryString);
@@ -272,5 +281,16 @@ public class HospitalService {
 
         return response.getBody();
     }
+
+    public List<ReviewDTO> getReviewToHomepage() {
+    	List<ReviewDTO> homeReviewList = hospitalDAO.getReviewToHomepage();
+    	for(ReviewDTO homeReview : homeReviewList) {
+    		String userid = homeReview.getUserid();
+			if(userid == null) return null;
+			userid = userid.substring(0, 3) + "***";
+			homeReview.setUserid(userid);
+    	}
+		return homeReviewList;
+	}
     
 }

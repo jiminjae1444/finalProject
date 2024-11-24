@@ -304,6 +304,14 @@
         color: #34495e;
         margin-bottom: 15px;
     }
+    .review-section img {
+    	width: 40px;
+    	align-items: center;
+    	vertical-align: middle;
+    	margin-bottom: 3px;
+    	margin-left: 8px;
+    	margin-right: 10px;
+    }
 
     .review-card {
         display: flex;
@@ -751,7 +759,7 @@
                 </div>
             </div>
             <div class="review-section">
-                <h3>리뷰</h3>
+                <h3>리뷰 (${reviewCount }) <img src="${cpath}/resources/image/star-icon.png">${reviewAvg }</h3>
                 <div id="reviewListSome">
                     <c:if test="${empty reviewList}">
                         <div class="no-reviews">
@@ -761,7 +769,7 @@
                     <c:forEach var="review" items="${reviewList}">
                         <div class="review-card">
                             <div class="review-header">
-                                <img class="profile-img" src="${review.PROFILE_IMG}" alt="User Image">
+                                <img class="profile-img" src="${cpath }/fpupload/image/${empty review.PROFILE_IMG ? 'default.png' : review.PROFILE_IMG}">
                                 <div class="user-info">
                                     <div class="user-id">${review.USERID}</div>
                                     <div class="created-at">${review.CREATED_AT}</div>
@@ -822,12 +830,12 @@
     const findRouteBtn = document.getElementById('findRouteBtn');
     function loadHandler() {
 // 카카오 지도 API Geocoder 인스턴스 생성
-        const geocoder = new kakao.maps.services.Geocoder();
+        const geocoder = new kakao.maps.services.Geocoder()
 
 // 서버에서 받아온 병원 주소
-        var address = '${hospital.address}'; // JSP에서 병원 주소로 대체됩니다
-        const splitAddress = address.split(' ');
-         address = splitAddress.slice(0, 4).join(' ');
+        var address = '${hospital.address}' // JSP에서 병원 주소로 대체됩니다
+        const splitAddress = address.split(' ')
+         address = splitAddress.slice(0, 4).join(' ')
 
 // 주소를 좌표로 변환
         geocoder.addressSearch(address, function (result, status) {
@@ -849,7 +857,7 @@
 // 병원 위치에 마커 생성
                 const marker = new kakao.maps.Marker({
                     position: coords, // 마커의 위치 설정
-                });
+                })
                 marker.setMap(map) // 지도에 마커 추가
 
 // 병원 이름을 표시할 인포윈도우 생성
@@ -866,7 +874,7 @@
                     text: '주소를 찾을 수 없습니다.',
                     type: 'error', // 오류에 맞는 아이콘 선택
                     button: "확인"
-                });
+                })
             }
         })
     }
@@ -882,7 +890,7 @@
         const modal = document.getElementById('routeModal')
         modal.style.display = 'none'  // 모달 숨기기
         // console.log("모달이 닫혔습니다.")
-        document.getElementById('routeInfo').innerHTML = '';
+        document.getElementById('routeInfo').innerHTML = ''
     }
 
     async function getUserLocationAndDirections() {
@@ -895,21 +903,21 @@
             confirmButtonText: "주소 사용",
             cancelButtonText: "현재 위치 사용",
             confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-        });
+            cancelButtonColor: '#c1c1c1',
+        })
 
         // "주소 사용"을 선택했을 때
         if (userChoice.isConfirmed) {
-            useLoginLocation(); // 로그인된 주소로 위치 정보 변환 및 경로 찾기
+            useLoginLocation()// 로그인된 주소로 위치 정보 변환 및 경로 찾기
         }
         // "현재 위치 사용"을 선택했을 때
         else {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
-                    var userLat = position.coords.latitude;
-                    var userLng = position.coords.longitude;
-                    var hospitalLat = ${hospital.lat}; // 서버에서 전달받은 병원 위도
-                    var hospitalLng = ${hospital.lng}; // 서버에서 전달받은 병원 경도
+                    var userLat = position.coords.latitude
+                    var userLng = position.coords.longitude
+                    var hospitalLat = ${hospital.lat}// 서버에서 전달받은 병원 위도
+                    var hospitalLng = ${hospital.lng} // 서버에서 전달받은 병원 경도
 
                     getDirections(userLat, userLng, hospitalLat, hospitalLng); // 경로 찾기
                 }, function(error) {
@@ -919,8 +927,8 @@
                         icon: "error",
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: "확인"
-                    });
-                });
+                    })
+                })
             } else {
                 Swal.fire({
                     title: "오류",
@@ -928,7 +936,7 @@
                     icon: "error",
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: "확인"
-                });
+                })
             }
         }
     }
@@ -936,16 +944,16 @@
     // 로그인된 사용자 주소를 사용하는 함수
     function useLoginLocation() {
         if (${not empty login.location}) {  // 사용자 주소가 있을 때
-            var loginAddress = "${login.location}";  // 로그인된 사용자 주소
+            var loginAddress = "${login.location}" // 로그인된 사용자 주소
             convertAddressToCoordinates(loginAddress, function(result) {
                 if (result) {
-                    var userLat = result.y;
-                    var userLng = result.x;
-                    var hospitalLat = ${hospital.lat}; // 서버에서 전달받은 병원 위도
-                    var hospitalLng = ${hospital.lng}; // 서버에서 전달받은 병원 경도
+                    var userLat = result.y
+                    var userLng = result.x
+                    var hospitalLat = ${hospital.lat} // 서버에서 전달받은 병원 위도
+                    var hospitalLng = ${hospital.lng} // 서버에서 전달받은 병원 경도
 
-                    console.log("사용자 주소 위치:", userLat, userLng); // 주소에서 가져온 사용자 위치
-                    console.log("병원 위치:", hospitalLat, hospitalLng); // 병원 위치 확인
+//                     console.log("사용자 주소 위치:", userLat, userLng); // 주소에서 가져온 사용자 위치
+//                     console.log("병원 위치:", hospitalLat, hospitalLng); // 병원 위치 확인
 
                     getDirections(userLat, userLng, hospitalLat, hospitalLng); // 경로 찾기
                 } else {
@@ -955,9 +963,9 @@
                         icon: "error",
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: "확인"
-                    });
+                    })
                 }
-            });
+            })
         } else {
             // 로그인 되어 있지 않은 경우, 로그인 페이지로 이동
             Swal.fire({
@@ -971,21 +979,21 @@
                     const currentPageUrl = window.location.href
                     window.location.href = cpath + '/member/login?redirectUrl=' + encodeURIComponent(currentPageUrl) // 로그인 페이지로 리다이렉션
                 }
-            });
+            })
         }
     }
 
     // 주소를 좌표로 변환하는 함수
     function convertAddressToCoordinates(address, callback) {
-        var geocoder = new kakao.maps.services.Geocoder();
+        var geocoder = new kakao.maps.services.Geocoder()
 
         geocoder.addressSearch(address, function(result, status) {
             if (status === kakao.maps.services.Status.OK) {
                 callback(result[0]);
             } else {
-                callback(null);
+                callback(null)
             }
-        });
+        })
     }
 
     async function getDirections(startY, startX, endY, endX) {
@@ -1004,7 +1012,7 @@
             displayRoute(itineraries)
         } catch (error) {
             await closeRouteModal()
-            console.error("경로 API 호출 중 오류:", error)
+//             console.error("경로 API 호출 중 오류:", error)
             swal({
                 title: '오류',
                 text: '예기치 못한 오류가 발생했습니다',
@@ -1087,7 +1095,7 @@
                 icon: "error",
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: "확인"
-            });
+            })
         }
     }
     findRouteBtn.onclick = openRouteModal
@@ -1139,7 +1147,7 @@
                  text: '예약이 하루 남았습니다.',
                  icon: 'info',
                  confirmButtonText: '확인',
-                    confirmButtonColor: '#3085d6',
+                    confirmButtonColor: '#9cd2f1',
                     allowOutsideClick: false,
                  allowEscapeKey: false,
                  showCloseButton: false
@@ -1208,8 +1216,8 @@
                 text: '예약을 진행하시려면 로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?',
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
+                confirmButtonColor: '#9cd2f1',
+                cancelButtonColor: '#c1c1c1',
                 confirmButtonText: '예, 로그인하러 가기',
                 cancelButtonText: '아니오'
             })
@@ -1226,7 +1234,7 @@
         const formData = new FormData(bookingInsertForm)
         const data = {}
         formData.forEach((value, key) => {
-            data[key] = value;
+            data[key] = value
         })
 
         const bookingTime = new Date(data.booking_date).getTime()
@@ -1244,7 +1252,7 @@
                 allowOutsideClick: false,
                 allowEscapeKey: false,
                 showCloseButton: false,
-                confirmButtonColor: '#3085d6' // 확인 버튼 색상
+                confirmButtonColor: '#9cd2f1' // 확인 버튼 색상
             })
             if (confirmResult.isConfirmed) {
                 return
@@ -1258,8 +1266,8 @@
                 text: '예약 시간이 30분 이내입니다. 정말로 예약하시겠습니까?',
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
+                confirmButtonColor: '#9cd2f1',
+                cancelButtonColor: '#c1c1c1',
                 confirmButtonText: '예, 예약합니다',
                 cancelButtonText: '아니오'
             })
@@ -1288,10 +1296,10 @@
                 allowOutsideClick: false,
                 allowEscapeKey: false,
                 showCloseButton: false,
-                confirmButtonColor: '#3085d6'
+                confirmButtonColor: '#9cd2f1'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    notificationBooking();
+                    notificationBooking()
                 }
             })
         } else if (result == 2) {
@@ -1303,7 +1311,7 @@
                 allowOutsideClick: false,
                 allowEscapeKey: false,
                 showCloseButton: false,
-                confirmButtonColor: '#3085d6'
+                confirmButtonColor: '#9cd2f1'
             })
         } else if (result == 3) {
             Swal.fire({
@@ -1314,7 +1322,7 @@
                 allowOutsideClick: false,
                 allowEscapeKey: false,
                 showCloseButton: false,
-                confirmButtonColor: '#3085d6'
+                confirmButtonColor: '#9cd2f1'
             })
         } else {
             Swal.fire({
@@ -1325,7 +1333,7 @@
                 allowOutsideClick: false,
                 allowEscapeKey: false,
                 showCloseButton: false,
-                confirmButtonColor: '#3085d6'
+                confirmButtonColor: '#9cd2f1'
             })
         }
     }
@@ -1348,7 +1356,7 @@
                  allowOutsideClick: false,
                  allowEscapeKey: false,
                  showCloseButton: false,
-                    confirmButtonColor: '#3085d6'
+                    confirmButtonColor: '#9cd2f1'
                }).then((result) => {if(result.isConfirmed) sendNotificationMail()})
          } 
          
@@ -1361,7 +1369,7 @@
               allowOutsideClick: false,
               allowEscapeKey: false,
               showCloseButton: false,
-                confirmButtonColor: '#3085d6'
+                confirmButtonColor: '#9cd2f1'
             })    
    }
    
@@ -1375,7 +1383,7 @@
         const date1 = new Date(bookingDate1)
         const date2 = new Date(bookingDate2.replace(' ', 'T'))
         const oldTimeDifference = parseInt(Math.abs(date1 - date2))
-        console.log(Math.abs(oldTimeDifference))
+//         console.log(Math.abs(oldTimeDifference))
         const data = {}
         formData.forEach((value, key) => {
             data[key] = value
@@ -1395,7 +1403,7 @@
                 allowOutsideClick: false,
                 allowEscapeKey: false,
                 showCloseButton: false,
-                confirmButtonColor: '#3085d6'
+                confirmButtonColor: '#9cd2f1'
             })
             if (confirmResult.isConfirmed) {
                 return
@@ -1409,8 +1417,8 @@
                 text: '변경 시 예약시간이 30분 이내입니다. 정말로 예약을 변경하시겠습니까?',
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
+                confirmButtonColor: '#9cd2f1',
+                cancelButtonColor: '#c1c1c1',
                 confirmButtonText: '예, 변경합니다',
                 cancelButtonText: '아니오'
             })
@@ -1428,7 +1436,7 @@
                 allowOutsideClick: false,
                 allowEscapeKey: false,
                 showCloseButton: false,
-                confirmButtonColor: '#3085d6'
+                confirmButtonColor: '#9cd2f1'
             })
             if (confirmResult.isConfirmed) {
                 return
@@ -1453,7 +1461,7 @@
                 allowOutsideClick: false,
                 allowEscapeKey: false,
                 showCloseButton: false,
-                confirmButtonColor: '#3085d6'
+                confirmButtonColor: '#9cd2f1'
             }).then((result) => {if(result.isConfirmed) notificationBookingUpdate()})
 
         }
@@ -1465,7 +1473,7 @@
             allowOutsideClick: false,
             allowEscapeKey: false,
             showCloseButton: false,
-            confirmButtonColor: '#3085d6'
+            confirmButtonColor: '#9cd2f1'
         })
 
         // 예외 상황 처리
@@ -1477,7 +1485,7 @@
                 allowOutsideClick: false,
                 allowEscapeKey: false,
                 showCloseButton: false,
-                confirmButtonColor: '#3085d6'
+                confirmButtonColor: '#9cd2f1'
             })
 
     }
@@ -1499,7 +1507,7 @@
               allowOutsideClick: false,
               allowEscapeKey: false,
               showCloseButton: false,
-                confirmButtonColor: '#3085d6'
+                confirmButtonColor: '#9cd2f1'
             }).then((result) => {if(result.isConfirmed) sendNotificationMail()})
       } 
       
@@ -1510,25 +1518,25 @@
    document.addEventListener('DOMContentLoaded', () => {
 
        const paymentStatus = sessionStorage.getItem('paymentStatus')
-       console.log(paymentStatus)
+//        console.log(paymentStatus)
 
 
 
        // 예약 후 적용되는 페이지
        if (bookingInfo != "") {
-           bookingBtn.innerHTML = '<button id="bookingCancelBtn">예약취소하기</button><button id="bookingUpdateBtn">예약변경하기</button><button id="paymentBtn">결제하기</button><button id="cancelPaymentBtn">결제 취소</button>';
-           const bookingCancelBtn = document.getElementById('bookingCancelBtn');
-           const bookingUpdateBtn = document.getElementById('bookingUpdateBtn');
-           const paymentBtn = document.getElementById('paymentBtn');
-           const payment = document.getElementById('payment'); // payment 요소 확인
+           bookingBtn.innerHTML = '<button id="bookingCancelBtn">예약취소하기</button><button id="bookingUpdateBtn">예약변경하기</button><button id="paymentBtn">결제하기</button><button id="cancelPaymentBtn">결제 취소</button>'
+           const bookingCancelBtn = document.getElementById('bookingCancelBtn')
+           const bookingUpdateBtn = document.getElementById('bookingUpdateBtn')
+           const paymentBtn = document.getElementById('paymentBtn')
+           const payment = document.getElementById('payment') // payment 요소 확인
            const cancelPaymentBtn = document.getElementById('cancelPaymentBtn')
 
-           timeDiff.classList.remove('hidden');
-           document.querySelector('#bookingUpdateForm #booking_date').value = '${booking_date}';
+           timeDiff.classList.remove('hidden')
+           document.querySelector('#bookingUpdateForm #booking_date').value = '${booking_date}'
 
            // 남은 시간 타이머를 1초단위로 카운트다운하도록 설정
-           bookingTimerInterval = setInterval(() => updateBookingTimer(booking_date), 1000);
-           updateBookingTimer(booking_date);
+           bookingTimerInterval = setInterval(() => updateBookingTimer(booking_date), 1000)
+           updateBookingTimer(booking_date)
 
            bookingCancelBtn.onclick = () => {
                Swal.fire({
@@ -1537,77 +1545,77 @@
                    icon: 'question',
                    confirmButtonText: '확인',
                    cancelButtonText: '취소',
-                   confirmButtonColor: '#3085d6',
-                   cancelButtonColor: '#d33',
+                   confirmButtonColor: '#9cd2f1',
+                   cancelButtonColor: '#c1c1c1',
                    showCancelButton: true,
                    allowOutsideClick: false,
                    allowEscapeKey: false,
                    showCloseButton: false
-               }).then((result) => { if (result.isConfirmed) bookingCancel() });
-           };
-           bookingUpdateBtn.onclick = readyToUpdateBooking;
+               }).then((result) => { if (result.isConfirmed) bookingCancel() })
+           }
+           bookingUpdateBtn.onclick = readyToUpdateBooking
            bookingUpdateForm.onsubmit = (event) => {
-               event.preventDefault();
+               event.preventDefault()
                Swal.fire({
                    title: '예약 변경',
                    text: '예약을 변경하시겠습니까?',
                    icon: 'question',
                    confirmButtonText: '확인',
                    cancelButtonText: '취소',
-                   confirmButtonColor: '#3085d6',
-                   cancelButtonColor: '#d33',
+                   confirmButtonColor: '#9cd2f1',
+                   cancelButtonColor: '#c1c1c1',
                    showCancelButton: true,
                    allowOutsideClick: false,
                    allowEscapeKey: false,
                    showCloseButton: false
-               }).then((result) => { if (result.isConfirmed) bookingUpdate() });
-           };
+               }).then((result) => { if (result.isConfirmed) bookingUpdate() })
+           }
 
            // 결제 버튼 클릭 이벤트
            paymentBtn.onclick = async () => {
-               var IMP = window.IMP;
-               IMP.init('imp22288473'); // 아임포트 가맹점 식별 코드
+               var IMP = window.IMP
+               IMP.init('imp22288473') // '가맹점 식별코드'는 아임포트에서 발급받은 본인의 식별키를 입력
                const paymentData = {
                    pg: 'html5_inicis.INIpayTest',
                    pay_method: 'card', // 결제 수단
                    merchant_uid: 'merchant_' + new Date().getTime(), // 주문 고유 번호
                    name: '병원 예약 결제', // 결제 상품 이름
-                   amount: +'${hospital.medical_expenses}', // 결제 금액 (테스트로 10,000원)
+                   amount: +'${hospital.medical_expenses}', // 결제 금액 (테스트로 5,000원)
                    buyer_email: '${login.email}', // 구매자 이메일
                    buyer_name: '${login.name}', // 구매자 이름
                    buyer_addr: '${login.location}', // 구매자 주소
                    m_redirect_url: '${cpath}/hospitalInfo/' + hospital_id // 결제 완료 후 리디렉션될 페이지
-               };
+               }
 
                IMP.request_pay(paymentData, function (rsp) {
-                   console.log(rsp);
+//                    console.log(rsp);
                    if (rsp.success) {
                        Swal.fire({
                            title: '결제 성공',
                            text: '결제가 성공적으로 완료되었습니다.',
                            icon: 'success',
                            confirmButtonText: '확인',
-                           confirmButtonColor: '#3085d6'
+                           confirmButtonColor: '#9cd2f1'
                        }).then(() => {
                            // 결제 상태를 sessionStorage에 저장
-                           sessionStorage.setItem('paymentStatus', 'success');
-                           sessionStorage.setItem('paymentData', JSON.stringify(paymentData)); // paymentData 세션에 저장
+                           sessionStorage.setItem('paymentStatus', 'success')
+                           sessionStorage.setItem('paymentData', JSON.stringify(paymentData)) // paymentData 세션에 저장
 
                            // 결제 취소 버튼 클릭 이벤트 추가
                            addCancelPaymentListener(paymentData); // 결제 취소 이벤트 리스너를 추가
                            location.reload()
-                       });
+                       })
                    } else {
                        Swal.fire({
                            title: '결제 실패',
                            text: '결제가 실패하였습니다. 사유: ' + rsp.error_msg,
                            icon: 'error',
                            confirmButtonText: '확인',
-                           confirmButtonColor: '#3085d6'
-                       });
+                           confirmButtonColor: '#9cd2f1'
+                       })
                    }
-               });
-           };
+               })
+           }
        }
            // 예약 전 적용되는 페이지
       else {
@@ -1624,8 +1632,8 @@
                  icon: 'question',
                  confirmButtonText: '확인',
                  cancelButtonText: '취소',
-                   confirmButtonColor: '#3085d6',
-                   cancelButtonColor: '#d33',
+                   confirmButtonColor: '#9cd2f1',
+                   cancelButtonColor: '#c1c1c1',
                  showCancelButton: true,
                  allowOutsideClick: false,
                  allowEscapeKey: false,
@@ -1643,7 +1651,7 @@
            if (paymentBtn) paymentBtn.style.display = 'none'
            if (cancelPaymentBtn) cancelPaymentBtn.style.display = 'inline-block'
            // 결제 취소 이벤트 리스너 추가
-           addCancelPaymentListener();
+           addCancelPaymentListener()
        } else {
            if(bookingInfo != ""){
            if (paymentBtn) paymentBtn.style.display = 'inline-block'
@@ -1660,14 +1668,14 @@
                    showCancelButton: true,
                    confirmButtonText: '네',
                    cancelButtonText: '아니오',
-                   confirmButtonColor: '#d33',
-                   cancelButtonColor: '#3085d6'
+                   confirmButtonColor: '#9cd2f1',
+                   cancelButtonColor: '#c1c1c1'
                })
                if (confirmCancel.isConfirmed) {
                    // paymentData가 null이면 sessionStorage에서 가져옴
                    const storedPaymentData = paymentData || JSON.parse(sessionStorage.getItem('paymentData'));
                    if (storedPaymentData) {
-                       console.log('결제 취소:', storedPaymentData.merchant_uid)
+//                        console.log('결제 취소:', storedPaymentData.merchant_uid)
                        // 서버에 취소 요청 보내기
                        const cancelUrl = cpath + '/cancelPayment'
                        const response = await fetch(cancelUrl, {
@@ -1688,7 +1696,7 @@
                                text: '결제가 성공적으로 취소되었습니다.',
                                icon: 'success',
                                confirmButtonText: '확인',
-                               confirmButtonColor: '#3085d6'
+                               confirmButtonColor: '#9cd2f1'
                            })
                            // 결제 취소 상태를 로컬 저장소에 기록
                            sessionStorage.setItem('paymentStatus', 'cancelled')
@@ -1702,7 +1710,7 @@
                                text: '결제 취소가 실패하였습니다. 사유: ' + result.message,
                                icon: 'error',
                                confirmButtonText: '확인',
-                               confirmButtonColor: '#3085d6'
+                               confirmButtonColor: '#9cd2f1'
                            })
                        }
                    } else {
@@ -1711,7 +1719,7 @@
                            text: '결제 데이터가 존재하지 않습니다.',
                            icon: 'warning',
                            confirmButtonText: '확인',
-                           confirmButtonColor: '#3085d6'
+                           confirmButtonColor: '#9cd2f1'
                        })
                    }
                }
@@ -1741,8 +1749,8 @@
                     allowOutsideClick: false,
                     allowEscapeKey: false,
                     showCloseButton: false,
-                    confirmButtonColor: '#3085d6', // 확인 버튼 색상
-                    cancelButtonColor: '#d33'
+                    confirmButtonColor: '#9cd2f1', // 확인 버튼 색상
+                    cancelButtonColor: '#c1c1c1'
                 }).then((result) => {if(result.isConfirmed) myFavorite(event)})
             }
             else if('${login}' != '' && await getFavorite(id) != 1) {
@@ -1756,8 +1764,8 @@
                     allowOutsideClick: false,
                     allowEscapeKey: false,
                     showCloseButton: false,
-                    confirmButtonColor: '#3085d6', // 확인 버튼 색상
-                    cancelButtonColor: '#d33'
+                    confirmButtonColor: '#9cd2f1', // 확인 버튼 색상
+                    cancelButtonColor: '#c1c1c1'
                 }).then((result) => {if(result.isConfirmed) myFavorite(event)})
             }
             else {
@@ -1771,8 +1779,8 @@
                     allowOutsideClick: false,
                     allowEscapeKey: false,
                     showCloseButton: false,
-                    confirmButtonColor: '#3085d6', // 확인 버튼 색상
-                    cancelButtonColor: '#d33'
+                    confirmButtonColor: '#9cd2f1', // 확인 버튼 색상
+                    cancelButtonColor: '#c1c1c1'
                 }).then((result) => {
                     if(result.isConfirmed){
                         const currentPageUrl = window.location.href

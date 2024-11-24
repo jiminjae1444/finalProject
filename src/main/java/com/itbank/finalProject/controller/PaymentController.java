@@ -23,7 +23,7 @@ public class PaymentController {
     @PostMapping(value = "cancelPayment" , produces = "application/json; charset=utf-8")
     public HashMap<String,Object> cancelPayment(@RequestBody Map<String, String> payment) {
         String merchantUid = payment.get("merchant_uid");
-        System.out.println(merchantUid);
+//        System.out.println(merchantUid);
         HashMap<String, Object> response = new HashMap<>();
 
         try {
@@ -45,6 +45,6 @@ public class PaymentController {
             response.put("success", false);
             response.put("error_msg", e.getMessage());
         }
-        return response; // JSON 형식으로 응답 반환
+        return response;
     }
 }

@@ -21,7 +21,7 @@
 
     div.infoWindowContentSelf {
         background-color: white;
-        border: 1px solid #4caf50;
+        border: 1px solid #34495e;
         border-radius: 8px;
         padding: 10px;
         font-size: 14px;
@@ -110,6 +110,98 @@
         margin-right: 5px;
     }
 </style>
+
+<style>
+    .input-group {
+        background-color: white; /* 배경색 */
+        display: flex; /* 플렉스 박스 사용 */
+        align-items: center; /* 수직 중앙 정렬 */
+        padding: 10px; /* 패딩 */
+        border: 2px solid #ddd; /* 테두리 색상 */
+        border-radius: 40px; /* 둥근 모서리 */
+        margin-top: 35px; /* 상단 여백 */
+        margin-left: 183px;
+        width: 80%;
+    }
+
+    .search-buttons {
+        margin-right: 10px; /* 버튼과 입력 필드 간의 간격 */
+    }
+
+    .search-form {
+        display: flex; /* 플렉스 박스 사용 */
+        align-items: center; /* 수직 중앙 정렬 */
+        flex-grow: 1; /* 남은 공간 차지 */
+        margin: 0;
+    }
+    	
+	.search-form #soundSearch {
+		width: 40px;
+	}
+
+    #searchInput {
+        flex-grow: 1; /* 입력 필드가 가능한 공간을 모두 차지하도록 설정 */
+        padding: 10px; /* 패딩 */
+        border: 1px solid #ddd; /* 테두리 색상 */
+        border-radius: 20px; /* 둥근 모서리 */
+    }
+    .select-wrap {
+        width: 120px; /* 셀렉트 박스의 너비 설정 */
+        height: 40px; /* 셀렉트 박스의 높이 설정 */
+        border: 1px solid #ccc; /* 테두리 색상 */
+        border-radius: 40px 40px 40px 40px;
+        background: url('${cpath}/resources/image/try-me.gif') no-repeat 97% 50% / 25px auto; /* 화살표 이미지 지정 */
+    }
+
+
+    /* select 스타일 */
+    #searchTypeSelect {
+        width: 100%; /* 전체 너비 사용 */
+        height: 100%; /* 전체 높이 사용 */
+        padding: 0 28px 0 10px; /* 패딩 설정 (오른쪽, 왼쪽) */
+        font-size: 15px; /* 폰트 크기 설정 */
+        border: 0; /* 기본 스타일 제거 */
+
+        -webkit-appearance: none; /* Chrome에서 기본 화살표 제거 */
+        -moz-appearance: none; /* Firefox에서 기본 화살표 제거 */
+        appearance: none; /* 모든 브라우저에서 기본 화살표 제거 */
+
+        box-sizing: border-box; /* 셀렉트 박스의 크기 방식 지정 */
+        background: transparent; /* 배경색 투명 처리 */
+    }
+
+    select::-ms-expand {
+        display: none; /* IE10,11에서 기본 화살표 숨기기 */
+    }
+
+    button.search {
+        padding: 10px 15px;
+        border: none;
+        border-radius: 20px;
+        background-color: #2c3e50;
+        color: white;
+        cursor: pointer;
+        margin: 5px;
+    }
+
+    button:hover {
+        background-color: #34495e; /* 호버 시 어두운 파란색 */
+    }
+</style>
+<div class="input-group">
+    <div class="search-buttons">
+        <div class="select-wrap">
+            <select id="searchTypeSelect">
+                <option value="search">증상 검색</option>
+            </select>
+        </div>
+    </div>
+    <form id="searchForm" class="search-form" method="post">
+        <input type="text" id="searchInput" name="search" placeholder="증상 또는 병명을 입력해주세요" required>
+         <button type="submit" class="search">검색</button>
+         <img src="${cpath }/resources/image/voice-icon.png" id="soundSearch">
+    </form>
+</div>
 <div id="map"></div>
 <%@ include file="footer.jsp" %>
 <script>
@@ -122,6 +214,10 @@
      * 사용자 위치 정보를 기반으로 지도 및 병원 정보를 초기화하는 함수
      */
     async function loadHandler() {
+        const lastSearch = localStorage.getItem('lastSearch') // 저장된 검색어 가져오기
+        if (lastSearch) {
+            searchInput.value = lastSearch // 검색어를 입력 필드에 복원
+        }
         // 로그인 사용자 위치 정보가 있는지 확인
         const userLocation = await getUserLocation() // 사용자 정보에서 위치 가져오기
 
@@ -132,8 +228,8 @@
                 text: "로그인된 사용자 주소를 기반으로 위치를 설정하시겠습니까?",
                 icon: "question",
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
+                confirmButtonColor: '#9cd2f1',
+                cancelButtonColor: '#c1c1c1',
                 confirmButtonText: "네",
                 cancelButtonText: "아니요"
             })
@@ -154,16 +250,16 @@
                 text: "로그인을 하시겠습니까?",
                 icon: "warning",
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
+                confirmButtonColor: '#9cd2f1',
+                cancelButtonColor: '#c1c1c1',
                 confirmButtonText: "예",
                 cancelButtonText: "아니요"
             })
 
             if (goToLogin.isConfirmed) {
                 // 로그인 페이지로 이동
-                window.location.href = '${cpath}/member/login' // 로그인 페이지의 URL을 여기에 입력
-                return
+                let currentPageUrl = window.location.href
+                window.location.href = '${cpath}/member/login?redirectUrl=' + encodeURIComponent(currentPageUrl) // 로그인 페이지의 URL을 여기에 입력
             }
         }
 
@@ -174,21 +270,22 @@
                 text: "사용자의 현재 위치 정보를 사용하시겠습니까?",
                 icon: "question",
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
+                confirmButtonColor: '#9cd2f1',
+                cancelButtonColor: '#c1c1c1',
                 confirmButtonText: "네",
                 cancelButtonText: "아니요"
             })
 
             if (useGeolocation.isConfirmed) {
-                navigator.geolocation.getCurrentPosition(success, error)
+                navigator.geolocation.getCurrentPosition(success, error)  //현재위치의 좌표
 
             } else {
                 Swal.fire({
                     title: "기본 위치 사용",
                     text: "기본 위치로 설정합니다.",
                     icon: "info",
-                    confirmButtonText: "확인"
+                    confirmButtonText: "확인",
+                    confirmButtonColor: '#9cd2f1'
                 })
                 loadMapHandler(33.450701, 126.570667) // 기본 위치로 지도 초기화
             }
@@ -197,7 +294,8 @@
                 title: "오류",
                 text: "위치 정보를 사용할 수 없습니다. 기본 위치를 사용합니다.",
                 icon: "error",
-                confirmButtonText: "확인"
+                confirmButtonText: "확인",
+                confirmButtonColor: '#9cd2f1'
             })
             loadMapHandler(33.450701, 126.570667) // 기본 위치로 지도 초기화
         }
@@ -210,8 +308,6 @@
         const lat = position.coords.latitude
         const lng = position.coords.longitude
         loadMapHandler(lat, lng) // 지도 초기화
-        sessionStorage.setItem("userLat", lat);
-        sessionStorage.setItem("userLng", lng);
         getHospitalListHandler(lat, lng) // 병원 리스트 불러오기
     }
 
@@ -250,8 +346,8 @@
                 return { ...hospital, distance: distance / 1000 } // km로 변환
             })
             .filter(Boolean)
-            .filter(hospital => hospital.distance <= 15) // 15km 이하의 병원만
-            .sort((a, b) => a.distance - b.distance) // 거리 순 정렬
+            .filter(hospital => hospital.distance <= 20) // 20km 이하의 병원만
+            .sort((a, b) => a.distance - b.distance) // 거리 순 정렬(다른 필드를 이용해서 기준을 바꿀수 있음)
 
         return hospitalDistance.slice(0, Math.min(hospitalDistance.length, 30)) // 최대 30개
     }
@@ -295,7 +391,7 @@
             addCurrentLocationMarker(lat, lng) // 현재 위치 마커 추가
             addHospitalMarkers(nearHospitals) // 병원 마커 추가
         } else {
-            console.error('데이터를 가져오는 데 실패했습니다.')
+//             console.error('데이터를 가져오는 데 실패했습니다.')
         }
     }
     // 현재 위치 마커 추가
@@ -320,7 +416,7 @@
 
     async function getHospitalImageAndDetails(id, infoWindowContent, position) {
         if (hospitalImageCache[id]) {
-            console.log("이미 이미지 요청이 완료된 병원입니다.")
+//             console.log("이미 이미지 요청이 완료된 병원입니다.")
             return  // 이미지가 이미 요청되었으면 아무 작업도 하지 않고 종료
         }
 
@@ -439,6 +535,138 @@
     
     window.addEventListener('DOMContentLoaded', loadHandler)
 
+</script>
+
+<script>
+    const searchTypeSwitch = document.getElementById('searchTypeSwitch');
+    const searchForm = document.getElementById('searchForm')
+    const searchInput = document.getElementById('searchInput')
+    const searchTypeSelect = document.getElementById('searchTypeSelect'); // 셀렉트 요소
+
+
+
+    let recognition   //음성인식에 사용
+    let isRecognitionActive = false // 음성 인식 상태 플래그
+    const soundSearch = document.getElementById('soundSearch')
+    // 음성 인식 초기화
+    if (window.SpeechRecognition || window.webkitSpeechRecognition) {
+        recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)()
+        recognition.lang = 'ko-KR' // 한국어로 설정
+    }
+
+    // 음성 인식 시작 이벤트
+    recognition.onstart = function () {
+        isRecognitionActive = true // 음성 인식이 시작되었음을 표시
+        Swal.fire({
+            title: '알림',
+            text: '음성 인식이 시작되었습니다.',
+            icon: 'success',
+            confirmButtonColor:'#9cd2f1',
+            confirmButtonText: '확인'
+        })
+    }
+
+    // 음성 인식 종료 이벤트
+    recognition.onend = function () {
+        isRecognitionActive = false // 음성 인식이 종료되었음을 표시
+        Swal.fire({
+            title: '알림',
+            text: '음성 인식이 종료되었습니다.',
+            confirmButtonColor:'#9cd2f1',
+            icon: 'info',
+            confirmButtonText: '확인'
+        })
+    }
+
+    // 음성 인식 시작 함수
+    function startRecognition() {
+        if (!isRecognitionActive) { // 음성 인식이 실행 중이 아닐 때만 시작
+            recognition.start()
+        } else {
+            Swal.fire({
+                title: '알림',
+                text: '음성 인식이 이미 실행 중입니다.',
+                confirmButtonColor:'#9cd2f1',
+                icon: 'info',
+                confirmButtonText: '확인'
+            })
+        }
+    }
+    // 음성 인식 결과 처리
+    recognition.onresult = function (event) {
+        let speechToText = event.results[0][0].transcript
+        // 마침표 제거 및 텍스트 트리밍
+        speechToText = speechToText.trim().replace('.', '')
+        // 단어를 공백 기준으로 분리하고 컴마로 연결
+        const formattedText = speechToText.split(' ').join(', ')
+        searchInput.value = formattedText // 텍스트 입력 필드에 반영
+    }
+
+
+    // 버튼 클릭 시 음성 검색 사용 여부 확인
+    soundSearch.onclick = function () {
+        Swal.fire({
+            title: '음성 검색',
+            text: '음성 검색은 단어만 검색가능합니다 사용하시겠습니까?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#9cd2f1',
+            cancelButtonColor: '#c1c1c1',
+            confirmButtonText: '사용',
+            cancelButtonText: '취소'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // 사용자가 "사용"을 선택한 경우 음성 검색 실행
+                startRecognition()
+            }
+        })
+    }
+
+    // 초기 플레이스 홀더 설정
+    searchInput.placeholder = '증상 또는 병명을 입력해주세요'  // 기본값
+
+    // 스위치 상태에 따라 플레이스 홀더 및 name 속성 변경
+    searchTypeSelect.addEventListener('change', function() {
+        if (this.value !== 'hospital') {
+            // 증상 검색 선택 시
+            searchInput.placeholder = '증상 또는 병명을 입력해주세요'
+            searchInput.name = 'search'  // 증상 검색
+        }
+    })
+
+
+    // 검색 핸들러
+    async function searchHandler(event) {
+        event.preventDefault()
+        const formData = new FormData(event.target)
+        const query = searchInput.value // 입력된 검색어를 저장
+        localStorage.setItem('lastSearch', query) // 검색어를 localStorage에 저장
+        const url = searchTypeSelect.value === 'hospital' ? '${cpath}/hospitals/searchs/names' : '${cpath}/hospitals/searchs';
+        const opt = {
+            method: 'POST',
+            body: formData
+        }
+        const result = await fetch(url, opt).then(response => response.json());
+
+        if (result.noSearch) {
+            swal({
+                title: '알림',
+                text: '검색결과가 없습니다. 검색어를 조건에 맞게 검색하세요',
+                type: 'info',
+                button: '확인'
+            })
+        } else {
+            if (searchTypeSelect.value === 'hospital') {
+                // 병원명 검색인 경우 모달 열기
+                openMapModal(result.hospitals)
+            } else {
+                // 다른 페이지로 이동 (증상 검색의 경우)
+                window.location.reload()
+            }
+        }
+    }
+    // 폼 제출 시 searchHandler 실행
+    searchForm.addEventListener('submit', searchHandler);
 </script>
 </body>
 </html>

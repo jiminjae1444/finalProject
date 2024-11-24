@@ -28,8 +28,11 @@ public interface ChatDAO {
 
 	String getRoomUrlByMemberId(int id);
 
-	// chat_room 읽음여부 수정
-	int updateChatRoomIsRead(String roomUrl);
+	// 채팅기록 삭제
+	void deleteChatHistory(int roomId);
+
+	// 채팅방 삭제
+	void deleteChatRoom(int roomId);
 
 
 

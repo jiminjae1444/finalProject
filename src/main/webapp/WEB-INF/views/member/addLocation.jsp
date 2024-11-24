@@ -16,7 +16,7 @@
     }
     .addlocationcontent {
     	width: 380px;
-        height: 230px;
+        height: 290px;
         padding: 20px;
         padding-bottom: 43px;
         background-color: rgba(247, 249, 250, 0.8);
@@ -28,8 +28,7 @@
          top: 0; 
     }
     .addlocationListcontent {
-    	width: 380px;
-        height: 278px;
+        height: auto;
         padding-top: 8px;
 	    padding-left: 20px;
 	    padding-bottom: 8px;
@@ -46,12 +45,26 @@
     .addlocationListcontent p {
     	color: #2c3e50;
         font-size: 25px;
+        margin-top: 0;
     }
+    
+    .addlocationListditails .location-info {
+    margin-bottom: 5px;
+}
+
+.addlocationListditails .alias {
+    font-weight: bold;
+}
+
+.addlocationListditails .address {
+    color: #ffffff;
+}
     .addlocationoverlay {
     	background-color: rgba(0, 0, 0, 0.3);
     	border-radius: 8px;
-    	height: 250px;
+    	height: auto;
     	padding-top: 20px;
+    	padding-bottom: 11px;
     	box-sizing: border-box;
     }
     .addlocationBtn {
@@ -112,6 +125,56 @@
        background: #2c3e50;
        color: white;
    }
+   .addlocationListditail {
+    	display: flex;
+    	flex-direction: column;
+    }
+    .addlocationListditail p{
+    	margin-top: 0;
+    	padding-left: 30px;
+    	padding-right: 5px;
+    }
+    .addlocationListditails {
+    	display: flex;
+	    margin-left: 40px;
+	    padding: 5px;
+    } 
+    .addlocationListditails input[type="submit"] {
+    	margin: 5px;
+    	margin-top: -10px;
+    }
+    
+    .action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.action-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.select-btn {
+    background-color: #2c3e50;
+    color: white;
+}
+
+.select-btn:hover {
+    background-color: #34495e;
+}
+
+.delete-btn {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #c0392b;
+}
 </style>
 
 
@@ -121,11 +184,12 @@
 		<div class="addlocationoverlay">
 			<h3 id="addLocationTitle">주소 정보 검색</h3>
 			<form method="POST" id="addLocationForm">
-				<p><input type="text" name="memberLocation" placeholder="추가 하실 주소를 입력하세요." required></p>
+				<p><input type="text" name="memberLocation" value="${login.location }" required></p>
+				<p><input title="위치 정보의 별칭을 등록" type="text" name="alias" placeholder="위치 정보의 별칭을 등록하세요" required></p>
 				<p class="addlocationBtn"><input type="submit" value="등록" ></p>
 			</form>
 			<p style="text-align: center;">
-				<a href="${cpath }/member/info/${login.id}">
+				<a href=" ${cpath}/member/info/${id}">
 					<button class="gotoBackBtn">뒤로가기</button>
 				</a>
 			</p>
@@ -135,13 +199,26 @@
 	<div class="addlocationListcontent">
 		<div class="addlocationListoverlay">
 			<p>[현재 추가된 주소]</p>
-			<c:forEach var="dto" items="${list }">
-				<ul style="list-style: none;">
-					<li>${dto.memberLocation }</li>
-				</ul>
-			</c:forEach>
-		</div>
-	</div>
+			<div class="addlocationListditail">
+   <c:forEach var="dto" items="${list}">
+                    <div class="addlocationListditails">
+                        <span class="location-info">
+                            <span class="alias">${dto.alias}</span>
+                            (<span class="address">${dto.memberLocation}</span>)
+                        </span>
+                        <div class="action-buttons">
+                            <form method="POST" action="${cpath}/member/updateLocation/${login.id}/${dto.id}" id="updateForm_${dto.id}">
+                                <input type="submit" value="선택" class="action-btn select-btn">
+                            </form>
+                            <form method="POST" action="${cpath}/member/deleteLocation/${login.id}/${dto.id}">
+                                <input type="submit" value="삭제" class="action-btn delete-btn">
+                            </form>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+    </div>
 </div>
 
 <%@ include file="../footer.jsp" %>
@@ -168,7 +245,7 @@
 	        event.preventDefault()
 	        
 	        const formData = new FormData(form)
-	        const url = '${cpath}/member/addLocation/${id}' // URL 경로에 {id} 변수를 적용하여 설정
+	        const url = '${cpath}/members/addLocation/${id}' // URL 경로에 {id} 변수를 적용하여 설정
 	
 	        fetch(url, {
 	            method: 'POST',
@@ -190,21 +267,62 @@
 	                    type: "success",
 	                    confirmButtonText: "확인"
 	                }, function() {
-	                    location.href = '${cpath}/member/info/${id}' // 성공 시 이동할 페이지 경로
+	                    location.reload()
 	                })
 	            } else {
 	                swal("알림", "예상치 못한 응답을 받았습니다.", "warning")
 	            }
 	        })
 	        .catch(error => {
-	            console.error('Error:', error)
+// 	            console.error('Error:', error)
 	            swal("오류", "처리 중 오류가 발생했습니다.", "error")
 	        })
 	    }
 	})
+	// 추가 주소 삭제 sweetAlert
+    const SubDletError = '${SubDletError}'
+    const SubDletMessage = '${SubDletMessage}'
+
+    if (SubDletError) {
+        swal({
+            title: "삭제 실패",
+            text: SubDletError,
+            type: "error",
+            button: "확인"
+        })
+    }
+    if (SubDletMessage) {
+        swal({
+            title: "삭제 성공",
+            text: SubDletMessage,
+            type: "success",
+            button: "확인"
+        })
+    }
+    
+ 	// 추가 주소 업뎃 sweetAlert
+ 	const SubUpError = '${SubUpError}'
+    const SubUpMessage = '${SubUpMessage}'
+
+    if (SubUpError) {
+        swal({
+            title: "위치 정보 변경 실패",
+            text: SubUpError,
+            type: "error",
+            button: "확인"
+        })
+    }
+    if (SubUpMessage) {
+        swal({
+            title: "위치 정보 변경 성공",
+            text: SubUpMessage,
+            type: "success",
+            button: "확인"
+        })
+    }
 	
 	const footer = document.getElementById('footer')
-   	footer.style.backgroundColor = '#a2a3a3'
+   	footer.style.backgroundColor = '#83888d'
 </script>
 
 </body>

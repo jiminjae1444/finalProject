@@ -89,17 +89,15 @@
         border: none;
         padding: 0;
     }   
-    .rpcaptchaline input[type="button"] {
-        margin-left: 10px;
-    }
     .resetcontent .rpcaptchaline input[type="text"] {
        text-align: center;
        padding-left: 0px;
        padding-right: 0px;
+       width: 291px;
      } 
     .rpcaptchaline {
        border: 1px solid white;
-          padding: 10px;
+       padding: 10px;
        margin-top: 10px;
        margin-bottom: 10px;
        border-radius: 10px;
@@ -108,31 +106,59 @@
       color: #2c3e50;
       font-size: 25px;
    }
+   .captchaReloadBtn {
+   width: 289px;
+   padding: 8px; /* 여백 축소 */
+   background: none;
+   border: 1px solid #2c3e50;
+   border-radius: 4px; /* 둥글기 축소 */
+   color: #2c3e50;
+   cursor: pointer;
+   transition: background 0.3s ease, color 0.3s ease;
+   font-size: 0.9rem; /* 텍스트 크기 축소 */
+   margin-top: 20px;
+	}
+	.gotoBackBtn {
+	    width: 200px;
+	    padding: 8px; /* 여백 축소 */
+	    background: none;
+	    border: 1px solid #2c3e50;
+	    border-radius: 4px; /* 둥글기 축소 */
+	    color: #2c3e50;
+	    cursor: pointer;
+	    transition: background 0.3s ease, color 0.3s ease;
+	    font-size: 0.9rem; /* 텍스트 크기 축소 */
+   }
+   .gotoBackBtn:hover {
+       background: #2c3e50;
+       color: white;
+   }
 </style>
 <div class="resetmodal">
 <div class="resetoverlay"></div>
       <div class="resetcontent">
    <h2 id="resetPwTitle">비밀번호 재발급</h2>
-   <form>
+   <form id ="resetForm">
       <p><input type="text" name="userid" placeholder="ID" autocomplete="off" required autofocus></p>
       <p><input type="email" name="email" placeholder="Email" autocomplete="off" required></p>
       <div id="captcha" class="rpcaptchaline"></div>
       <p><input type="submit" value="재발급"></p>   
    </form>
       <p><a href="${cpath }/member/reCheckUserid">ID 재확인</a> | <a href="${cpath }/member/reCheckEmail">Email 재확인</a></p>
-      <p><a href="${cpath }/member/login"><button type="button" formnovalidate>뒤로가기</button></a></p>
+      <p><a href="${cpath }/member/login"><button type="button" class="gotoBackBtn">뒤로가기</button></a></p>
    </div>
 </div>
 
 <%@ include file="../footer.jsp" %>
 
 <script>
+	const resetForm = document.getElementById('resetForm');
    async function loadCaptchaHandler() {
       const url = '${cpath}/members/captcha'
       const result = await fetch(url).then(resp => resp.json())
       let tag = '<fieldset><p>'
       tag += '<img src="${cpath}/fpupload/captcha/' + result.captchaImage + '" width="300">'
-      tag += '<input type="button" name="reload" value="새로고침">'
+      tag += '<input type="button" name="reload" class="captchaReloadBtn" value="새로고침">'
       tag += '</p>'
       tag += '<input type="text" name="user" placeholder="그림에 나타난 글자를 입력하세요" required>'
       tag += '</fieldset>'
@@ -143,7 +169,7 @@
       const url = '${cpath}/members/captcha'
       const opt = {
             method: 'POST',
-            body: new FormData(document.forms[0])
+            body: new FormData(resetForm)
       }
       const result = await fetch(url, opt).then(resp => resp.json())
       if(result.result == false) {
@@ -161,13 +187,13 @@
       }      
       
       const url = '${cpath}/members/resetPassword'
-      console.log(url)
+//       console.log(url)
       const opt = {
             method: 'POST',
             body: new FormData(event.target)
       }
       const result = await fetch(url, opt).then(resp => resp.json())
-      console.log(result)
+//       console.log(result)
       if(result.success) {
          swal({
             title: '비밀번호 재설정',
@@ -185,11 +211,11 @@
          swal('정보 재확인', '일치하는 계정 혹은 이메일을 찾을 수 없습니다', 'error')
       }
    }
-   document.forms[0].onsubmit = resetPasswordHandler
+   resetForm.onsubmit = resetPasswordHandler
    window.addEventListener('DOMContentLoaded', loadCaptchaHandler)
    
    const footer = document.getElementById('footer')
-   footer.style.backgroundColor = '#a2a3a3'
+   footer.style.backgroundColor = '#83888d'
 </script>
 
 </body>

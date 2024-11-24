@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -76,26 +77,11 @@ public class ChatAjaxController {
 	}
 	
 	
-	// chat_room 읽음여부 수정
-	@GetMapping("/room/isRead/{roomUrl}")
-	public int switchChatRoomIsRead(@PathVariable String roomUrl, HttpSession session) {
-		MemberDTO login = (MemberDTO) session.getAttribute("login");
-		int row = 0;
-		if(login != null && chatService.getChatRoomByUrl(roomUrl) != null) {
-			row = chatService.updateChatRoomIsRead(roomUrl);
-		}
-		log.info("is_read 수정 : " + row);
-		return row;
-	}
-	
-
-	
 	// header에서 채팅방 입장
 	@GetMapping("/room")
 	public String enterChatRoom(HttpSession session) {
 		MemberDTO login = (MemberDTO) session.getAttribute("login");
-		String faqRoomUrl = (String) session.getAttribute("roomUrl");
-//		log.info("세션에 저장돼있는 roomUrl : " + faqRoomUrl);
+		String faqRoomUrl = (String) session.getAttribute("roomUrl");	// 세션에 roomUrl이 저장돼있으면 faq 채팅임
 		String roomUrl = "";
 		
 		if(login == null) {		// 비회원
@@ -126,13 +112,15 @@ public class ChatAjaxController {
 	    return chatHistoryDTO;
 	}
 	
+	
 	// 1:1 상담 메시지 저장
 	@PostMapping(value ="/counselChat/{roomUrl}", produces = "application/json; charset=utf-8")
 	public void sendCounselMessage(@RequestBody ChatHistoryDTO content, HttpSession session, @PathVariable String roomUrl) {
 	    MemberDTO login = (MemberDTO) session.getAttribute("login");
 	    
 	    // 회원이랑 상담할 때 (로그인 되어있고 / 상담원이거나 roomUrl이랑 같은 채팅방이 DB에 있는 회원이면)
-	    if(login != null && ((login.getRole() != 1 && chatService.getRoomUrlByMemberId(content.getSender_id()) == roomUrl)
+	    if(login != null
+	    		&& ((login.getRole() != 1 && chatService.getRoomUrlByMemberId(content.getSender_id()) == roomUrl)
 	    		|| (login.getRole() == 1 && chatService.getChatRoomByUrl(roomUrl) != null))) {
     		chatService.saveChatMessage(session, login, roomUrl, content);	// DB에 저장
 	    }
@@ -142,35 +130,43 @@ public class ChatAjaxController {
 	}
 	
 	
-	// 채팅내역이 있으면 chatHistoryList 불러오기
-	@GetMapping(value ="/history/{roomUrl}", produces = "application/json; charset=utf-8")
-	public List<ChatHistoryDTO> selectChatHistoryList(HttpSession session, @PathVariable String roomUrl) {
-//		log.info("faqHistoryList : " + session.getAttribute("faqHistoryList"));
-		List<ChatHistoryDTO> chatHistoryList = new ArrayList<>();
+	// 회원, 비회원) FAQ 내역
+	@GetMapping(value ="/faqHistory/{roomUrl}", produces = "application/json; charset=utf-8")
+	public List<ChatHistoryDTO> selectFaqHistoryList(HttpSession session, @PathVariable String roomUrl) {
 		List<ChatHistoryDTO> faqHistoryList = (List<ChatHistoryDTO>) session.getAttribute("faqHistoryList");
-		List<ChatHistoryDTO> guestChatHistoryList = (List<ChatHistoryDTO>) session.getAttribute("guestChatHistoryList");
-		MemberDTO login = (MemberDTO) session.getAttribute("login");
-		
-		log.info("guestChatHistoryList : " + guestChatHistoryList);
-		if(guestChatHistoryList != null && guestChatHistoryList.size() > 0) {
-			chatHistoryList = guestChatHistoryList;
-		}
-		else if(faqHistoryList != null && faqHistoryList.size() > 0) {
-			chatHistoryList = faqHistoryList;
-		}
-		else if(login != null) {
-			chatHistoryList = chatService.selectChatHistoryList(roomUrl);
-		}
-		log.info("chatHistoryList : " + chatHistoryList);
-		return chatHistoryList;
+		return faqHistoryList != null ? faqHistoryList : new ArrayList<>();
+	}
+	
+	// 회원) 1:1 상담내역
+	@GetMapping(value ="/memberCounselHistory/{roomUrl}", produces = "application/json; charset=utf-8")
+	public List<ChatHistoryDTO> selectCounselHistoryList(HttpSession session, @PathVariable String roomUrl) {
+		List<ChatHistoryDTO> memberCounselHistory = chatService.selectChatHistoryList(roomUrl);
+		return memberCounselHistory != null ? memberCounselHistory : new ArrayList<>();
+	}
+	
+	// 비회원) 1:1 상담내역
+	@GetMapping(value ="/guestCounselHistory/{roomUrl}", produces = "application/json; charset=utf-8")
+	public List<ChatHistoryDTO> selectGuestCounselHistoryList(HttpSession session, @PathVariable String roomUrl) {
+		List<ChatHistoryDTO> guestCounselHistoryList = (List<ChatHistoryDTO>) session.getAttribute("guestCounselHistoryList");
+		guestCounselHistoryList = ((guestCounselHistoryList != null) ? guestCounselHistoryList : new ArrayList<>());
+		return guestCounselHistoryList;
 	}
 	
 	
 	// FAQ 채팅내역 없애기 (세션 만료)
 	@PostMapping("/removeFaqHistory")
-	public void chatRoomOut(HttpSession session) {
-//		session.removeAttribute("roomUrl");
+	public void removeFaqChatRoom(HttpSession session) {
+		session.removeAttribute("roomUrl");
 		session.removeAttribute("faqHistoryList");
+		session.removeAttribute("guestCounselHistoryList");
+	}
+	
+	// 1:1 상담내역 삭제하기 (DB)
+	@DeleteMapping("/removeCounselHistory/{roomUrl}")
+	public void removeCounselChatRoom(@PathVariable String roomUrl) {
+		int roomId = chatService.getChatRoomByUrl(roomUrl).getId();
+		chatService.deleteChatHistory(roomId);
+		chatService.deleteChatRoom(roomId);
 	}
 	
 	

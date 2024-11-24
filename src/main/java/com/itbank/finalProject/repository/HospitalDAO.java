@@ -1,6 +1,8 @@
 package com.itbank.finalProject.repository;
 
 import com.itbank.finalProject.model.HospitalDTO;
+import com.itbank.finalProject.model.ReviewDTO;
+
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -47,4 +49,6 @@ public interface HospitalDAO {
     List<HospitalDTO> ContainsBodyList(@Param("searchList") List<String> searchList);
 
     void updateViewCount(int id);
+
+	List<ReviewDTO> getReviewToHomepage();
 }

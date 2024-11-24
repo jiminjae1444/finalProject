@@ -9,698 +9,10 @@
 <head>
     <meta charset="UTF-8">
     <title>finalProject</title>
+	<link rel="stylesheet" href="${cpath}/resources/css/header.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gugi&family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
-    <style>
-    	body, html {
-	        margin: 0;
-	        padding: 0;
-	        font-family: Arial, sans-serif;
-    	}
-        /*    챗봇 아이콘 */
-        #chat_icon img {
-            position: fixed;
-            right: 50px;
-            bottom: 50px;
-        }
-
-        /*   민재 파트 (홈 검색 기능) */
-
-
-        #mapModal {
-            z-index: 4;
-            width: 100%;
-            height: 100%;
-            display: none; /* 기본적으로 숨김 */
-            position: fixed;
-            top: 0;
-            left: 0;
-            background-color: rgba(0, 0, 0, 0.7); /* 반투명 검은색 배경 */
-        }
-
-        #mapModal.show {
-            display: block;
-        }
-
-        #mapModal > .content {
-            border: 2px solid grey;
-            background-color: white;
-            position: fixed;
-            width: 80%; /* 모달 너비 설정 */
-            max-width: 1000px; /* 최대 너비 */
-            height: 80%; /* 모달 높이 설정 */
-            max-height: 500px; /* 최대 높이 */
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: flex; /* 지도와 리스트를 가로로 나란히 배치 */
-            flex-direction: row; /* 가로 배치 */
-            border-radius: 25px;
-            box-shadow: 10px 10px 10px grey;
-        }
-
-
-        #hospitalList {
-            list-style-type: none;
-            padding:50px 10px;
-            overflow-y: auto;
-            margin: 0;
-            max-height: 100%; /* 리스트가 모달 높이에 맞게 늘어나도록 설정 */
-            width: 30%; /* 리스트 영역을 지도 옆에 붙게 설정 */
-            background-color: rgba(255, 255, 255, 0.4); /* 투명한 배경 설정 (투명도 높임) */
-            opacity: 0.8;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 그림자 효과 */
-            position: relative; /* 부모 요소에 맞춰 위치 */
-        }
-        #hospitalList::-webkit-scrollbar {
-            display: none;
-        }
-        .hospital-list li {
-            margin: 5px 0;
-            cursor: pointer;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .hospital-list li:hover {
-            background-color: #e9ecef; /* 마우스 오버 시 배경색 변경 */
-        }
-
-
-        #map2 {
-            width: 70%; /* 지도 영역 크기 */
-            height: 100%;
-            position: relative;
-        }
-
-
-
-        .hospital-list li.selected {
-            background-color: #007bff; /* 선택된 항목 배경색 */
-            color: white; /* 선택된 항목 글자색 */
-            font-weight: bold; /* 선택된 항목 글씨 진하게 */
-        }
-
-        
-        header{
-            width: 100%;
-            height: 80px;
-            display: flex;
-            justify-content: space-between;
-            z-index: 100;
-            background-color: rgba(255, 255, 255, 0.2);
-   			backdrop-filter: blur(3px);
-        }
-        .bookingModal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .hidden {
-            display: none!important;
-        }
-
-
-        .bookingOverlay {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* 반투명한 검은색 배경 */
-        }
-
-        .bookingContent {
-            position: relative;
-            background-color: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            z-index: 5;
-            max-width: 500px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* Internet Explorer 10+ */
-        }
-
-        .bookingContent::-webkit-scrollbar {
-            display: none; /* WebKit */
-        }
-
-        .bookingTitle {
-            font-size: 24px;
-            color: #2c3e50;
-            text-align: center;
-            font-weight: 600;
-        }
-
-        .bookingDetail {
-            margin-bottom: 10px;
-        }
-
-        #bookingInsertForm input[type="datetime-local"],
-        #bookingUpdateForm input[type="datetime-local"] {
-            width: 100%;
-            padding: 5px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            color: #333;
-        }
-
-        #bookingInsertForm input[type="submit"],
-        #bookingUpdateForm input[type="submit"] {
-            width: 100%;
-            padding: 12px;
-            background-color: #2c3e50;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        #bookingInsertForm input[type="submit"]:hover,
-        #bookingUpdateForm input[type="submit"]:hover {
-            background-color: #34495e;
-        }
-
-        #closeBookingBtn ,#closeMapModalBtn{
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #ff4d4d;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        #closeBookingBtn:hover ,#closeMapModalBtn:hover{
-           background-color: #ff3333;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        #closeBookingBtn:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        /* 애니메이션 효과 */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .bookingContent {
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        /* 반응형 디자인을 위한 미디어 쿼리 */
-        @media (max-width: 600px) {
-            .bookingContent {
-                padding: 25px;
-                width: 95%;
-            }
-
-            .bookingTitle {
-                font-size: 20px;
-            }
-        }
-
-
-        #notificationPaging {
-            justify-content: space-between;
-            display: flex;
-        }
-
-        #notificationCountSpan {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background-color: red;
-            color: white;
-            border-radius: 50%;
-            padding: 2px 6px;
-            font-size: 12px;
-        }
-
-        #myFavoritesPaging {
-            justify-content: space-between;
-            display: flex;
-        }
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-        /* 최근 본 병원 스타일 */
-        #recentHospitalsContainer {
-            width: 180px; /* 컨테이너 너비를 조금 더 줄임 */
-            position: fixed; /* 화면에 고정 */
-            top: 118px; /* 상단에서 80px 떨어지게 위치 */
-            right: 20px; /* 화면 오른쪽에 위치 */
-            background-color: #f9f9f9;
-            padding: 10px;
-            border-radius: 8px; /* 카드와 동일하게 둥글게 */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            z-index: 5; /* 다른 콘텐츠 위에 표시 */
-            max-height: 75vh; /* 화면 높이에 맞게 제한 */
-            overflow-y: hidden; /* 스크롤 숨기기 */
-            border: 1px solid #e0e0e0; /* 약간의 테두리로 강조 */
-        }
-
-        #recentHospitalsContainer h2 {
-            font-size: 18px; /* 제목 크기 약간 줄임 */
-            font-weight: bold;
-            margin-bottom: 10px; /* 여백 줄이기 */
-            color: #333;
-            text-align: center;
-        }
-
-        .recent-hospitals {
-            display: flex;
-            flex-direction: column; /* 세로로 정렬 */
-            gap: 8px; /* 카드 간격을 조금 줄임 */
-            max-height: 70vh; /* 내용이 많으면 더 이상 스크롤되지 않게 */
-        }
-
-        .hospital-card {
-            width: 100%; /* 카드가 컨테이너에 맞게 꽉 차게 */
-            background-color: #fff;
-            border-radius: 6px; /* 카드 모서리 둥글게 */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: transform 0.3s ease-in-out;
-            display: flex;
-            flex-direction: column;
-            margin: 10px 0px;
-        }
-
-        .hospital-card:hover {
-            transform: scale(1.03); /* 카드 호버시 확대 효과 */
-        }
-
-        .recentHospital-image {
-            width: 100%;
-            height: 100px; /* 이미지 크기를 조금 더 줄임 */
-            object-fit: cover; /* 이미지 비율 유지하면서 잘리도록 설정 */
-        }
-
-        .recentHospital-info {
-            padding: 8px; /* 패딩을 줄여서 내용 영역을 더 좁게 */
-            font-size: 13px; /* 폰트 크기 좀 더 줄임 */
-        }
-
-        .hospital-name {
-            font-size: 14px; /* 병원 이름 폰트 크기 더 줄임 */
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #007bff;
-            white-space: nowrap; /* 텍스트가 한 줄로 나오도록 */
-            overflow: hidden;
-            text-overflow: ellipsis; /* 긴 이름은 ... 으로 표시 */
-        }
 	
-		.header-right {
-			justify-content: flex-end;
-			display: flex;
-			margin: 5px;
-			margin-right: 30px;
-			align-items: center;
-		}
-
-        .loginIcon {
-            background-image: url('${cpath}/resources/image/로그인아이콘최종.png');
-            width: 30px;
-            height: 30px;
-            background-size: cover;
-            cursor: pointer;
-            margin-right: 25px;
-        }
-        #gotoInfo {
-        	color: white;
-        	width: 30px;
-            height: 30px;
-            cursor: pointer;
-            margin-right: 25px;
-        }
-        .notificationIcon {
-            background-image: url('${cpath}/resources/image/알림.png');
-            width: 27px;
-            height: 27px;
-            background-size: cover;
-            margin-right: 25px;
-        }
-        .healthInfoIcon {
-        	background-image: url('${cpath}/resources/image/건강정보.png');
-            width: 30px;
-            height: 30px;
-            background-size: cover;
-            margin-right: 25px;
-        }
-        .myFavoritesIcon{
-            background-image: url('${cpath}/resources/image/즐겨찾기.png');
-            width: 30px;
-            height: 30px;
-            background-size: cover;
-            margin-right: 25px;
-        }
-        #logoutBtn {
-        	width: 100px;
-		    padding: 8px;
-		    background: none;
-		    border: 1px solid white;
-		    border-radius: 4px; /* 둥글기 축소 */
-		    color: white;
-		    cursor: pointer;
-		    transition: background 0.3s ease, color 0.3s ease;
-		    font-size: 0.9rem; /* 텍스트 크기 축소 */
-        }
-    </style>
-
-<%--    알림 메시지 스타일--%>
-        <style>
-            /* 알림 테이블 스타일 */
-            #notificationTable {
-                width: 100%;
-                border-collapse: collapse;
-                margin-top: 20px;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            }
-
-            #notificationTable th, #notificationTable td {
-                padding: 12px 15px;
-                text-align: left;
-                border-bottom: 1px solid #e0e0e0;
-            }
-
-            #notificationTable th {
-                background-color: #f8f8f8;
-                font-weight: bold;
-                color: #333;
-            }
-
-            /* 읽지 않은 알림 스타일 */
-            #notificationTable th[style*="background-color: lightskyblue"] {
-                background-color: #e3f2fd;
-                font-weight: bold;
-            }
-
-            /* 알림 삭제 버튼 스타일 */
-            .notificationDeleteBtn {
-                padding: 6px 12px;
-                background-color: #ff4d4d;
-                color: white;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-                transition: background-color 0.3s;
-            }
-
-            .notificationDeleteBtn:hover  {
-                background-color: #ff3333; /* 삭제 버튼의 호버 효과는 유지 */
-            }
-
-            /* 페이징 스타일 */
-            #notificationPaging {
-                display: flex;
-                justify-content: space-around;
-                margin-top: 20px;
-                margin-bottom: 20px;
-            }
-
-            #notificationPaging td {
-                padding: 8px 12px;
-                margin: 0 5px;
-                cursor: pointer;
-                border: 1px solid #ddd;
-                border-radius: 4px;
-            }
-
-            /* 현재 페이지 강조 스타일 */
-            #notificationPaging td[style*="font-weight: bold"] {
-                background-color: #007bff; /* 강조 색상 */
-                color: white; /* 강조 색상에서의 글자 색상 */
-            }
-
-            /* '이전'과 '다음' 버튼 스타일 */
-            #notificationPaging td:first-child,
-            #notificationPaging td:last-child {
-                background-color: #f8f9fa; /* 기본 배경색 */
-                font-weight: bold; /* 두꺼운 폰트 */
-            }
-
-            /* 알림 없음 메시지 스타일 */
-            #notificationTableBody:empty::before {
-                content: '알림이 없습니다.';
-                display: block;
-                text-align: center;
-                padding: 20px;
-                color: #666; /* 회색 글자 색상 */
-                font-style: italic; /* 이탤릭체 */
-            }
-
-            /* 알림 셀 스타일 */
-            .notification-cell {
-                padding: 15px; /* 패딩 */
-                border-bottom: 1px solid #ddd; /* 하단 테두리 */
-            }
-
-            /* 알림 내용 스타일 */
-            .notification-content {
-                display: flex; /* 플렉스 박스 사용 */
-                flex-direction: column; /* 세로 방향 정렬 */
-            }
-
-            /* 날짜 및 이름 강조 스타일 */
-            .notification-date {
-                font-size: 0.9em; /* 폰트 크기 조정 */
-                color: #666; /* 회색 글자 색상 */
-            }
-
-            .notification-name {
-                font-weight: bold; /* 두꺼운 폰트 */
-                color: #333; /* 어두운 글자 색상 */
-            }
-
-            /* 메시지 스타일 */
-            .notification-message {
-                font-size: 1em; /* 기본 폰트 크기 */
-                color: #444; /* 어두운 회색 글자 색상 */
-            }
-
-            /* '일괄 삭제하기' 버튼 스타일 */
-            #deleteNotificationAllBtn {
-                margin: 10px 10px;
-                padding: 10px 20px;
-                font-size: 14px;
-                font-weight: bold;
-                background-color: #ff4d4d;
-                color: white;
-                border: none;
-                border-radius: 8px;
-                cursor: pointer;
-                transition: background-color 0.3s ease, transform 0.2s ease;
-            }
-
-            /* '일괄 삭제하기' 버튼 호버 및 클릭 효과 */
-            #deleteNotificationAllBtn:hover {
-                background-color: #ff3333; /* 호버 시 배경색 */
-            }
-    </style>
-
-<%--    즐겨찾기 스타일--%>
-    <style>
-        #myFavoritesTable {
-            width: 500px;
-            border-collapse: collapse;
-            margin-top: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-
-        }
-
-        #myFavoritesTable th, #myFavoritesTable td {
-            text-align: center;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        #myFavoritesTable th {
-            background-color: #f8f8f8;
-            font-weight: bold;
-            color: #333;
-            padding: 20px 0px;
-        }
-        /* 즐겨찾기 목록의 링크 스타일 */
-        #myFavoritesTable a {
-            color: #007bff; /* 링크 색상 */
-            text-decoration: none; /* 밑줄 제거 */
-        }
-        #myFavoritesTable th:nth-child(2){
-            width: 18%;
-            font-size: 14px;
-        }
-        #myFavoritesTable a:hover {
-            text-decoration: underline; /* 호버 시 밑줄 추가 */
-        }
-        /* 페이징 스타일 */
-        #myFavoritesPaging {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-
-        #myFavoritesPaging td {
-            padding: 8px 10px; /* 패딩 조정 (위아래 8px, 좌우 10px) */
-            margin: 0 5px; /* 좌우 여백 */
-            cursor: pointer; /* 커서 모양 변경 */
-            border: 1px solid #ddd; /* 테두리 색상 */
-            border-radius: 4px; /* 둥근 모서리 */
-            min-width: 40px; /* 최소 너비 설정 */
-            text-align: center; /* 텍스트 중앙 정렬 */
-        }
-
-        /* 현재 페이지 강조 스타일 */
-        #myFavoritesPaging td[style*="font-weight: bold"] {
-            background-color: #007bff; /* 강조 색상 */
-            color: white; /* 강조 색상에서의 글자 색상 */
-        }
-
-        /* '이전'과 '다음' 버튼 스타일 */
-        #myFavoritesPaging td:first-child,
-        #myFavoritesPaging td:last-child {
-            background-color: #f8f9fa; /* 기본 배경색 */
-            font-weight: bold; /* 두꺼운 폰트 */
-        }
-        /* 알림 없음 메시지 스타일 */
-        #myFavoritesTableBody:empty::before {
-            content: '즐겨찾기 한 병원이 없습니다.';
-            display: block;
-            text-align: center;
-            padding: 20px;
-            color: #666; /* 회색 글자 색상 */
-            font-style: italic; /* 이탤릭체 */
-        }
-
-        /* 삭제 버튼 스타일 */
-        .myFavoritesDeleteBtn {
-            padding: 6px 12px;
-            background-color: #ff4d4d; /* 삭제 버튼 배경색 */
-            color: white; /* 버튼 텍스트 색상 */
-            border: none; /* 테두리 제거 */
-            border-radius: 4px; /* 버튼 모서리 둥글게 */
-            cursor: pointer; /* 클릭 가능 커서 */
-            transition: background-color 0.3s ease, transform 0.2s ease; /* 효과 */
-        }
-
-        .myFavoritesDeleteBtn:hover {
-            background-color: #ff3333; /* 호버 시 배경색 */
-        }
-
-        .myFavoritesDeleteBtn:active {
-            transform: scale(0.95); /* 클릭 시 버튼 크기 감소 */
-        }
-
-        /* '일괄 삭제하기' 버튼 스타일 */
-        #deleteMyFavoritesAllBtn {
-            margin: 10px 10px;
-            padding: 10px 20px;
-            font-size: 14px;
-            font-weight: bold;
-            background-color: #ff4d4d;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-
-        #deleteMyFavoritesAllBtn:hover {
-            background-color: #ff3333;
-        }
-
-        #deleteMyFavoritesAllBtn:active {
-            transform: scale(0.95);
-        }
-    </style>
-    
-<!--    footer 스타일 -->
-    <style>
-		#footer {
-		    position: relative;
-		    width: 100%;
-		    background-color: #8a8e92;
-		    padding: 20px;
-		    color: white;
-		    z-index: 2;
-		    display: flex;
-		}
-		footer p {
-		    color: white;
-		    font-weight: 400;
-		    align-items: center;
-		    line-height: 30px;
-		    font-size: 20px;
-		    font-family: "Do Hyeon", sans-serif;
-		}
-		footer p:first-child {
-		    padding-left: 500px;
-		}
-		.footerRight {
-		    margin-left: 90px;
-		}
-		.icons {
-		    display: flex;
-		    margin: 20px;
-		    margin-left: 0;
-		    align-items: center;
-		}
-		.icons a {
-		    background-size: cover;
-		    background-repeat: no-repeat;
-		    background-position: center;
-		    margin: 0 8px;
-		}
-		.icon_youtube {
-			width: 50px;
-			height: 45px;
-		    background-image: url('${cpath}/resources/image/icon_youtube.png');
-		}
-		.icon_instagram {
-			width: 43px;
-		    height: 43px;
-		    background-image: url('${cpath}/resources/image/icon_instagram.png');
-		}
-		.icon_facebook {
-			width: 45px;
-		    height: 45px;
-		    background-image: url('${cpath}/resources/image/icon_facebook.png');
-		}
-		.logo img {
-			width: 146px;
-			height: 145px;
-			margin-top: -32px;
-			margin-left: -33px;
-		}
-
-    </style>
     <%--    chart    --%>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
     <!--  sweetalert2 -->
@@ -731,7 +43,6 @@
 <%--    포트원 결제--%>
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 
-
 </head>
 <body>
 <!-- 즐겨찾기 테이블 -->
@@ -742,10 +53,19 @@
 
 <!-- 챗봇 아이콘 -->
 <div id="chat_icon">
-    <a href="${cpath }/chat/room" onclick="window.open(this.href, '_blank', 'width=600, height=1080'); return false;">
-        <img src="${cpath }/resources/image/chat-icon.png" width="50">
-    </a>
+	<a onclick="openChatRoom(); return false;">
+		<img src="${cpath }/resources/image/chat-icon.png" width="50">
+	</a>
 </div>
+
+<!-- (상담사한테만 뜸) 채팅방 목록 아이콘 -->
+<c:if test="${not empty login && login.role == 1 }">
+	<div id="list_icon">
+		<a href="${cpath }/chat/rooms">
+			<img src="${cpath }/resources/image/list-icon.png" width="50">
+		</a>
+	</div>
+</c:if>
 
 
 <header>
@@ -814,6 +134,22 @@
 </div>
 </c:if>
 
+<!-- 새창에서 챗봇 페이지로 이동 -->
+<script>
+	async function openChatRoom() {
+		const url = cpath + '/chats/room'
+		const roomUrl = await fetch(url).then(resp => resp.text())
+// 		console.log('roomUrl 받아온 후: ', roomUrl)
+		
+		if(roomUrl) {
+			window.open(cpath + '/chat/room/' + roomUrl, '_blank', 'width=600, height=900')
+		}
+		else {
+			alert('챗봇으로 연결할 수 없습니다')
+		}
+	}
+</script>
+
 <!-- 예약하기 입력 폼 -->
 <form id="bookingInsertForm" class="hidden">
     <p><input type="hidden" name="member_id" value="${login.id }"></p>
@@ -841,7 +177,7 @@
 <script>
     const cpath = '${cpath}'
     const loginIcon = document.querySelector('div.loginIcon')
-    console.log(loginIcon)
+
     
     if (loginIcon) {
         loginIcon.addEventListener('click', function() {
@@ -895,13 +231,14 @@
 
 
  	// 아직 안읽은 알림 갯수 가져와서 띄우는 함수
+
     async function notificationCount(){
-        const url = '${cpath}/notificationCount'
+        const url = cpath + '/notificationCount'
         const opt = {
             method : 'GET'
         }
         const result = await fetch(url, opt).then(resp => resp.json())
-        if (result > 0) {
+        if (result > 0 && '${login}' != '') {
             notificationCountSpan.classList.remove('hidden')
             if (result >= 10) {
                 notificationCountSpan.innerText = '9+' // 10 이상은 '9+'로 표시
@@ -910,7 +247,6 @@
             }
             return result
         } else {
-
 			if('${login}' != ''){
               
                notificationCountSpan.innerText = '' // 0 이하일 경우 비움
@@ -922,7 +258,7 @@
 
     // 알림 페이징 최대 페이지 수 가져오는 함수
     async function notificationMaxPage(startPage){
-        const url = '${cpath}/notificationMaxPage'
+        const url = cpath + '/notificationMaxPage'
         const opt = {
             method : 'GET'
         }
@@ -943,7 +279,7 @@
 
     // 알림 리스트 가져와서 페이지별로 띄우는 함수
     async function notificationList(thisPage){
-        const url = '${cpath}/notificationList/' + thisPage
+        const url = cpath + '/notificationList/' + thisPage
         const opt = {
             method : 'GET'
         }
@@ -983,7 +319,7 @@
         event.preventDefault()
         const id = parseInt(event.target.dataset.id)
         const thisPage = parseInt(event.target.dataset.page)
-        const url = '${cpath}/deleteNotification/' + id
+        const url = cpath + '/deleteNotification/' + id
         const opt = {
             method: 'DELETE'
         }
@@ -1042,7 +378,7 @@
         await notificationList(thisPage)
 
         // 알림 읽음 처리
-        const url = '${cpath}/readNotification/' + thisPage
+        const url = cpath + '/readNotification/' + thisPage
         const opt = {
             method : 'PATCH'
         }
@@ -1084,7 +420,7 @@
     }
 
     async function deleteNotificationAll(event){
-        const url = '${cpath}/deleteNotificationAll'
+        const url = cpath + '/deleteNotificationAll'
         const opt = {
             method : 'DELETE'
         }
@@ -1097,7 +433,9 @@
 
     closeBookingBtn.addEventListener('click', closeBookingModal)
     bookingOverlay.onclick = closeBookingModal
-    notification.addEventListener('click', readNotification)
+    if('${login}' != ''){
+	    notification.addEventListener('click', readNotification)	
+    }
     document.addEventListener('DOMContentLoaded', notificationCount)
 </script>
 
@@ -1140,10 +478,10 @@
         let tag = ''
         tag += '<tr><button id="deleteMyFavoritesAllBtn">일괄 삭제하기</button></tr>'
         const result = await fetch(url, opt).then(resp => resp.json())
-        console.log(result)
+//         console.log(result)
         result.forEach(favorite => {
             tag += '<tr>'
-            tag += '<th><a href="${cpath }/hospitalInfo/' + favorite.hospital_id + '">' + favorite.hospital_name + '</a></th>'
+            tag += '<th><a href="' + cpath + '/hospitalInfo/' + favorite.hospital_id + '">' + favorite.hospital_name + '</a></th>'
             tag += '<th>' + favorite.address + '</th><th>' + favorite.tel + '</th><th><button class="myFavoritesDeleteBtn" data-page="' + thisPage + '" data-id="' + favorite.hospital_id + '">삭제</button></th>'
             tag += '</tr>'
         })
@@ -1159,8 +497,8 @@
                     showCancelButton: true,
                     confirmButtonText: '확인',
                     cancelButtonText: '취소',
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
+                    confirmButtonColor: '#9cd2f1',
+                    cancelButtonColor: '#c1c1c1',
                     reverseButtons: true, // 취소 버튼을 왼쪽에 배치하려면 추가
                 }).then((result) => {
                     if (result.isConfirmed) {
@@ -1179,8 +517,8 @@
                     icon: 'question',
                     confirmButtonText: '확인',
                     cancelButtonText: '취소',
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
+                    confirmButtonColor: '#9cd2f1',
+                    cancelButtonColor: '#c1c1c1',
                     showCancelButton: true,
                     allowOutsideClick: false,
                     allowEscapeKey: false,
@@ -1194,8 +532,8 @@
         event.preventDefault()
         const id = parseInt(event.target.dataset.id)
         const thisPage = parseInt(event.target.dataset.page)
-        console.log(thisPage)
-        const url = '${cpath}/deleteMyFavorites/' + id
+//         console.log(thisPage)
+        const url = cpath + '/deleteMyFavorites/' + id
         const opt = {
             method: 'DELETE'
         }
@@ -1266,7 +604,7 @@
 
     // 즐겨찾기 목록 여는 함수
     async function openMyFavorites(event) {
-        console.log(event.target.dataset.page)
+//         console.log(event.target.dataset.page)
         const thisPage = parseInt(event.target.dataset.page)
         const startPage = (Math.floor((thisPage + 4) / 5) - 1) * 5 + 1
 
@@ -1316,24 +654,8 @@
         if(result > 0) openMyFavorites({ target: { dataset: { page: 1 } } })
     }
 
-
-    myFavorites.addEventListener('click', (event) => {
-        if('${login}' != '') openMyFavorites(event)
-        else {
-            Swal.fire({
-                title: '',
-                text: '로그인 해주세요.',
-                icon: 'info',
-                confirmButtonText: '확인',
-                cancelButtonText: '취소',
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                showCancelButton: true,
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-                showCloseButton: false
-            }).then((result) => {if(result.isConfirmed) location.href = '${cpath}/member/login'})
-        }
-    })
+    if('${login}' != '') {
+    	myFavorites.addEventListener('click', (event) => openMyFavorites(event))
+    }
 </script>
 
