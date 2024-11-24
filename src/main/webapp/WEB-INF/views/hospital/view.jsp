@@ -830,12 +830,12 @@
     const findRouteBtn = document.getElementById('findRouteBtn');
     function loadHandler() {
 // 카카오 지도 API Geocoder 인스턴스 생성
-        const geocoder = new kakao.maps.services.Geocoder();
+        const geocoder = new kakao.maps.services.Geocoder()
 
 // 서버에서 받아온 병원 주소
-        var address = '${hospital.address}'; // JSP에서 병원 주소로 대체됩니다
-        const splitAddress = address.split(' ');
-         address = splitAddress.slice(0, 4).join(' ');
+        var address = '${hospital.address}' // JSP에서 병원 주소로 대체됩니다
+        const splitAddress = address.split(' ')
+         address = splitAddress.slice(0, 4).join(' ')
 
 // 주소를 좌표로 변환
         geocoder.addressSearch(address, function (result, status) {
@@ -857,7 +857,7 @@
 // 병원 위치에 마커 생성
                 const marker = new kakao.maps.Marker({
                     position: coords, // 마커의 위치 설정
-                });
+                })
                 marker.setMap(map) // 지도에 마커 추가
 
 // 병원 이름을 표시할 인포윈도우 생성
@@ -874,7 +874,7 @@
                     text: '주소를 찾을 수 없습니다.',
                     type: 'error', // 오류에 맞는 아이콘 선택
                     button: "확인"
-                });
+                })
             }
         })
     }
@@ -890,7 +890,7 @@
         const modal = document.getElementById('routeModal')
         modal.style.display = 'none'  // 모달 숨기기
         // console.log("모달이 닫혔습니다.")
-        document.getElementById('routeInfo').innerHTML = '';
+        document.getElementById('routeInfo').innerHTML = ''
     }
 
     async function getUserLocationAndDirections() {
@@ -904,20 +904,20 @@
             cancelButtonText: "현재 위치 사용",
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#c1c1c1',
-        });
+        })
 
         // "주소 사용"을 선택했을 때
         if (userChoice.isConfirmed) {
-            useLoginLocation(); // 로그인된 주소로 위치 정보 변환 및 경로 찾기
+            useLoginLocation()// 로그인된 주소로 위치 정보 변환 및 경로 찾기
         }
         // "현재 위치 사용"을 선택했을 때
         else {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
-                    var userLat = position.coords.latitude;
-                    var userLng = position.coords.longitude;
-                    var hospitalLat = ${hospital.lat}; // 서버에서 전달받은 병원 위도
-                    var hospitalLng = ${hospital.lng}; // 서버에서 전달받은 병원 경도
+                    var userLat = position.coords.latitude
+                    var userLng = position.coords.longitude
+                    var hospitalLat = ${hospital.lat}// 서버에서 전달받은 병원 위도
+                    var hospitalLng = ${hospital.lng} // 서버에서 전달받은 병원 경도
 
                     getDirections(userLat, userLng, hospitalLat, hospitalLng); // 경로 찾기
                 }, function(error) {
@@ -927,8 +927,8 @@
                         icon: "error",
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: "확인"
-                    });
-                });
+                    })
+                })
             } else {
                 Swal.fire({
                     title: "오류",
@@ -936,7 +936,7 @@
                     icon: "error",
                     confirmButtonColor: '#3085d6',
                     confirmButtonText: "확인"
-                });
+                })
             }
         }
     }
@@ -944,13 +944,13 @@
     // 로그인된 사용자 주소를 사용하는 함수
     function useLoginLocation() {
         if (${not empty login.location}) {  // 사용자 주소가 있을 때
-            var loginAddress = "${login.location}";  // 로그인된 사용자 주소
+            var loginAddress = "${login.location}" // 로그인된 사용자 주소
             convertAddressToCoordinates(loginAddress, function(result) {
                 if (result) {
-                    var userLat = result.y;
-                    var userLng = result.x;
-                    var hospitalLat = ${hospital.lat}; // 서버에서 전달받은 병원 위도
-                    var hospitalLng = ${hospital.lng}; // 서버에서 전달받은 병원 경도
+                    var userLat = result.y
+                    var userLng = result.x
+                    var hospitalLat = ${hospital.lat} // 서버에서 전달받은 병원 위도
+                    var hospitalLng = ${hospital.lng} // 서버에서 전달받은 병원 경도
 
 //                     console.log("사용자 주소 위치:", userLat, userLng); // 주소에서 가져온 사용자 위치
 //                     console.log("병원 위치:", hospitalLat, hospitalLng); // 병원 위치 확인
@@ -963,9 +963,9 @@
                         icon: "error",
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: "확인"
-                    });
+                    })
                 }
-            });
+            })
         } else {
             // 로그인 되어 있지 않은 경우, 로그인 페이지로 이동
             Swal.fire({
@@ -979,21 +979,21 @@
                     const currentPageUrl = window.location.href
                     window.location.href = cpath + '/member/login?redirectUrl=' + encodeURIComponent(currentPageUrl) // 로그인 페이지로 리다이렉션
                 }
-            });
+            })
         }
     }
 
     // 주소를 좌표로 변환하는 함수
     function convertAddressToCoordinates(address, callback) {
-        var geocoder = new kakao.maps.services.Geocoder();
+        var geocoder = new kakao.maps.services.Geocoder()
 
         geocoder.addressSearch(address, function(result, status) {
             if (status === kakao.maps.services.Status.OK) {
                 callback(result[0]);
             } else {
-                callback(null);
+                callback(null)
             }
-        });
+        })
     }
 
     async function getDirections(startY, startX, endY, endX) {
@@ -1095,7 +1095,7 @@
                 icon: "error",
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: "확인"
-            });
+            })
         }
     }
     findRouteBtn.onclick = openRouteModal
@@ -1234,7 +1234,7 @@
         const formData = new FormData(bookingInsertForm)
         const data = {}
         formData.forEach((value, key) => {
-            data[key] = value;
+            data[key] = value
         })
 
         const bookingTime = new Date(data.booking_date).getTime()
@@ -1299,7 +1299,7 @@
                 confirmButtonColor: '#9cd2f1'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    notificationBooking();
+                    notificationBooking()
                 }
             })
         } else if (result == 2) {
@@ -1579,7 +1579,7 @@
                    pay_method: 'card', // 결제 수단
                    merchant_uid: 'merchant_' + new Date().getTime(), // 주문 고유 번호
                    name: '병원 예약 결제', // 결제 상품 이름
-                   amount: +'${hospital.medical_expenses}', // 결제 금액 (테스트로 10,000원)
+                   amount: +'${hospital.medical_expenses}', // 결제 금액 (테스트로 5,000원)
                    buyer_email: '${login.email}', // 구매자 이메일
                    buyer_name: '${login.name}', // 구매자 이름
                    buyer_addr: '${login.location}', // 구매자 주소
