@@ -39,11 +39,11 @@ import lombok.extern.log4j.Log4j;
 @Service
 @Log4j
 public class HospitalService {
-	
+
     @Autowired
     HospitalDAO hospitalDAO;
 
-    
+
     // 호준 파트
 	public List<HospitalDTO> selectSidoList(int jinryo_code) {
 		return hospitalDAO.selectSidoList(jinryo_code);
@@ -64,7 +64,7 @@ public class HospitalService {
 	public List<HospitalDTO> selectPagingHospitalList(int jinryo_code, int sido_code, int gu_code, int offset, int fetch) {
 		return hospitalDAO.selectPagingHospitalList(jinryo_code, sido_code, gu_code, offset, fetch);
 	}
-    
+
     private NaverMapCrawler naverMapCrawler;
 
     public HospitalService(NaverMapCrawler naverMapCrawler) {
@@ -96,38 +96,47 @@ public class HospitalService {
         return response.getBody();
     }
 
-        @Transactional
-        public List<HospitalDTO> getSearchResult(String search) {
-            if (search != null && !search.isEmpty()) {
-                List<String> searchList = Arrays.stream(search.split(","))
-                        .map(String::trim)
-                        .flatMap(kw-> Stream.of(kw,kw.replace(" ", "")))
-                        .distinct()
-                        .collect(Collectors.toList());
+    @Transactional
+    public List<HospitalDTO> getSearchResult(String search) {
+        if (search == null || search.isEmpty()) {
+            return null;  // 검색어가 없으면 null 반환
+        }
 
-                //분리한 검색어를 db에 저장
-                for (String kw : searchList) {
-                    hospitalDAO.insertKeyword(kw);
-                }
+        // 검색어를 분리하고 중복 제거
+        List<String> searchList = Arrays.stream(search.split(","))
+                .map(String::trim)
+                .flatMap(kw -> Stream.of(kw, kw.replace(" ", "")))  //공백 제거
+                .distinct()  //중복 제거
+                .collect(Collectors.toList());
 
-                List<HospitalDTO> bodyList = hospitalDAO.ContainsBodyList(searchList);
-                if (!bodyList.isEmpty()) {
-                    // 증상에 대한 결과 가져오기
-                    List<HospitalDTO> symptomsList = hospitalDAO.getHospitalsByKeywords(searchList);
+        // 병원 정보 조회
+        List<HospitalDTO> bodyList = hospitalDAO.ContainsBodyList(searchList);
+        List<HospitalDTO> finalResult = null;
 
-                    // 두 리스트를 합치고 중복을 제거한 후 반환
-                    symptomsList.addAll(bodyList);
-                    Set<HospitalDTO> resultSet = new HashSet<>(symptomsList);  // 중복 제거
-                    List<HospitalDTO> finalList = new ArrayList<>(resultSet);   // 중복 제거 후 리스트로 변환
-                    return finalList.isEmpty() ? null : finalList;
+        if (!bodyList.isEmpty()) {
+            // 부위가 포함되어 있으면
+            List<HospitalDTO> symptomsList = hospitalDAO.getHospitalsByKeywords(searchList);
+            symptomsList.addAll(bodyList);
 
-                } else {
-                    return hospitalDAO.getHospitalsByKeywords(searchList);
-                }
-            } else {
-                return null;
+            // 중복 제거 후 최종 결과 리스트 생성
+            Set<HospitalDTO> resultSet = new HashSet<>(symptomsList);
+            finalResult = new ArrayList<>(resultSet);
+        } else {
+            // 부위 결과가 없으면 증상 검색 결과만 가져오기
+            finalResult = hospitalDAO.getHospitalsByKeywords(searchList);
+        }
+
+        // 검색 결과가 있을 때만 검색어를 DB에 저장
+        if (finalResult != null && !finalResult.isEmpty()) {
+            for (String kw : searchList) {
+                hospitalDAO.insertKeyword(kw);
             }
         }
+
+        // 결과가 없으면 null 반환, 있으면 최종 결과 반환
+        return finalResult.isEmpty() ? null : finalResult;
+    }
+
 
     @Transactional
     public List<HospitalDTO> getSearchResultHospital(String hospital) {

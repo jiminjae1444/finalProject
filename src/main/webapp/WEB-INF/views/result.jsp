@@ -259,8 +259,7 @@
             if (goToLogin.isConfirmed) {
                 // 로그인 페이지로 이동
                 let currentPageUrl = window.location.href
-                window.location.href = '${cpath}/member/login/redirectUrl=' + encodeURIComponent(currentPageUrl) // 로그인 페이지의 URL을 여기에 입력
-                return
+                window.location.href = '${cpath}/member/login?redirectUrl=' + encodeURIComponent(currentPageUrl) // 로그인 페이지의 URL을 여기에 입력
             }
         }
 

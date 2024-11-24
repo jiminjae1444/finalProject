@@ -1,5 +1,7 @@
 package com.itbank.finalProject.model;
 
+import java.util.Objects;
+
 public class HospitalDTO {
     private int id;
     private String hospital_id;
@@ -146,5 +148,19 @@ public class HospitalDTO {
 
     public void setLat(Double lat) {
         this.lat = lat;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HospitalDTO that = (HospitalDTO) o;
+        return Objects.equals(hospital_id, that.hospital_id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(hospital_id);
     }
 }
