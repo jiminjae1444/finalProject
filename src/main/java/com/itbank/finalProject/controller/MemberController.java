@@ -42,7 +42,7 @@ public class MemberController {
 	@GetMapping("/join")
 	public void join(Model model) {
 		String naverLoginURL = naverLoginComponent.getAuthorizationUrl();
-		System.out.println(naverLoginURL);
+//		System.out.println(naverLoginURL);
 		model.addAttribute("naverLoginURL", naverLoginURL);
 	}
 	

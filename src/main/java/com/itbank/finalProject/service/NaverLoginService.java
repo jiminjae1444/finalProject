@@ -25,9 +25,9 @@ public class NaverLoginService {
 	@Autowired private MemberDAO memberDAO;
 
 	public int naverJoin(MemberDTO dto) {
-		System.out.println("input 입력 데이터 :" + dto.getUserid());
-		System.out.println("input 입력 데이터 :" + dto.getEmail());
-		System.out.println("input 입력 데이터 :" + dto.getLocation());
+//		System.out.println("input 입력 데이터 :" + dto.getUserid());
+//		System.out.println("input 입력 데이터 :" + dto.getEmail());
+//		System.out.println("input 입력 데이터 :" + dto.getLocation());
 		String userpw = dto.getUserpw();
 		String salt = hashComponent.getRandomSalt();
 		String hash = hashComponent.getHash(salt, userpw);
@@ -36,7 +36,7 @@ public class NaverLoginService {
 		dto.setHash(hash);
 		
 		int row = memberDAO.naverInsert(dto);
-		System.out.println("반환값 :" + row);
+//		System.out.println("반환값 :" + row);
 		
 		if(row != 0) {
 			int id = memberDAO.getMaxId(); // 최근 유저 아이디를 가져오는 DAO메서드
@@ -68,7 +68,7 @@ public class NaverLoginService {
 		int count = memberDAO.selectEmailAndUserid(dto);
 		
 		String password = null;
-		System.out.println(count);
+//		System.out.println(count);
 		if(count != 0) {
 			password = UUID.randomUUID().toString().substring(0, 8);
 			String salt = hashComponent.getRandomSalt();
@@ -143,13 +143,13 @@ public class NaverLoginService {
 
 	public MemberDTO getReCheckUserid(String email) {
 		MemberDTO user = memberDAO.checkByUserId(email);
-		System.out.println("User from UserIdDAO: " + user);
+//		System.out.println("User from UserIdDAO: " + user);
 		return user;
 	}
 
 	public MemberDTO getReCheckEmail(String userid) {
 		MemberDTO user = memberDAO.checkByEmail(userid);
-		System.out.println("User from EmailDAO: " + user);
+//		System.out.println("User from EmailDAO: " + user);
 		return user;
 	}
 

@@ -143,7 +143,7 @@ label {
 
    <h3 id="joinTitle">회원가입</h3>
 
-   <form method="POST">
+   <form method="POST" id="SjoinFinalForm">
          <div class="joincontent">
          <div class="joinMainline">
             <p>
@@ -158,9 +158,9 @@ label {
          <p><input type="text" name="location" placeholder="주소를 검색하세요" autocomplete="off" required>
          <p><input type="text" name="birth" placeholder="주민번호 앞 6자리를 입력해주세요" required>
          <p>
-            <input id="gender" type="radio" name="gender" value="M" required>
+            <input id="genderM" type="radio" name="gender" value="M" required>
             <label for="genderM" style="color: black;">남성</label>
-            <input id="gender" type="radio" name="gender" value="F" required>
+            <input id="genderF" type="radio" name="gender" value="F" required>
             <label for="genderF" style="color: black;">여성</label>
          </p>
          
@@ -229,7 +229,7 @@ label {
        // 기본 제출 이벤트를 방지하고 AJAX 요청을 준비합니다.
        event.preventDefault();
        
-       const formData = new FormData(document.forms[0])
+       const formData = new FormData(document.getElementById('SjoinFinalForm'))
        formData.append('user', document.querySelector('input[name="captcha"]').value)
        
        const url = '${cpath}/members/captcha'
@@ -285,7 +285,7 @@ label {
    
    // 함수 선언 부
    window.addEventListener('DOMContentLoaded', loadHandler)
-   document.forms[0].onsubmit = submitHandler
+   document.getElementById('SjoinFinalForm').onsubmit = submitHandler
    document.getElementById('idCheckBtn').onclick = idCheckHandler
    document.getElementById('joinWithNaver').onclick = joinWithNaverHandler
    document.querySelector('input[name="location"]').onclick = execDaumPostcode
