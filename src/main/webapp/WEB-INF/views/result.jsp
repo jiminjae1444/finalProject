@@ -119,8 +119,8 @@
         padding: 10px; /* 패딩 */
         border: 2px solid #ddd; /* 테두리 색상 */
         border-radius: 40px; /* 둥근 모서리 */
-        margin-top: 10px; /* 상단 여백 */
-        margin-left: 200px;
+        margin-top: 35px; /* 상단 여백 */
+        margin-left: 183px;
         width: 80%;
     }
 

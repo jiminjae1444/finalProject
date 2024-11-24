@@ -357,7 +357,7 @@
 <style>
 	.ranking-list {
 		position:absolute;
-		top: 53%;
+		top: 55%;
 		left: 11%;
 		list-style: none;
 		padding: 0;
@@ -772,8 +772,8 @@
 
         #notificationCountSpan {
             position: absolute;
-            top: -5px;
-            right: -5px;
+            top: 20px;
+            right: 267px;
             background-color: red;
             color: white;
             border-radius: 50%;

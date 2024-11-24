@@ -46,7 +46,6 @@ public class MemberAjaxController {
 	}
 	
 	@GetMapping(value="/captcha", produces = "application/json; charset=utf-8")
-	@ResponseBody
 	public HashMap<String, Object> captcha(HttpSession session) throws URISyntaxException, IOException {
 	    // 키 발급받기 (세션에 저장)
 	    String response = naverCaptchaService.getCaptchakey();
@@ -68,7 +67,6 @@ public class MemberAjaxController {
 	}
 
 	@PostMapping(value="/captcha", produces = "application/json; charset=utf-8")
-	@ResponseBody
 	public String captcha(String user, HttpSession session) throws URISyntaxException {
 	    // 세션에서 키를 가져올 때도 동일하게 "captchaKey"를 사용해야 합니다.
 	    String captchakey = (String) session.getAttribute("captchaKey");
@@ -89,7 +87,6 @@ public class MemberAjaxController {
 	}
 	
 	   @PostMapping(value="/resetPassword", produces = "application/json; charset=utf-8")
-	   @ResponseBody
 	   public Map<String, Object> resetPassword(MemberDTO dto) {
 	       Map<String, Object> response = new HashMap<>();
 	       

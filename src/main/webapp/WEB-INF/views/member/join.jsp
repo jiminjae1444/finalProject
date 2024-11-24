@@ -242,8 +242,8 @@ label {
        
        if(result.result) {  
            // 캡차 검증 성공 시, 원래 진행하려던 회원가입 폼을 제출합니다.
-//            event.target.submit()
-//          console.log(result.result)
+           event.target.submit()
+         // console.log(result.result)
        }
        else {  
            // 캡차 검증 실패 시, 메시지를 출력하고 캡차 이미지를 새로 로드합니다.
