@@ -116,7 +116,7 @@ public class HospitalService {
         if (!bodyList.isEmpty()) {
             // 부위가 포함되어 있으면
             List<HospitalDTO> symptomsList = hospitalDAO.getHospitalsByKeywords(searchList);
-            symptomsList.addAll(bodyList);
+            symptomsList.retainAll(bodyList);
 
             // 중복 제거 후 최종 결과 리스트 생성
             Set<HospitalDTO> resultSet = new HashSet<>(symptomsList);

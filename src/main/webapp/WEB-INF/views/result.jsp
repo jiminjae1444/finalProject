@@ -277,7 +277,7 @@
             })
 
             if (useGeolocation.isConfirmed) {
-                navigator.geolocation.getCurrentPosition(success, error)
+                navigator.geolocation.getCurrentPosition(success, error)  //현재위치의 좌표
 
             } else {
                 Swal.fire({
@@ -308,8 +308,6 @@
         const lat = position.coords.latitude
         const lng = position.coords.longitude
         loadMapHandler(lat, lng) // 지도 초기화
-        sessionStorage.setItem("userLat", lat);
-        sessionStorage.setItem("userLng", lng);
         getHospitalListHandler(lat, lng) // 병원 리스트 불러오기
     }
 
