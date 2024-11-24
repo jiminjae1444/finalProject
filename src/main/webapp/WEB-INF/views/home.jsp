@@ -53,7 +53,7 @@
     }
     @keyframes moveBackground {     /* 배경화면 이동효과 */
         from {
-            background-position: -100 0;
+			background-position: -100% 0;
         }
         to {
             background-position: 0 0;
@@ -1734,7 +1734,24 @@
 //        console.log('음성 검색 결과: ', speechToText)
     }
 
-    soundSearch.onclick = startRecognition
+	// 버튼 클릭 시 음성 검색 사용 여부 확인
+	soundSearch.onclick = function () {
+		Swal.fire({
+			title: '음성 검색',
+			text: '음성 검색은 단어만 검색가능합니다 사용하시겠습니까?',
+			icon: 'question',
+			showCancelButton: true,
+			confirmButtonColor: '#9cd2f1',
+			cancelButtonColor: '#c1c1c1',
+			confirmButtonText: '사용',
+			cancelButtonText: '취소'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				// 사용자가 "사용"을 선택한 경우 음성 검색 실행
+				startRecognition()
+			}
+		})
+	}
 
     // 초기 플레이스 홀더 설정
     searchInput.placeholder = '증상 또는 병명을 입력해주세요'  // 기본값
