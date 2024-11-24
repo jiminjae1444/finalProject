@@ -1524,19 +1524,19 @@
 
        // 예약 후 적용되는 페이지
        if (bookingInfo != "") {
-           bookingBtn.innerHTML = '<button id="bookingCancelBtn">예약취소하기</button><button id="bookingUpdateBtn">예약변경하기</button><button id="paymentBtn">결제하기</button><button id="cancelPaymentBtn">결제 취소</button>';
-           const bookingCancelBtn = document.getElementById('bookingCancelBtn');
-           const bookingUpdateBtn = document.getElementById('bookingUpdateBtn');
-           const paymentBtn = document.getElementById('paymentBtn');
-           const payment = document.getElementById('payment'); // payment 요소 확인
+           bookingBtn.innerHTML = '<button id="bookingCancelBtn">예약취소하기</button><button id="bookingUpdateBtn">예약변경하기</button><button id="paymentBtn">결제하기</button><button id="cancelPaymentBtn">결제 취소</button>'
+           const bookingCancelBtn = document.getElementById('bookingCancelBtn')
+           const bookingUpdateBtn = document.getElementById('bookingUpdateBtn')
+           const paymentBtn = document.getElementById('paymentBtn')
+           const payment = document.getElementById('payment') // payment 요소 확인
            const cancelPaymentBtn = document.getElementById('cancelPaymentBtn')
 
            timeDiff.classList.remove('hidden');
-           document.querySelector('#bookingUpdateForm #booking_date').value = '${booking_date}';
+           document.querySelector('#bookingUpdateForm #booking_date').value = '${booking_date}'
 
            // 남은 시간 타이머를 1초단위로 카운트다운하도록 설정
            bookingTimerInterval = setInterval(() => updateBookingTimer(booking_date), 1000);
-           updateBookingTimer(booking_date);
+           updateBookingTimer(booking_date)
 
            bookingCancelBtn.onclick = () => {
                Swal.fire({
@@ -1555,7 +1555,7 @@
            };
            bookingUpdateBtn.onclick = readyToUpdateBooking;
            bookingUpdateForm.onsubmit = (event) => {
-               event.preventDefault();
+               event.preventDefault()
                Swal.fire({
                    title: '예약 변경',
                    text: '예약을 변경하시겠습니까?',
@@ -1568,12 +1568,12 @@
                    allowOutsideClick: false,
                    allowEscapeKey: false,
                    showCloseButton: false
-               }).then((result) => { if (result.isConfirmed) bookingUpdate() });
+               }).then((result) => { if (result.isConfirmed) bookingUpdate() })
            };
 
            // 결제 버튼 클릭 이벤트
            paymentBtn.onclick = async () => {
-               var IMP = window.IMP;
+               var IMP = window.IMP
                const paymentData = {
                    pg: 'html5_inicis.INIpayTest',
                    pay_method: 'card', // 결제 수단
@@ -1584,7 +1584,7 @@
                    buyer_name: '${login.name}', // 구매자 이름
                    buyer_addr: '${login.location}', // 구매자 주소
                    m_redirect_url: '${cpath}/hospitalInfo/' + hospital_id // 결제 완료 후 리디렉션될 페이지
-               };
+               }
 
                IMP.request_pay(paymentData, function (rsp) {
 //                    console.log(rsp);
@@ -1597,13 +1597,13 @@
                            confirmButtonColor: '#9cd2f1'
                        }).then(() => {
                            // 결제 상태를 sessionStorage에 저장
-                           sessionStorage.setItem('paymentStatus', 'success');
-                           sessionStorage.setItem('paymentData', JSON.stringify(paymentData)); // paymentData 세션에 저장
+                           sessionStorage.setItem('paymentStatus', 'success')
+                           sessionStorage.setItem('paymentData', JSON.stringify(paymentData)) // paymentData 세션에 저장
 
                            // 결제 취소 버튼 클릭 이벤트 추가
                            addCancelPaymentListener(paymentData); // 결제 취소 이벤트 리스너를 추가
                            location.reload()
-                       });
+                       })
                    } else {
                        Swal.fire({
                            title: '결제 실패',
@@ -1611,10 +1611,10 @@
                            icon: 'error',
                            confirmButtonText: '확인',
                            confirmButtonColor: '#9cd2f1'
-                       });
+                       })
                    }
-               });
-           };
+               })
+           }
        }
            // 예약 전 적용되는 페이지
       else {
@@ -1650,7 +1650,7 @@
            if (paymentBtn) paymentBtn.style.display = 'none'
            if (cancelPaymentBtn) cancelPaymentBtn.style.display = 'inline-block'
            // 결제 취소 이벤트 리스너 추가
-           addCancelPaymentListener();
+           addCancelPaymentListener()
        } else {
            if(bookingInfo != ""){
            if (paymentBtn) paymentBtn.style.display = 'inline-block'

@@ -349,8 +349,8 @@
                 return { ...hospital, distance: distance / 1000 } // km로 변환
             })
             .filter(Boolean)
-            .filter(hospital => hospital.distance <= 15) // 15km 이하의 병원만
-            .sort((a, b) => a.distance - b.distance) // 거리 순 정렬
+            .filter(hospital => hospital.distance <= 20) // 20km 이하의 병원만
+            .sort((a, b) => a.distance - b.distance) // 거리 순 정렬(다른 필드를 이용해서 기준을 바꿀수 있음)
 
         return hospitalDistance.slice(0, Math.min(hospitalDistance.length, 30)) // 최대 30개
     }
