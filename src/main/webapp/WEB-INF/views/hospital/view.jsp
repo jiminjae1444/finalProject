@@ -1668,8 +1668,8 @@
                    showCancelButton: true,
                    confirmButtonText: '네',
                    cancelButtonText: '아니오',
-                   confirmButtonColor: '#c1c1c1',
-                   cancelButtonColor: '#9cd2f1'
+                   confirmButtonColor: '#9cd2f1',
+                   cancelButtonColor: '#c1c1c1'
                })
                if (confirmCancel.isConfirmed) {
                    // paymentData가 null이면 sessionStorage에서 가져옴
