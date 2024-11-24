@@ -1531,11 +1531,11 @@
            const payment = document.getElementById('payment') // payment 요소 확인
            const cancelPaymentBtn = document.getElementById('cancelPaymentBtn')
 
-           timeDiff.classList.remove('hidden');
+           timeDiff.classList.remove('hidden')
            document.querySelector('#bookingUpdateForm #booking_date').value = '${booking_date}'
 
            // 남은 시간 타이머를 1초단위로 카운트다운하도록 설정
-           bookingTimerInterval = setInterval(() => updateBookingTimer(booking_date), 1000);
+           bookingTimerInterval = setInterval(() => updateBookingTimer(booking_date), 1000)
            updateBookingTimer(booking_date)
 
            bookingCancelBtn.onclick = () => {
@@ -1551,9 +1551,9 @@
                    allowOutsideClick: false,
                    allowEscapeKey: false,
                    showCloseButton: false
-               }).then((result) => { if (result.isConfirmed) bookingCancel() });
-           };
-           bookingUpdateBtn.onclick = readyToUpdateBooking;
+               }).then((result) => { if (result.isConfirmed) bookingCancel() })
+           }
+           bookingUpdateBtn.onclick = readyToUpdateBooking
            bookingUpdateForm.onsubmit = (event) => {
                event.preventDefault()
                Swal.fire({
@@ -1569,7 +1569,7 @@
                    allowEscapeKey: false,
                    showCloseButton: false
                }).then((result) => { if (result.isConfirmed) bookingUpdate() })
-           };
+           }
 
            // 결제 버튼 클릭 이벤트
            paymentBtn.onclick = async () => {
