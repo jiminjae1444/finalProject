@@ -2,6 +2,7 @@ package com.itbank.finalProject.controller;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -44,6 +45,10 @@ public class HospitalsController {
     public HashMap<String, Object> search(@RequestParam String search, HttpSession session) {
         HashMap<String, Object> response = new HashMap<>();
         List<HospitalDTO> hospitalList = hospitalService.getSearchResult(search);
+        // null 체크 및 기본값 설정
+        if (hospitalList == null) {
+            hospitalList = new ArrayList<>();
+        }
         response.put("success", !hospitalList.isEmpty());
         response.put("noSearch", hospitalList.isEmpty());
         response.put("result", hospitalList);
