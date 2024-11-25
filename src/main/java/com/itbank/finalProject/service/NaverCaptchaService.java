@@ -18,8 +18,8 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class NaverCaptchaService {
 	
-	private String clientId = "M4u1avfGi8wAkmxdgARO";
-	private String clientSecret = "J_l7paFpD4";
+	private String clientId = "mHWAzHvCNQgc7mFSG8sN";
+	private String clientSecret = "H6s74E3Trm";
 	private String saveDirectory = "D:\\fpupload\\captcha";
 	private RestTemplate restTemplate = new RestTemplate();
 
