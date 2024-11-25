@@ -773,7 +773,7 @@
         #notificationCountSpan {
             position: absolute;
             top: 20px;
-            right: 267px;
+            right: 283px;
             background-color: red;
             color: white;
             border-radius: 50%;
