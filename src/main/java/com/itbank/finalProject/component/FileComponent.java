@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Component
 public class FileComponent {
 	
-	private String saveDirectory = "D:\\fpupload\\image";
+	private String saveDirectory = "C:\\fpupload\\image";
 	
 	public FileComponent() {
 		File dir = new File(saveDirectory);
