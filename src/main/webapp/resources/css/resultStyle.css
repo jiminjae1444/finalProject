@@ -1,0 +1,186 @@
+body{
+    overflow-x: hidden;
+    background: linear-gradient(to bottom,#2c3e50, #a4a4a4);
+}
+
+/*지도*/
+#map{
+    border: 1px solid #ddd;
+    width: 80vw;
+    height: 80vh;
+    margin: auto;
+    margin-top: 40px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+}
+
+
+/*인포윈도우*/
+div.infoWindowContentSelf {
+    background-color: white;
+    border: 1px solid #34495e;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+div.infoWindowContentSelf:hover {
+    transform: scale(1.05);
+}
+
+/* 카드 스타일 */
+.infoWindowCard {
+    width: 300px;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.infoWindowCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.infoWindowCard img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+}
+
+.infoWindowCard img:hover {
+    transform: scale(1.05);
+}
+
+.infoWindowCard a {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.infoWindowCard a:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+.infoWindowCard .infoDistance,
+.infoWindowCard .infoTel,
+.infoWindowCard .infoHomepage {
+    font-size: 16px;
+    color: #555;
+    margin-top: 10px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.infoWindowCard .infoDistance::before {
+    content: "📍 ";
+    margin-right: 5px;
+}
+
+.infoWindowCard .infoTel::before {
+    content: "📞 ";
+    margin-right: 5px;
+}
+
+.infoWindowCard .infoHomepage::before {
+    content: "🌐 ";
+    margin-right: 5px;
+}
+
+/*검색창*/
+.input-group {
+    background-color: white; /* 배경색 */
+    display: flex; /* 플렉스 박스 사용 */
+    align-items: center; /* 수직 중앙 정렬 */
+    padding: 10px; /* 패딩 */
+    border: 2px solid #ddd; /* 테두리 색상 */
+    border-radius: 40px; /* 둥근 모서리 */
+    margin-top: 35px; /* 상단 여백 */
+    margin-left: 183px;
+    width: 80%;
+}
+
+.search-buttons {
+    margin-right: 10px; /* 버튼과 입력 필드 간의 간격 */
+}
+
+.search-form {
+    display: flex; /* 플렉스 박스 사용 */
+    align-items: center; /* 수직 중앙 정렬 */
+    flex-grow: 1; /* 남은 공간 차지 */
+    margin: 0;
+}
+
+.search-form #soundSearch {
+    width: 40px;
+}
+
+#searchInput {
+    flex-grow: 1; /* 입력 필드가 가능한 공간을 모두 차지하도록 설정 */
+    padding: 10px; /* 패딩 */
+    border: 1px solid #ddd; /* 테두리 색상 */
+    border-radius: 20px; /* 둥근 모서리 */
+}
+.select-wrap {
+    width: 120px; /* 셀렉트 박스의 너비 설정 */
+    height: 40px; /* 셀렉트 박스의 높이 설정 */
+    border: 1px solid #ccc; /* 테두리 색상 */
+    border-radius: 40px 40px 40px 40px;
+    background: url('http://localhost:8080/finalProject_war_exploded/resources/image/try-me.gif') no-repeat 97% 50% / 25px auto; /* 화살표 이미지 지정 */
+}
+
+
+/* select 스타일 */
+#searchTypeSelect {
+    width: 100%; /* 전체 너비 사용 */
+    height: 100%; /* 전체 높이 사용 */
+    padding: 0 28px 0 10px; /* 패딩 설정 (오른쪽, 왼쪽) */
+    font-size: 15px; /* 폰트 크기 설정 */
+    border: 0; /* 기본 스타일 제거 */
+
+    -webkit-appearance: none; /* Chrome에서 기본 화살표 제거 */
+    -moz-appearance: none; /* Firefox에서 기본 화살표 제거 */
+    appearance: none; /* 모든 브라우저에서 기본 화살표 제거 */
+
+    box-sizing: border-box; /* 셀렉트 박스의 크기 방식 지정 */
+    background: transparent; /* 배경색 투명 처리 */
+}
+
+select::-ms-expand {
+    display: none; /* IE10,11에서 기본 화살표 숨기기 */
+}
+
+button.search {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 20px;
+    background-color: #2c3e50;
+    color: white;
+    cursor: pointer;
+    margin: 5px;
+}
+
+button:hover {
+    background-color: #34495e; /* 호버 시 어두운 파란색 */
+}
+

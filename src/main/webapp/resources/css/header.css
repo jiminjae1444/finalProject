@@ -346,7 +346,7 @@
 		}
 
         .loginIcon {
-            background-image: url('http://localhost:8080/finalProject/resources/image/로그인아이콘최종.png');
+            background-image: url('http://localhost:8080/finalProject_war_exploded/resources/image/로그인아이콘최종.png');
             width: 30px;
             height: 30px;
             background-size: cover;

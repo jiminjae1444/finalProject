@@ -42,7 +42,7 @@
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <%--    포트원 결제--%>
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
-    <script src="${cpath}/resources/script/headerFunctuion.js"></script>
+
 </head>
 <body>
 <!-- 즐겨찾기 테이블 -->
@@ -167,12 +167,11 @@
     const cpath = '${cpath}'
     const login = '${login}'
     const loginIcon = document.querySelector('div.loginIcon')
-
 </script>
+<script src="${cpath}/resources/script/header/headerFunctionFirst.js"></script>
 
-<!-- 호원 스크립트 -->
 <script>
-    <!-- 알림 스크립트 -->
+
     const notification = document.getElementById('notification')
     const notificationTable = document.getElementById('notificationTable')
     const notificationTableHead = document.querySelector('#notificationTable thead')
@@ -187,7 +186,7 @@
 
     document.addEventListener('DOMContentLoaded', notificationCount)
 </script>
-
+<script src="${cpath}/resources/script/header/headerFunctuion.js"></script>
 
 
 <!-- 즐겨찾기 -->
