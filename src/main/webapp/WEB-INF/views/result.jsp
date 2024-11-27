@@ -21,16 +21,19 @@
 <%@ include file="footer.jsp" %>
 <script>
     // geolib의 getDistance 함수 사용하기
-    const { getDistance } = window.geolib; // geolib에서 getDistance 가져오기
-    let hospitalImageCache = {};
-    let map = '';
+    const { getDistance } = window.geolib // geolib에서 getDistance 가져오기
+    let hospitalImageCache = {}
+    let map = ''
+    const userLocation = '${login.location}'
+
 </script>
 <script src="${cpath}/resources/script/resultFunction.js"></script>
 <script>
-    const searchTypeSwitch = document.getElementById('searchTypeSwitch');
+    const searchTypeSwitch = document.getElementById('searchTypeSwitch')
     const searchForm = document.getElementById('searchForm')
     const searchInput = document.getElementById('searchInput')
-    const searchTypeSelect = document.getElementById('searchTypeSelect'); // 셀렉트 요소
+    const searchTypeSelect = document.getElementById('searchTypeSelect')// 셀렉트 요소
+
 
 
 
@@ -46,7 +49,7 @@
 <script src="${cpath}/resources/script/searchFunction.js"></script>
 <script>
     // 폼 제출 시 searchHandler 실행
-    searchForm.addEventListener('submit', searchHandler);
+    searchForm.addEventListener('submit', searchHandler)
     window.addEventListener('DOMContentLoaded', loadHandler)
 </script>
 

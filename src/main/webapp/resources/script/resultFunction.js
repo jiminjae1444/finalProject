@@ -8,7 +8,6 @@ async function loadHandler() {
     }
     // 로그인 사용자 위치 정보가 있는지 확인
     const userLocation = await getUserLocation() // 사용자 정보에서 위치 가져오기
-
     if (userLocation) {
         // 사용자에게 주소 기반으로 위치를 사용할지 물어봄
         const useStoredLocation = await Swal.fire({
@@ -47,7 +46,7 @@ async function loadHandler() {
         if (goToLogin.isConfirmed) {
             // 로그인 페이지로 이동
             let currentPageUrl = window.location.href
-            window.location.href = '${cpath}/member/login?redirectUrl=' + encodeURIComponent(currentPageUrl) // 로그인 페이지의 URL을 여기에 입력
+            window.location.href = cpath + '/member/login?redirectUrl=' + encodeURIComponent(currentPageUrl) // 로그인 페이지의 URL을 여기에 입력
         }
     }
 
@@ -144,8 +143,7 @@ function calculateDistance(hospitalList, lat, lng) {
  * 사용자 위치 정보를 가져오는 함수 (로그인 정보 기반)
  */
 async function getUserLocation() {
-    const location = '${login.location}'
-    return location || null
+    return userLocation || null
 }
 
 /**

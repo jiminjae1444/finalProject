@@ -15,6 +15,7 @@ async function openChatRoom() {
 
 // 로그인 이동
 if (loginIcon) {
+    const loginIcon = document.querySelector('div.loginIcon')
     loginIcon.addEventListener('click', function() {
         location.href = cpath + '/member/login'
     })
