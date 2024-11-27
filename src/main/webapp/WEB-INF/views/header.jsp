@@ -42,7 +42,7 @@
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <%--    포트원 결제--%>
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
-
+    <script src="${cpath}/resources/script/headerFunctuion.js"></script>
 </head>
 <body>
 <!-- 즐겨찾기 테이블 -->
@@ -196,8 +196,5 @@
     const myFavoritesTable = document.getElementById('myFavoritesTable')
     const myFavoritesTableHead = document.querySelector('#myFavoritesTable thead')
     const myFavoritesTableBody = document.querySelector('#myFavoritesTable tbody')
-
-
-
 </script>
 
