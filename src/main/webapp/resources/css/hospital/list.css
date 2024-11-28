@@ -1,0 +1,25 @@
+
+table {
+    width: 900px;
+    border: 2px solid black;
+    margin: auto;
+    border-collapse: collapse;
+}
+thead {
+    background-color: #eee;
+}
+tr {
+    border-bottom: 1px solid #eee;
+}
+tbody > tr:hover {
+    cursor: pointer;
+}
+th {
+    padding: 10px 5px;
+}
+td {
+    padding: 10px 5px;
+}
+td:nth-child(1) {
+    text-align: center;
+}

@@ -85,7 +85,7 @@ async function searchHandler(event) {
     const formData = new FormData(event.target)
     const query = searchInput.value // 입력된 검색어를 저장
     localStorage.setItem('lastSearch', query) // 검색어를 localStorage에 저장
-    const url = searchTypeSelect.value === 'hospital' ? '${cpath}/hospitals/searchs/names' : '${cpath}/hospitals/searchs';
+    const url = searchTypeSelect.value === 'hospital' ? cpath + '/hospitals/searchs/names' :  cpath + '/hospitals/searchs';
     const opt = {
         method: 'POST',
         body: formData

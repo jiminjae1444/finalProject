@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp" %>
-
 <link rel="stylesheet" href="${cpath}/resources/css/member/info.css">
+
 <div class="Infomodal">
 <div class="Infooverlay"></div>
     <div class="Infocontent">
@@ -65,7 +65,7 @@
 </div>
 
 <%@ include file="../footer.jsp" %>
-
+<script src="${cpath}/resources/script/member/info.js"></script>
 <script>
     // imgUpdate 모달 코드
     document.addEventListener('DOMContentLoaded', function() {
@@ -79,15 +79,12 @@
            modal.style.display = 'block' // 모달 표시
        })
    
-       // 모달 닫기 함수
-       function closeModal() {
-           modal.style.display = 'none' // 모달 숨기기
-       }
+
    
        // 뒤로가기 버튼 클릭 시 모달 닫기
        closeModalBtn.addEventListener('click', function(event) {
            event.preventDefault() // 링크 기본 동작 방지 (페이지 리다이렉션 방지)
-           closeModal() // 모달 닫기
+           closeInfoModal() // 모달 닫기
        })
    })
    
@@ -119,6 +116,7 @@
     const footer = document.getElementById('footer')
    footer.style.backgroundColor = '#83888d'
 </script>
+
 
 </body>
 </html>

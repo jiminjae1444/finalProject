@@ -9,13 +9,52 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4350750a-29a0-43ea-8a70-32cef6523690" name="변경" comment="update">
+    <list default="true" id="4350750a-29a0-43ea-8a70-32cef6523690" name="변경" comment="separate javaScript">
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/chat/room.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/chat/rooms.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/healthInfo.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/home.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/hospital/hospitalInfo.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/hospital/list.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/hospital/selectLocation.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/hospital/view.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/review/view.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/chat/room.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/chat/rooms.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/healthInfo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/hospital/hospitalInfo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/hospital/list.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/hospital/selectLocation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/hospital/view.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/member/addLocation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/member/bookingList.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/member/info.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/member/join.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/member/locationUpdate.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/member/resetPassword.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/review/view.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/24__11__21___1_04__________.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/24__11__21__오후_1_04,_체크아웃_전에_커밋되지_않은_변경_내용_[변경]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/itbank/finalProject/controller/MemberAjaxController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itbank/finalProject/controller/MemberAjaxController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/chat/room.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/chat/room.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/chat/rooms.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/chat/rooms.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/healthInfo/healthInfo.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/healthInfo/healthInfo.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/hospital/hospitalInfo.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/hospital/hospitalInfo.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/hospital/list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/hospital/list.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/hospital/selectLocation.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/hospital/selectLocation.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/hospital/view.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/hospital/view.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/addLocation.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/addLocation.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/bookingList.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/bookingList.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/info.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/info.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/join.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/join.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/locationUpdate.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/locationUpdate.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/resetPassword.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/resetPassword.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/result.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/result.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/css/header.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/header.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/review/view.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/review/view.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/script/resultFunction.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/resultFunction.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/script/searchFunction.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/searchFunction.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,11 +65,14 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -38,6 +80,13 @@
     &quot;assignee&quot;: &quot;jiminjae1444&quot;
   }
 }</component>
+  <component name="GithubProjectSettings">
+    <option name="branchProtectionPatterns">
+      <list>
+        <option value="finalProject" />
+      </list>
+    </option>
+  </component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/jiminjae1444/finalProject.git&quot;,
@@ -71,10 +120,11 @@
     &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;Tomcat 서버.Tomcat 9.0.91.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/wigus/IdeaProjects/finalProject&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -92,6 +142,12 @@
     ]
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\wigus\IdeaProjects\finalProject\src\main\webapp\resources\script" />
+      <recent name="C:\Users\wigus\IdeaProjects\finalProject\src\main\webapp\resources\script\header" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Tomcat 9.0.91" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 9.0.91" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
       <option name="BROWSER_ID" value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
@@ -208,6 +264,9 @@
       <workItem from="1732366150217" duration="6939000" />
       <workItem from="1732373966549" duration="7441000" />
       <workItem from="1732418798707" duration="23904000" />
+      <workItem from="1732455953748" duration="2038000" />
+      <workItem from="1732708344525" duration="10402000" />
+      <workItem from="1732770054328" duration="14761000" />
     </task>
     <task id="LOCAL-00001" summary="update notification">
       <option name="closed" value="true" />
@@ -361,7 +420,39 @@
       <option name="project" value="LOCAL" />
       <updated>1732447726296</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="separate javaScript">
+      <option name="closed" value="true" />
+      <created>1732712690096</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1732712690096</updated>
+    </task>
+    <task id="LOCAL-00021" summary="separate javaScript">
+      <option name="closed" value="true" />
+      <created>1732712786719</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1732712786719</updated>
+    </task>
+    <task id="LOCAL-00022" summary="separate javaScript">
+      <option name="closed" value="true" />
+      <created>1732716759627</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1732716759627</updated>
+    </task>
+    <task id="LOCAL-00023" summary="separate javaScript">
+      <option name="closed" value="true" />
+      <created>1732720960840</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1732720960840</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -375,6 +466,7 @@
     <MESSAGE value="bookingList style" />
     <MESSAGE value="infowindowStyle" />
     <MESSAGE value="update" />
-    <option name="LAST_COMMIT_MESSAGE" value="update" />
+    <MESSAGE value="separate javaScript" />
+    <option name="LAST_COMMIT_MESSAGE" value="separate javaScript" />
   </component>
 </project>

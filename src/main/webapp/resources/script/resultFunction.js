@@ -160,8 +160,8 @@ async function addressToCoordinates(address) {
             } else {
                 reject(new Error('주소를 좌표로 변환하는데 실패했습니다.'))
             }
-        });
-    });
+        })
+    })
 }
 
 async function getHospitalListHandler(lat,lng){

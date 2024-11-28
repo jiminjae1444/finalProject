@@ -2,124 +2,8 @@
 		 pageEncoding="UTF-8"%>
 <%@	include file="../header.jsp" %>
 
-<style>
-	body{
-        background: linear-gradient(to bottom,#2c3e50, #a4a4a4);
-    }
-	/* 컨테이너 스타일 */
-	.search-container {
-		display: flex;
-		gap: 20px;
-		margin: 20px;
-	}
+<link rel="stylesheet" href="${cpath}/resources/css/healthInfo.css">
 
-	/* 카테고리 섹션 스타일 */
-	.category-section {
-		flex: 1;
-		background-color: #f8f9fa;
-		padding: 15px;
-		border-radius: 10px;
-		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-		height: 80vh;
-		overflow-y: auto;
-	}
-
-	.category-list {
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
-	}
-
-	.category-list .item {
-		display: flex;
-		align-items: center;
-		gap: 10px;
-		padding: 10px;
-		border: 1px solid #ddd;
-		border-radius: 8px;
-		cursor: pointer;
-		transition: background-color 0.3s ease;
-	}
-
-	.category-list .item:hover {
-		background-color: #e9ecef;
-	}
-
-	.category-list .item img {
-		width: 40px;
-		height: 40px;
-		object-fit: contain;
-	}
-
-	.category-list .item h4 {
-		margin: 0;
-		font-size: 1.2rem;
-		color: #34495e;
-	}
-
-	/* 결과 섹션 스타일 */
-	.results-section {
-		flex: 2;
-		background-color: #ffffff;
-		padding: 20px;
-		border-radius: 10px;
-		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-		height: 80vh;
-		overflow-y: auto;
-	}
-
-	.results-section h3 {
-		margin-bottom: 20px;
-		font-size: 1.5rem;
-		color: #34495e;
-	}
-
-	#results p {
-		font-size: 1rem;
-		color: #555;
-	}
-
-	.result-title {
-		font-size: 1.2rem;
-		color: #007bff;
-		margin: 0;
-	}
-
-	.result-description {
-		font-size: 0.9rem;
-		color: #6c757d;
-	}
-
-	.load-more-btn {
-		display: block;
-		margin: 20px auto;
-		padding: 10px 20px;
-		font-size: 1rem;
-		color: #fff;
-		background-color: #34495e;
-		border: none;
-		border-radius: 5px;
-		cursor: pointer;
-		transition: background-color 0.3s ease;
-	}
-
-	.load-more-btn:hover {
-		background-color: #23313f;
-	}
-		.category-section::-webkit-scrollbar,
-		.results-section::-webkit-scrollbar {
-			display: none; /* 스크롤바 숨기기 */
-	}
-	.category-list .item.selected {
-    background-color: #2c3e50;
-    color: white;
-	}
-
-	.category-list .item.selected h4 {
-	    color: white;
-	}
-
-</style>
 <div class="search-container">
 	<!-- 카테고리 영역 -->
 	<div class="category-section">
@@ -202,42 +86,10 @@
 </div>
 
 <%@ include file="../footer.jsp" %>
-
+<script src="${cpath}/resources/script/healthInfo.js"></script>
 <script>
     const results = document.getElementById('results')
     const categoryItems = document.querySelectorAll('.category-list .item')
-
-    async function fetchBlogResults(search, number) {
-   		const url = '${cpath}/naverBlogSearch/' + search + '/' + parseInt(number)
-   		const opt = {
-   			method: 'GET',
-   		}
-   		const response = await fetch(url, opt)
-   		const data = await response.json()
-
-   		const totalCount = data.total // Access total count
-   		const items = data.items // Access items
-
-   		results.innerHTML = '<p>총 ' + totalCount + '건 중 ' + items.length + '건 출력</p>'
-
-   		items.forEach((item) => {
-   			const itemElement = document.createElement('div') // div 요소 생성
-   			const tag =
-   					'<h3 class="result-title">' + item.title + '</h3>' +
-   					'<p class="result-description">' + item.description + '</p>' +
-   					'<hr>'
-   			itemElement.innerHTML = '<a href="' + item.link + '" target="_blank">' + tag + '</a>'
-   			results.appendChild(itemElement) // results에 추가
-   		})
-
-   		results.innerHTML +=
-   				'<button id="moreBlog" class="load-more-btn" data-id="' +
-   				search +
-   				'" data-number="' +
-   				parseInt(items.length) +
-   				'">더보기</button>'
-    }
-
     categoryItems.forEach((item) => {
         item.onclick = (event) => {
             // 모든 카테고리에서 'selected' 클래스 제거
@@ -250,7 +102,6 @@
             fetchBlogResults(search, 10)
         }
     })
-
     results.addEventListener('click', (event) => {
         if (event.target.id === 'moreBlog') {
             const search = event.target.dataset.id
@@ -259,5 +110,6 @@
         }
     })
 </script>
+
 </body>
 </html>

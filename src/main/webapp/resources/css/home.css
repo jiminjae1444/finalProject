@@ -1,0 +1,1239 @@
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/*  ============ 첫번째 페이지 ============ */
+.first {
+    width: 100%;
+    height: 1190px;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    display: flex;
+}
+@keyframes moveBackground {     /* 배경화면 이동효과 */
+    from {
+        background-position: -100 0;
+    }
+    to {
+        background-position: 0 0;
+    }
+}
+.main_right {
+    width: 50%;
+    height: 100%;
+    z-index: 1;
+    position: relative;
+}
+.main_left {
+    width: 50%;
+    height: 100%;
+    z-index: 1;
+}
+.main_left > p,
+.main_right > p  {
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
+.main_left > p:first-child {
+    font-size: 60px;
+    margin: 0;
+    margin-top: 350px;
+}
+.main_left > p:nth-child(2) {
+    font-size: 20px;
+    margin: 0;
+    font-weight: bold;
+}
+.main_left > p:nth-child(3) {
+    font-size: 20px;
+    margin: 0;
+    margin-top: 50px;
+    font-weight: bold;
+}
+.overlay {
+    position: absolute;
+    background-color: black;
+    opacity: 0.5;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+}
+
+.pages {
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    overflow: hidden;
+}
+.page {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    transition: top .7s;
+
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.first {
+    top: 0;
+    background-image: url('http://localhost:8080/finalProject_war_exploded/resources/image/배경최종.jpg');
+    animation: moveBackground 5s linear forwards;
+}
+.fourth {
+    width: 100%;
+    height: 100vh;
+    background-color: #edf7fa;
+}
+.pagination {
+    position: absolute;
+    display: flex;
+    left: 50%;
+    top: 0%;
+    transform: translateX(-50%);
+    z-index: 100;
+}
+.pagination>li {
+    margin: 5px;
+    list-style: none;
+    height: 10px;
+    width: 10px;
+    background: #999999;
+    border-radius: 50%;
+    margin-top: 10px;
+    transition: background .7s;
+}
+.pagination>li.active {
+    background: #ffffff;
+}
+
+/*  2번째 페이지  */
+.second {
+    background-color: white;
+}
+.categoryComment {
+    margin-left: 50px;
+    font-size: 100px;
+    font-weight: bold;
+    color: black;
+}
+.categoryComment p {
+    margin: 0;
+    margin-top: 45px;
+}
+.slideWrap {
+    display: flex;
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+}
+.slideWrap:nth-child(2) {
+    margin-top: 70px;
+}
+.slideWrap .imgSlide {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 0;
+}
+.slideWrap .imgSlide.original {
+    animation: 50s linear 0s infinite normal forwards running slide01;
+}
+.slideWrap .imgSlide.clone {
+    animation: 50s linear 0s infinite normal none running slide02;
+}
+.slideWrap .imgSlide li {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    line-height: 200px;
+    margin-right: 20px;
+    background-color: #ccc;
+    text-align: center;
+    list-style: none;
+    border-radius: 30px;
+    cursor: pointer;
+}
+.imgSlide img {
+    width: 250px;
+    height: 250px;
+    border-radius: 25px;
+}
+.categoryOverlay {
+    position: absolute; /* 절대 위치 설정 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 25px;
+}
+.imgSlide h4 {
+    position: absolute;
+    bottom: 10px;
+    left: 20px;
+    font-size: 25px;
+    color: white;
+    line-height: normal;
+    font-weight: bold;
+}
+
+@keyframes slide01 {
+    0% { transform: translateX(0);}
+    50% { transform: translateX(-100%);}
+    50.01% { transform: translateX(100%);}
+    100% { transform: translateX(0);}
+}
+@keyframes slide02 {
+    0% {transform: translateX(0);}
+    100% {transform: translateX(-200%);}
+}
+
+/* 3번째 페이지 */
+.third {
+    background-color: #f1f1f1;
+    width: 100%;
+    height: 100%;
+    color: white;
+}
+.thirdPageComment {
+    padding-left: 100px;
+}
+.thirdPageComment > p {
+    font-size: 80px;
+    font-weight: bold;
+    margin: 10px auto;
+}
+.thirdPageComment > p:first-child {
+    margin-top: 180px;
+}
+.rollerWrap {
+    position: absolute;
+    bottom: 0px;
+    border: 1px solid;
+    display: flex;
+    overflow: hidden;
+}
+.rollerWrap a{
+    color : blue;
+}
+.rolling-list ul {
+    padding: 0;
+    display: flex;
+    margin: 0;
+}
+.rolling-list ul li {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 10px;
+    border-right: 1px solid #ddd;
+    min-width: 200px;
+}
+.rolling-list.original {
+    animation: rollingleft1 1500s linear infinite;
+}
+.rolling-list.clone {
+    animation: rollingleft2 1500s linear infinite;
+}
+@keyframes rollingleft1 {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(-100%); }
+    50.01% { transform: translateX(100%); }
+    100% { transform: translateX(0); }
+}
+@keyframes rollingleft2 {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-200%); }
+}
+
+.region-seoul { background-color: #ffebee; color: #c62828; }
+.region-gyeonggi { background-color: #e3f2fd; color: #1565c0; }
+.region-incheon { background-color: #f1f8e9; color: #2e7d32; }
+.region-busan { background-color: #e0f7fa; color: #006064; }
+.region-daegu { background-color: #fbe9e7; color: #bf360c; }
+.region-daejeon { background-color: #e8eaf6; color: #303f9f; }
+.region-gwangju { background-color: #f3e5f5; color: #6a1b9a; }
+.region-ulsan { background-color: #e0f2f1; color: #004d40; }
+.region-sejong { background-color: #ffecb3; color: #ff6f00; }
+.region-gangwon { background-color: #fff3e0; color: #e65100; }
+.region-chungbuk { background-color: #f0f4c3; color: #827717; }
+.region-chungnam { background-color: #f9fbe7; color: #33691e; }
+.region-jeonbuk { background-color: #ffe0b2; color: #e64a19; }
+.region-jeonnam { background-color: #d7ccc8; color: #5e403a; }
+.region-gyeongbuk { background-color: #c8e6c9; color: #2e7d32; }
+.region-gyeongnam { background-color: #ffccbc; color: #d84315; }
+.region-jeju { background-color: #dcedc8; color: #558b2f; }
+.region-etc { background-color: #e0e0e0; color: #616161; }
+
+
+
+/*세번째 페이지 코멘트 스타일*/
+
+ :root {
+     --font-ns: 'CustomFont', sans-serif;
+ }
+.reveal-text {
+    font-size: 70px;
+    font-size: clamp(62px, 5.1042vw, 36px);
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    font-family: var(--font-ns);
+    line-height: 1.3;
+    background-image: linear-gradient(90deg, #070707 0%, #070707 100%);
+    background-size: 0% 100%;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #1A1A1A; /* 폴백 색상 */
+    transition: background-size 15s ease;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+.reveal-text:first-child {
+    margin-top: 260px;
+    font-size: 70px;
+}
+.reveal-text:nth-child(2) {
+    font-size: 70px;
+}
+.reveal-text:nth-child(3) {
+    font-size: 70px;
+}
+.reveal-text.reset {
+    transition: none;
+}
+
+/*검색어 순위 스타일*/
+
+ .ranking-list {
+     position:absolute;
+     top: 55%;
+     left: 11%;
+     list-style: none;
+     padding: 0;
+     margin: 0;
+     height: 30px;
+     overflow: hidden;
+ }
+
+.ranking-item {
+    width: 300px;
+    padding: 5px 0;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+
+.ranking-index {
+    font-weight: bold;
+    color: white;
+    margin-right: 60px;
+    width: 20px;
+}
+
+.ranking-text {
+    flex-grow: 1;
+}
+
+.ranking-count {
+    color: red;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.ranking-list.expanded {
+    height: auto;
+}
+
+
+/*검색창 스타일*/
+
+ .input-group {
+     background-color: white; /* 배경색 */
+     display: flex; /* 플렉스 박스 사용 */
+     align-items: center; /* 수직 중앙 정렬 */
+     padding: 10px; /* 패딩 */
+     border: 2px solid #ddd; /* 테두리 색상 */
+     border-radius: 40px; /* 둥근 모서리 */
+     margin-top: 430px; /* 상단 여백 */
+     margin-left: 60px;
+     position: absolute;
+     width: 70%;
+ }
+
+.search-buttons {
+    margin-right: 10px; /* 버튼과 입력 필드 간의 간격 */
+}
+
+.search-form {
+    display: flex; /* 플렉스 박스 사용 */
+    align-items: center; /* 수직 중앙 정렬 */
+    flex-grow: 1; /* 남은 공간 차지 */
+    margin: 0;
+}
+
+.search-form #soundSearch {
+    width: 40px;
+}
+
+#searchInput {
+    flex-grow: 1; /* 입력 필드가 가능한 공간을 모두 차지하도록 설정 */
+    padding: 10px; /* 패딩 */
+    border: 1px solid #ddd; /* 테두리 색상 */
+    border-radius: 20px; /* 둥근 모서리 */
+}
+.select-wrap {
+    width: 120px; /* 셀렉트 박스의 너비 설정 */
+    height: 40px; /* 셀렉트 박스의 높이 설정 */
+    border: 1px solid #ccc; /* 테두리 색상 */
+    border-radius: 40px 40px 40px 40px;
+    background: url('http://localhost:8080/finalProject_war_exploded/resources/image/try-me.gif') no-repeat 97% 50% / 25px auto; /* 화살표 이미지 지정 */
+}
+
+
+/* select 스타일 */
+#searchTypeSelect {
+    width: 100%; /* 전체 너비 사용 */
+    height: 100%; /* 전체 높이 사용 */
+    padding: 0 28px 0 10px; /* 패딩 설정 (오른쪽, 왼쪽) */
+    font-size: 15px; /* 폰트 크기 설정 */
+    border: 0; /* 기본 스타일 제거 */
+
+    -webkit-appearance: none; /* Chrome에서 기본 화살표 제거 */
+    -moz-appearance: none; /* Firefox에서 기본 화살표 제거 */
+    appearance: none; /* 모든 브라우저에서 기본 화살표 제거 */
+
+    box-sizing: border-box; /* 셀렉트 박스의 크기 방식 지정 */
+    background: transparent; /* 배경색 투명 처리 */
+}
+
+select::-ms-expand {
+    display: none; /* IE10,11에서 기본 화살표 숨기기 */
+}
+
+button.search {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 20px;
+    background-color: #2c3e50;
+    color: white;
+    cursor: pointer;
+    margin: 5px;
+}
+
+
+/*지도모달 마커 스타일*/
+
+ .infoMapListContent , .infoMapContent{
+     padding: 10px;
+     font-family: Arial, sans-serif;
+     font-size: 14px;
+     max-width: 300px; /* 인포윈도우 크기 제한 */
+     word-wrap: break-word; /* 텍스트가 길어질 경우 줄바꿈 */
+ }
+
+/* 병원 이름 링크 스타일 */
+.hospitalNameLink {
+    font-weight: bold;
+    font-size: 16px;
+    color: #0077cc;
+    text-decoration: none; /* 링크 밑줄 제거 */
+}
+
+.hospitalNameLink:hover {
+    text-decoration: underline; /* 링크에 마우스를 올리면 밑줄 표시 */
+}
+
+/* 주소 스타일 */
+.hospitalAddress {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* 전화번호 스타일 */
+.hospitalPhone {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #333;
+}
+/* 닫기 버튼 스타일 */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #f44336; /* 빨간색 */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+/* 닫기 버튼에 마우스 오버 시 색상 변경 */
+.close-btn:hover {
+    background-color: #e53935;
+}
+
+
+
+/*헤더 스타일*/
+
+     /* 	챗봇 아이콘 */
+ #chat_icon img {
+     position: fixed;
+     right: 40px;
+     bottom: 40px;
+     z-index: 1000;
+     cursor: pointer;
+ }
+/* 	(상담사) 채팅방 목록 아이콘 */
+#list_icon img {
+    position: fixed;
+    right: 40px;
+    bottom: 100px;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+
+
+/*   민재 파트 (홈 검색 기능) */
+
+
+#mapModal {
+    z-index: 4;
+    width: 100%;
+    height: 100%;
+    display: none; /* 기본적으로 숨김 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7); /* 반투명 검은색 배경 */
+}
+
+#mapModal.show {
+    display: block;
+}
+
+#mapModal > .content {
+    border: 2px solid grey;
+    background-color: white;
+    position: fixed;
+    width: 80%; /* 모달 너비 설정 */
+    max-width: 1000px; /* 최대 너비 */
+    height: 80%; /* 모달 높이 설정 */
+    max-height: 500px; /* 최대 높이 */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex; /* 지도와 리스트를 가로로 나란히 배치 */
+    flex-direction: row; /* 가로 배치 */
+    border-radius: 25px;
+    box-shadow: 10px 10px 10px grey;
+}
+
+
+#hospitalList {
+    list-style-type: none;
+    padding:50px 10px;
+    overflow-y: auto;
+    margin: 0;
+    max-height: 100%; /* 리스트가 모달 높이에 맞게 늘어나도록 설정 */
+    width: 30%; /* 리스트 영역을 지도 옆에 붙게 설정 */
+    background-color: rgba(255, 255, 255, 0.4); /* 투명한 배경 설정 (투명도 높임) */
+    opacity: 0.8;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 그림자 효과 */
+    position: relative; /* 부모 요소에 맞춰 위치 */
+}
+#hospitalList::-webkit-scrollbar {
+    display: none;
+}
+.hospital-list li {
+    margin: 5px 0;
+    cursor: pointer;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.hospital-list li:hover {
+    background-color: #e9ecef; /* 마우스 오버 시 배경색 변경 */
+}
+
+
+#map2 {
+    width: 70%; /* 지도 영역 크기 */
+    height: 100%;
+    position: relative;
+}
+
+
+
+.hospital-list li.selected {
+    background-color: #007bff; /* 선택된 항목 배경색 */
+    color: white; /* 선택된 항목 글자색 */
+    font-weight: bold; /* 선택된 항목 글씨 진하게 */
+}
+.bookingModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.hidden {
+    display: none!important;
+}
+
+
+.bookingOverlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명한 검은색 배경 */
+}
+
+.bookingContent {
+    position: relative;
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    z-index: 5;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.bookingContent::-webkit-scrollbar {
+    display: none; /* WebKit */
+}
+
+.bookingTitle {
+    font-size: 24px;
+    color: #2c3e50;
+    text-align: center;
+    font-weight: 600;
+}
+
+.bookingDetail {
+    margin-bottom: 10px;
+}
+
+#bookingInsertForm input[type="datetime-local"],
+#bookingUpdateForm input[type="datetime-local"] {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #333;
+}
+
+#bookingInsertForm input[type="submit"],
+#bookingUpdateForm input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#bookingInsertForm input[type="submit"]:hover,
+#bookingUpdateForm input[type="submit"]:hover {
+    background-color: #34495e;
+}
+
+#closeBookingBtn ,#closeMapModalBtn{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#closeBookingBtn:hover ,#closeMapModalBtn:hover{
+    background-color: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+#closeBookingBtn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 애니메이션 효과 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.bookingContent {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* 반응형 디자인을 위한 미디어 쿼리 */
+@media (max-width: 600px) {
+    .bookingContent {
+        padding: 25px;
+        width: 95%;
+    }
+
+    .bookingTitle {
+        font-size: 20px;
+    }
+}
+
+
+#notificationPaging {
+    justify-content: space-between;
+    display: flex;
+}
+
+#notificationCountSpan {
+    position: absolute;
+    top: 20px;
+    right: 283px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+}
+
+#myFavoritesPaging {
+    justify-content: space-between;
+    display: flex;
+}
+a {
+    color: inherit;
+    text-decoration: none;
+}
+/* 최근 본 병원 스타일 */
+#recentHospitalsContainer {
+    width: 180px; /* 컨테이너 너비를 조금 더 줄임 */
+    position: fixed; /* 화면에 고정 */
+    top: 130px; /* 상단에서 80px 떨어지게 위치 */
+    right: 20px; /* 화면 오른쪽에 위치 */
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 8px; /* 카드와 동일하게 둥글게 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 5; /* 다른 콘텐츠 위에 표시 */
+    max-height: 75vh; /* 화면 높이에 맞게 제한 */
+    overflow-y: hidden; /* 스크롤 숨기기 */
+    border: 1px solid #e0e0e0; /* 약간의 테두리로 강조 */
+}
+
+#recentHospitalsContainer h2 {
+    font-size: 18px; /* 제목 크기 약간 줄임 */
+    font-weight: bold;
+    margin-bottom: 10px; /* 여백 줄이기 */
+    color: #333;
+    text-align: center;
+}
+
+.recent-hospitals {
+    display: flex;
+    flex-direction: column; /* 세로로 정렬 */
+    gap: 8px; /* 카드 간격을 조금 줄임 */
+    max-height: 70vh; /* 내용이 많으면 더 이상 스크롤되지 않게 */
+}
+
+.hospital-card {
+    width: 100%; /* 카드가 컨테이너에 맞게 꽉 차게 */
+    background-color: #fff;
+    border-radius: 6px; /* 카드 모서리 둥글게 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0px;
+}
+
+.hospital-card:hover {
+    transform: scale(1.03); /* 카드 호버시 확대 효과 */
+}
+
+.recentHospital-image {
+    width: 100%;
+    height: 100px; /* 이미지 크기를 조금 더 줄임 */
+    object-fit: cover; /* 이미지 비율 유지하면서 잘리도록 설정 */
+}
+
+.recentHospital-info {
+    padding: 8px; /* 패딩을 줄여서 내용 영역을 더 좁게 */
+    font-size: 13px; /* 폰트 크기 좀 더 줄임 */
+}
+
+.hospital-name {
+    font-size: 14px; /* 병원 이름 폰트 크기 더 줄임 */
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #007bff;
+    white-space: nowrap; /* 텍스트가 한 줄로 나오도록 */
+    overflow: hidden;
+    text-overflow: ellipsis; /* 긴 이름은 ... 으로 표시 */
+}
+
+.header-right {
+    justify-content: flex-end;
+    display: flex;
+    margin: 5px;
+    align-items: center;
+}
+.loginIcon {
+    background-image: url('http://localhost:8080/finalProject_war_exploded/resources/image/로그인아이콘최종.png');
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+    cursor: pointer;
+    margin-right: 25px;
+}
+#gotoInfo {
+    color: white;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin: 10px;
+}
+.notificationIcon {
+    background-image: url('http://localhost:8080/finalProject_war_exploded/resources/image/알림.png');
+    width: 27px;
+    height: 27px;
+    background-size: cover;
+    margin-right: 25px;
+    cursor: pointer;
+}
+.healthInfoIcon {
+    background-image: url('http://localhost:8080/finalProject_war_exploded/resources/image/건강정보.png');
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+    margin-right: 25px;
+}
+.myFavoritesIcon{
+    background-image: url('http://localhost:8080/finalProject_war_exploded/resources/image/즐겨찾기.png');
+    width: 30px;
+    height: 30px;
+    background-size: cover;
+    margin-right: 25px;
+    cursor: pointer;
+}
+#logoutBtn {
+    width: 100px;
+    padding: 8px;
+    background: none;
+    border: 1px solid white;
+    border-radius: 4px; /* 둥글기 축소 */
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+    font-size: 0.9rem; /* 텍스트 크기 축소 */
+    margin-right: 10px;
+}
+#logoutBtn:hover {
+    background: #364657;
+    border: 1px solid #364657;
+    color: white;
+}
+
+
+/*알림 메시지 스타일*/
+
+     /* 알림 테이블 스타일 */
+ #notificationTable {
+     width: 100%;
+     border-collapse: collapse;
+     margin-top: 20px;
+     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+ }
+
+#notificationTable th, #notificationTable td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+#notificationTable th {
+    background-color: #f8f8f8;
+    font-weight: bold;
+    color: #333;
+}
+
+/* 읽지 않은 알림 스타일 */
+#notificationTable th[style*="background-color: lightskyblue"] {
+    background-color: #e3f2fd;
+    font-weight: bold;
+}
+
+/* 알림 삭제 버튼 스타일 */
+.notificationDeleteBtn {
+    padding: 6px 12px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.notificationDeleteBtn:hover  {
+    background-color: #ff3333; /* 삭제 버튼의 호버 효과는 유지 */
+}
+
+/* 페이징 스타일 */
+#notificationPaging {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#notificationPaging td {
+    padding: 8px 12px;
+    margin: 0 5px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* 현재 페이지 강조 스타일 */
+#notificationPaging td[style*="font-weight: bold"] {
+    background-color: #007bff; /* 강조 색상 */
+    color: white; /* 강조 색상에서의 글자 색상 */
+}
+
+/* '이전'과 '다음' 버튼 스타일 */
+#notificationPaging td:first-child,
+#notificationPaging td:last-child {
+    background-color: #f8f9fa; /* 기본 배경색 */
+    font-weight: bold; /* 두꺼운 폰트 */
+}
+
+/* 알림 없음 메시지 스타일 */
+#notificationTableBody:empty::before {
+    content: '알림이 없습니다.';
+    display: block;
+    text-align: center;
+    padding: 20px;
+    color: #666; /* 회색 글자 색상 */
+    font-style: italic; /* 이탤릭체 */
+}
+
+/* 알림 셀 스타일 */
+.notification-cell {
+    padding: 15px; /* 패딩 */
+    border-bottom: 1px solid #ddd; /* 하단 테두리 */
+}
+
+/* 알림 내용 스타일 */
+.notification-content {
+    display: flex; /* 플렉스 박스 사용 */
+    flex-direction: column; /* 세로 방향 정렬 */
+}
+
+/* 날짜 및 이름 강조 스타일 */
+.notification-date {
+    font-size: 0.9em; /* 폰트 크기 조정 */
+    color: #666; /* 회색 글자 색상 */
+}
+
+.notification-name {
+    font-weight: bold; /* 두꺼운 폰트 */
+    color: #333; /* 어두운 글자 색상 */
+}
+
+/* 메시지 스타일 */
+.notification-message {
+    font-size: 1em; /* 기본 폰트 크기 */
+    color: #444; /* 어두운 회색 글자 색상 */
+}
+
+/* '일괄 삭제하기' 버튼 스타일 */
+#deleteNotificationAllBtn {
+    margin: 10px 10px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* '일괄 삭제하기' 버튼 호버 및 클릭 효과 */
+#deleteNotificationAllBtn:hover {
+    background-color: #ff3333; /* 호버 시 배경색 */
+}
+
+
+/*즐겨찾기 스타일*/
+
+ #myFavoritesTable {
+     width: 500px;
+     border-collapse: collapse;
+     margin-top: 20px;
+     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+ }
+
+#myFavoritesTable th, #myFavoritesTable td {
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+#myFavoritesTable th {
+    background-color: #f8f8f8;
+    font-weight: bold;
+    color: #333;
+    padding: 20px 0px;
+}
+/* 즐겨찾기 목록의 링크 스타일 */
+#myFavoritesTable a {
+    color: #007bff; /* 링크 색상 */
+    text-decoration: none; /* 밑줄 제거 */
+}
+#myFavoritesTable th:nth-child(2){
+    width: 18%;
+    font-size: 14px;
+}
+#myFavoritesTable a:hover {
+    text-decoration: underline; /* 호버 시 밑줄 추가 */
+}
+/* 페이징 스타일 */
+#myFavoritesPaging {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#myFavoritesPaging td {
+    padding: 8px 10px; /* 패딩 조정 (위아래 8px, 좌우 10px) */
+    margin: 0 5px; /* 좌우 여백 */
+    cursor: pointer; /* 커서 모양 변경 */
+    border: 1px solid #ddd; /* 테두리 색상 */
+    border-radius: 4px; /* 둥근 모서리 */
+    min-width: 40px; /* 최소 너비 설정 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+/* 현재 페이지 강조 스타일 */
+#myFavoritesPaging td[style*="font-weight: bold"] {
+    background-color: #007bff; /* 강조 색상 */
+    color: white; /* 강조 색상에서의 글자 색상 */
+}
+
+/* '이전'과 '다음' 버튼 스타일 */
+#myFavoritesPaging td:first-child,
+#myFavoritesPaging td:last-child {
+    background-color: #f8f9fa; /* 기본 배경색 */
+    font-weight: bold; /* 두꺼운 폰트 */
+}
+/* 알림 없음 메시지 스타일 */
+#myFavoritesTableBody:empty::before {
+    content: '즐겨찾기 한 병원이 없습니다.';
+    display: block;
+    text-align: center;
+    padding: 20px;
+    color: #666; /* 회색 글자 색상 */
+    font-style: italic; /* 이탤릭체 */
+}
+
+/* 삭제 버튼 스타일 */
+.myFavoritesDeleteBtn {
+    padding: 6px 12px;
+    background-color: #ff4d4d; /* 삭제 버튼 배경색 */
+    color: white; /* 버튼 텍스트 색상 */
+    border: none; /* 테두리 제거 */
+    border-radius: 4px; /* 버튼 모서리 둥글게 */
+    cursor: pointer; /* 클릭 가능 커서 */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* 효과 */
+}
+
+.myFavoritesDeleteBtn:hover {
+    background-color: #ff3333; /* 호버 시 배경색 */
+}
+
+.myFavoritesDeleteBtn:active {
+    transform: scale(0.95); /* 클릭 시 버튼 크기 감소 */
+}
+
+/* '일괄 삭제하기' 버튼 스타일 */
+#deleteMyFavoritesAllBtn {
+    margin: 10px 10px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#deleteMyFavoritesAllBtn:hover {
+    background-color: #ff3333;
+}
+
+#deleteMyFavoritesAllBtn:active {
+    transform: scale(0.95);
+}
+
+/*footer 스타일*/
+
+ #footer {
+     position: absolute;
+     bottom: 0;
+     width: 100%;
+     height: 250px;
+     background-color: #8a8e92;
+     padding: 20px;
+     color: white;
+     display: flex;
+ }
+footer p {
+    color: white;
+    font-weight: 400;
+    align-items: center;
+    line-height: 30px;
+    font-size: 20px;
+    font-family: "Do Hyeon", sans-serif;
+}
+footer p:first-child {
+    padding-left: 380px;
+}
+.footerRight {
+    margin-left: 90px;
+}
+.icons {
+    display: flex;
+    margin: 20px;
+    margin-left: 0;
+    align-items: center;
+}
+.icons a {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0 8px;
+}
+.icon_youtube {
+    width: 50px;
+    height: 45px;
+    background-image: url('http://localhost:8080/finalProject_war_exploded/resources/image/icon_youtube.png');
+}
+.icon_instagram {
+    width: 43px;
+    height: 43px;
+    background-image: url('http://localhost:8080/finalProject_war_exploded/resources/image/icon_instagram.png');
+}
+.icon_facebook {
+    width: 45px;
+    height: 45px;
+    background-image: url('http://localhost:8080/finalProject_war_exploded/resources/image/icon_facebook.png');
+}
+.logo img {
+    width: 146px;
+    height: 145px;
+    margin-top: -32px;
+    margin-left: -33px;
+}
+header{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 100;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(3px);
+}
+.fourth > p {
+    font-size: 40px;
+    color: #18114e;
+    margin: 0;
+    margin-top: 80px;
+    font-weight: bold;
+    padding-left: 50px;
+}
+.reviewCard {
+    width: 300px;
+    height: 300px;
+    text-align: center;
+    background-color: white;
+    box-shadow: 0px 10px 25px 0px rgba(24, 17, 78, 0.08);
+    border-radius: 20px;
+    margin: auto;
+    cursor: pointer;
+}
+.reviewContainer {
+    margin-top: 74px;
+    align-items: center;
+    display: flex;
+}
+.reviewCard_hospitalName {
+    font-size: 16px;
+    font-weight: bold;
+    color: #34495e;
+}
+.reviewCard_userid {
+    font-size: 14px;
+    color: #7f8c8d;
+}
+.reviewCard_comments {
+    font-size: 16px;
+}
+.reviewCard span {
+    font-size: 16px;
+    font-weight: bold;
+    color: #f39c12;
+}

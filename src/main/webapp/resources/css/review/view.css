@@ -1,0 +1,371 @@
+
+body{
+    background: linear-gradient(to bottom,#2c3e50, #a4a4a4);
+}
+#moveToHospitalInfo {
+    max-width: 800px;
+    text-align: right;
+    margin: 30px auto;
+}
+#moveToHospitalInfoBtn {
+    background-color: #ffffff;
+    color: #2c3e50;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+#moveToHospitalInfoBtn:hover {
+    background-color: #f7f9fa;
+    transform: translateY(-2px);
+}
+
+
+#review_write {
+    text-align: right;
+}
+
+#addReviewBtn {
+    background-color: #2c3e50;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+
+    pointer-events: auto;
+    opacity: 1;
+}
+#addReviewBtn:hover {
+    background-color: #34495e;
+    transform: translateY(-2px);
+}
+
+/* 리뷰 리스트 전체 섹션 */
+#reviewListAll {
+    margin: auto;
+    margin-bottom: 50px;
+    padding: 20px;
+    background-color: #f7f9fa;
+    max-width: 800px;
+    border-radius: 10px;
+}
+
+#reviewListAll h3 {
+    font-size: 20px;
+    color: #34495e;
+}
+
+/* 리뷰 없을 때 */
+.review_none {
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    margin-top: 50px;
+}
+
+#review_header {
+    display: flex;
+    align-items: center;
+    line-height: 40px;
+    justify-content: space-between;
+}
+
+#review_header img {
+    width: 25px;
+    align-items: center;
+    vertical-align: middle;
+    margin-bottom: 3px;
+    margin-left: 8px;
+    margin-right: 3px;
+}
+
+/* 개별 리뷰 카드 */
+.review_view {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 프로필 이미지 섹션 */
+.review_profile_img {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.review_profile_img img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+/* 리뷰 내용 섹션 */
+.review_contents {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 리뷰 정보 (아이디, 날짜) */
+.review_info {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #34495e;
+    margin-bottom: 10px;
+}
+
+.review_userid {
+    font-weight: bold;
+}
+
+.review_created_at {
+    margin-left: 5px;
+    color: #7f8c8d;
+}
+
+.review_info div {
+    margin-right: 5px;
+}
+
+/* 별점 섹션 */
+.review_rating {
+    font-size: 16px;
+    font-weight: bold;
+    color: #f39c12;
+    margin-bottom: 10px;
+}
+
+/* 리뷰 댓글 섹션 */
+.review_comments {
+    font-size: 16px;
+    color: #2c3e50;
+    margin-top: 5px;
+}
+
+/* 삭제 버튼 */
+.review_delete {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.review_delete .deleteReviewBtn {
+    background-color: #e74c3c;
+    color: #ffffff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.review_delete .deleteReviewBtn:hover {
+    background-color: #c0392b;
+}
+
+/* 더보기 버튼 */
+#moreReview {
+    display: block;
+    margin: 20px auto;
+    background-color: #2c3e50;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#moreReview:hover {
+    background-color: #34495e;
+    transform: translateY(-2px);
+}
+
+
+/* 리뷰 모달 스타일 */
+#reviewModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.reviewOverlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* 반투명한 검은색 배경 */
+}
+
+.reviewModal_content {
+    position: relative;
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    z-index: 5;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.reviewModal_content::-webkit-scrollbar {
+    display: none; /* WebKit */
+}
+
+.reviewModal_title {
+    font-size: 24px;
+    color: #2c3e50;
+    text-align: center;
+    font-weight: 600;
+}
+
+.reviewModal_detail {
+    margin-bottom: 10px;
+}
+
+#reviewModal_closeBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#reviewModal_closeBtn:hover {
+    background-color: #ff3333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+#reviewModal_closeBtn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 애니메이션 효과 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.reviewModal_content {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* 반응형 디자인을 위한 미디어 쿼리 */
+@media (max-width: 600px) {
+    .reviewModal_content {
+        padding: 25px;
+        width: 95%;
+    }
+    .reviewModal_title {
+        font-size: 20px;
+    }
+}
+
+
+/* 리뷰 작성 폼 스타일 */
+#addReview input[type="number"],
+#addReview textarea {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+#addReview input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#addReview input[type="submit"]:hover {
+    background-color: #34495e;
+}
+
+/* 리뷰 작성 폼 필드 스타일 */
+#addReview textarea {
+    resize: vertical;
+}
+
+
+/* 별 스타일 */
+.addRating {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+input[type="radio"] {
+    display: none; /* 실제 radio 버튼은 숨깁니다 */
+}
+
+.addStar {
+    font-size: 30px;
+    color: #ddd; /* 기본 회색 */
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+/* 체크된 별과 그 전까지의 별을 색칠 */
+input[type="radio"]:checked ~ .addStar,
+input[type="radio"]:checked + .addStar,
+input[type="radio"]:checked + .addStar + .addStar,
+input[type="radio"]:checked + .addStar + .addStar + .addStar,
+input[type="radio"]:checked + .addStar + .addStar + .addStar + .addStar {
+    color: #f39c12; /* 선택된 별 색상 */
+}
+
+/* 마우스 호버 시 색상 변경 */
+input[type="radio"]:not(:checked) ~ .addStar:hover {
+    color: #f39c12; /* 마우스 호버 상태 */
+}
+
+.addStar:hover {
+    color: #f39c12;
+}

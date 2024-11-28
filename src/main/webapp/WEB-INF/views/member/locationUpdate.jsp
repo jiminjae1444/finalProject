@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp" %>
 <link rel="stylesheet" href="${cpath}/resources/css/member/locationUodate.css">
+
 <div id="locationUpdateModal" class="locationUpdateModal" >
 	<div class="locationUpdatecontent">
 		<h3 class="updateLocationTitle">주소 정보수정</h3>
@@ -22,19 +23,9 @@
 </div>
 
 <%@ include file="../footer.jsp" %>
-
+<script src="${cpath}/resources/script/member/locationUpdate.js"></script>
 <script>
-	// 다음 주소 찾기 함수 
-	function onComplete(data) {
-		document.querySelector('input[name="location"]').value = data.address
-	}
-	
-	function execDaumPostcode() {
-		const postCode = new daum.Postcode({
-	        oncomplete: onComplete
-	    })
-	    postCode.open()
-	}
+
 	document.querySelector('input[name="location"]').onclick = execDaumPostcode
 	
 	 const updateBtn = document.getElementById('locationForm')

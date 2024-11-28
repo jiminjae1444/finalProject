@@ -19,6 +19,7 @@
 </div>
 <div id="map"></div>
 <%@ include file="footer.jsp" %>
+<script src="${cpath}/resources/script/resultFunction.js"></script>
 <script>
     // geolib의 getDistance 함수 사용하기
     const { getDistance } = window.geolib // geolib에서 getDistance 가져오기
@@ -27,7 +28,6 @@
     const userLocation = '${login.location}'
 
 </script>
-<script src="${cpath}/resources/script/resultFunction.js"></script>
 <script>
     const searchTypeSwitch = document.getElementById('searchTypeSwitch')
     const searchForm = document.getElementById('searchForm')

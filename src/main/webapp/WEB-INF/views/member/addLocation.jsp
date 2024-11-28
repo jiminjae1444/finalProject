@@ -48,19 +48,9 @@
 </div>
 
 <%@ include file="../footer.jsp" %>
-
+<script src="${cpath}/resources/script/member/addLocation.js"></script>
 <script>
-	//다음 주소 찾기 함수
-	function onComplete(data) {
-	    document.querySelector('input[name="memberLocation"]').value = data.address
-	}
-	
-	function execDaumPostcode() {
-	    const postCode = new daum.Postcode({
-	        oncomplete: onComplete
-	    })
-	    postCode.open()
-	}
+
 	
 	document.querySelector('input[name="memberLocation"]').onclick = execDaumPostcode
 	
@@ -71,7 +61,7 @@
 	        event.preventDefault()
 	        
 	        const formData = new FormData(form)
-	        const url = '${cpath}/members/addLocation/${id}' // URL 경로에 {id} 변수를 적용하여 설정
+	        const url = cpath + '/members/addLocation/${id}' // URL 경로에 {id} 변수를 적용하여 설정
 	
 	        fetch(url, {
 	            method: 'POST',
@@ -150,6 +140,7 @@
 	const footer = document.getElementById('footer')
    	footer.style.backgroundColor = '#83888d'
 </script>
+
 
 </body>
 </html>

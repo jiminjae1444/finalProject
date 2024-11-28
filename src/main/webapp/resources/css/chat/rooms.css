@@ -1,0 +1,143 @@
+
+    /* 페이지 전체 배경 스타일 */
+body {
+    background: linear-gradient(to bottom, #2c3e50, #a4a4a4);
+    height: 100vh;
+    margin: 0;
+}
+
+#chatRoom_Container {
+    background-color: #f7f9fa;
+    width: 550px;
+    height: 600px;
+    margin: 60px auto;
+    padding: 20px;
+    border-radius: 10px;
+    align-items: center;
+}
+
+/* 채팅방 목록 전체 프레임 */
+#chatRoomList_frame {
+    width: 95%;
+    height: 95%; /* 고정 높이 설정 */
+    margin: 20px auto;
+    overflow-y: auto; /* 테이블 본문 스크롤 활성화 */
+}
+
+/* 채팅방 목록 테이블 */
+#chatRoomList {
+    width: 100%;
+    margin: 0;
+    margin-bottom: 50px;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 테이블 헤더 스타일 */
+#chatRoomList thead {
+    background-color: #1e88e5;
+    color: white;
+    text-align: left;
+}
+
+/* 테이블 헤더 고정 */
+#chatRoomList thead th {
+    position: sticky; /* 스크롤 시 고정 */
+    top: 0; /* 상단 고정 위치 */
+    z-index: 10; /* 다른 요소 위에 표시 */
+    color: white; /* 텍스트 색상 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 헤더 하단 그림자 */
+    padding: 15px;
+    font-size: 16px;
+}
+
+
+/* 테이블 본문 스타일 */
+#chatRoomList tbody tr {
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+
+#chatRoomList tbody tr:hover {
+    background-color: #f1f1f1;  /* 마우스 오버시 배경색 변경 */
+}
+
+/* 테이블 본문 셀 스타일 */
+#chatRoomList td {
+    padding: 15px;
+    font-size: 14px;
+}
+
+#chatRoomList td:nth-child(1) {
+    width: 10%;
+}
+#chatRoomList td:nth-child(2) {
+    width: 27%;
+    font-weight: bold;
+    color: #34495e;
+}
+#chatRoomList td:nth-child(3) {
+    width: 30%;
+    color: #34495e;
+}
+#chatRoomList td:nth-child(4) {
+    width: 33%;
+    color: #888;
+}
+
+/* 요청 상태 알림 스타일 (동그라미) */
+.thNotify {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: yellow;
+    display: inline-block;
+    margin-left: 10px;
+}
+.statusNotify {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: red;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+
+/* 트리거된 알림 상태 스타일 */
+#chatRoomList td .requestStatus {
+    text-align: center;
+    padding: 5px;
+}
+
+/* 스타일을 클릭했을 때 활성화된 트리 스타일 */
+#chatRoomList .chatRoom {
+    transition: background-color 0.3s ease;  /* 부드러운 배경색 전환 효과 */
+}
+
+/* 스크롤바 전체 영역 */
+#chatRoomList_frame::-webkit-scrollbar {
+    width: 8px; /* 세로 스크롤 너비 */
+    height: 8px; /* 가로 스크롤 높이 */
+}
+
+/* 스크롤바 트랙 (스크롤바 배경) */
+#chatRoomList_frame::-webkit-scrollbar-track {
+    background: #eaf5fa; /* 트랙 색상 */
+    border-radius: 10px; /* 둥근 모서리 */
+}
+
+/* 스크롤바 슬라이더 (스크롤바 핸들) */
+#chatRoomList_frame::-webkit-scrollbar-thumb {
+    background: #cbe8f5; /* 슬라이더 색상 */
+    border-radius: 10px; /* 둥근 모서리 */
+}
+
+/* 슬라이더에 마우스 오버 시 색상 변경 */
+#chatRoomList_frame::-webkit-scrollbar-thumb:hover {
+    background: #9fd8f3; /* 오버 시 색상 */
+}
+

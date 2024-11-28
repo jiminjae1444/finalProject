@@ -1,0 +1,197 @@
+
+body {
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+.chat_container {
+    width: 450px;
+    margin: 80px auto;
+    align-items: center;
+    position: relative;
+}
+
+.requestChat_container {
+    position: absolute;
+    top: 11px;
+    left: 44px;
+}
+
+#requestChatBtn {
+    width: 33px;
+    cursor: pointer;
+    opacity: 90%;
+}
+
+.chat_frame {
+    width: 400px;
+    height: 720px;
+    margin: auto;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat_header {
+    padding: 15px;
+    background-color: #2c3e50;
+    color: #ffffff;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.chat_messages {
+    flex-grow: 1;
+    padding: 10px;
+    overflow-y: auto;
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+}
+
+.chatRoomNotice {
+    text-align: center;
+    background-color: #eee;
+    font-size: 13px;
+    padding: 5px;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+/* 메시지와 시간을 감쌀 컨테이너 */
+.chat_content_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* 기본은 왼쪽 정렬 */
+    margin-bottom: 10px;
+}
+
+/* 상담원과 사용자 메시지에 따라 정렬 변경 */
+.my_message_wrapper {
+    align-items: flex-end; /* 사용자 메시지 오른쪽 정렬 */
+}
+
+.chat_content {
+    margin: 5px;
+    padding: 8px 12px;
+    border-radius: 12px;
+    max-width: 65%;
+    font-size: 0.9em;
+    word-wrap: break-word;
+}
+
+/* 상담원 메시지 스타일 */
+.other_message {
+    background-color: #ffffff;
+}
+
+/* 사용자 메시지 스타일 */
+.my_message {
+    background-color: #d5dde6;
+}
+
+/* 시간 스타일 */
+.chat_time {
+    font-size: 12px;
+    color: #888;
+    margin: 1px 5px;
+}
+
+/* 상담원 메시지 시간 왼쪽 정렬 */
+.other_message .chat_time {
+    text-align: left;
+    margin-left: 5px;
+}
+
+/* 사용자 메시지 시간 오른쪽 정렬 */
+.my_message .chat_time {
+    text-align: right;
+    margin-right: 5px;
+}
+
+.chat_footer {
+    padding: 10px;
+    background-color: white;
+    align-items: center;
+    text-align: center;
+}
+
+/* FAQ 입력창 */
+#faqInputContainer p {
+    display: flex;
+    margin: 0 auto;
+}
+#faqInputContainer input[type="text"] {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 8px;
+    font-size: 0.9em;
+    width: 250px;
+}
+#faqInputContainer input[type="submit"] {
+    padding: 8px 16px;
+    background-color: #2c3e50;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+#faqInputContainer input[type="submit"]:hover {
+    background-color: #34495e;
+}
+
+/* 상담채팅 입력창 */
+#counselInputContainer p {
+    display: flex;
+    margin: 0 auto;
+}
+#counselInputContainer input[type="text"] {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 8px;
+    font-size: 0.9em;
+    width: 250px;
+}
+#counselInputContainer input[type="submit"] {
+    padding: 8px 16px;
+    background-color: #1e88e5;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+#counselInputContainer input[type="submit"]:hover {
+    background-color: #1e73be;
+}
+
+/* 채팅방 나가기 버튼(세션 만료) */
+.chatOut_container {
+    position: absolute;
+    top: 11px;
+    right: 40px;
+}
+#chatOutBtn {
+    width: 33px;
+    cursor: pointer;
+    opacity: 80%;
+}
+
+.hidden {
+    display: none;
+}
