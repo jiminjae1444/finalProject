@@ -30,5 +30,20 @@
 
 
 
+241125 최종 파일을 참고하여 테이블을 만듭니다.
 
-  
+1. csv파일을 임포트 한다(5개)
+2. 테이블 관계를 설정한다
+3. DDL 명령어를 이용하여 테이블을 만든다(12개)
+4. 더미데이터는 넣고 싶으면 넣는다
+
+
+
+
+
+스타일 참고 사항
+
+1.Background-image는 url을 자신의 contextPath를 복사하여 바꿔준다
+2.파일컴포넌트 , 네이버 캡차 서비스의 경로를 자신의 경로로 바꾼다
+3.servlet-context 부분에 	<resources mapping="/fpupload/**" location="file:C:/fpupload/" /> 이부분을 자신의 경로로 수정한다
+
