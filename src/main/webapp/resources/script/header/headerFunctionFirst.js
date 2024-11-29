@@ -20,6 +20,12 @@ if (loginIcon) {
         location.href = cpath + '/member/login'
     })
 }
+const gotoInfo = document.getElementById('div.gotoInfo')
+if (gotoInfo) {
+    gotoInfo.addEventListener('click', function() {
+        location.href =  cpath + '/member/info/${login.id}'
+    })
+}
 
 // 아직 안읽은 알림 갯수 가져와서 띄우는 함수
 

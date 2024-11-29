@@ -410,30 +410,22 @@
 
 
 
-<!-- 새창에서 챗봇 페이지로 이동 -->
-<script>
-	async function openChatRoom() {
-		const url = cpath + '/chats/room'
-		const roomUrl = await fetch(url).then(resp => resp.text())
-// 		console.log('roomUrl 받아온 후: ', roomUrl)
-		
-		if(roomUrl) {
-			window.open(cpath + '/chat/room/' + roomUrl, '_blank', 'width=600, height=1080')
-		}
-		else {
-			alert('챗봇으로 연결할 수 없습니다')
-		}
-	}
-</script>
+
+
+<script src="${cpath}/resources/script/home.js"></script>
+
 <!-- 민재 검색 스크립트 -->
 <script>
+	const cpath = '${cpath}'
+	const loginIcon = document.querySelector('div.loginIcon')
+	const login ='${login}'
+	const searchTypeSwitch = document.getElementById('searchTypeSwitch')
+	const searchForm = document.getElementById('searchForm')
+	const searchInput = document.getElementById('searchInput')
+	const searchTypeSelect = document.getElementById('searchTypeSelect') // 셀렉트 요소
     let markers = []
-    const searchTypeSwitch = document.getElementById('searchTypeSwitch');
-    const searchForm = document.getElementById('searchForm')
-    const searchInput = document.getElementById('searchInput')
-	const searchTypeSelect = document.getElementById('searchTypeSelect'); // 셀렉트 요소
-    const hospitalList = document.getElementById('hospitalList')
-    const mapModal = document.getElementById('mapModal')
+	const hospitalList = document.getElementById('hospitalList')
+	const mapModal = document.getElementById('mapModal')
     let map; // 맵 변수 선언
     const infowindow = new kakao.maps.InfoWindow({ zIndex: 1 }) // 인포윈도우 생성
     
@@ -445,55 +437,54 @@
        recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)()
        recognition.lang = 'ko-KR' // 한국어로 설정
     }
+	// 음성 인식 시작 이벤트
+	recognition.onstart = function () {
+		isRecognitionActive = true // 음성 인식이 시작되었음을 표시
+		Swal.fire({
+			title: '알림',
+			text: '음성 인식이 시작되었습니다.',
+			icon: 'success',
+			confirmButtonColor:'#9cd2f1',
+			confirmButtonText: '확인'
+		})
+	}
 
-    // 음성 인식 시작 이벤트
-    recognition.onstart = function () {
-       isRecognitionActive = true // 음성 인식이 시작되었음을 표시
-       Swal.fire({
-          title: '알림',
-          text: '음성 인식이 시작되었습니다.',
-          icon: 'success',
-          confirmButtonColor:'#9cd2f1',
-          confirmButtonText: '확인'
-       })
-    }
+	// 음성 인식 종료 이벤트
+	recognition.onend = function () {
+		isRecognitionActive = false // 음성 인식이 종료되었음을 표시
+		Swal.fire({
+			title: '알림',
+			text: '음성 인식이 종료되었습니다.',
+			confirmButtonColor:'#9cd2f1',
+			icon: 'info',
+			confirmButtonText: '확인'
+		})
+	}
 
-    // 음성 인식 종료 이벤트
-    recognition.onend = function () {
-       isRecognitionActive = false // 음성 인식이 종료되었음을 표시
-       Swal.fire({
-          title: '알림',
-          text: '음성 인식이 종료되었습니다.',
-          confirmButtonColor:'#9cd2f1',
-          icon: 'info',
-          confirmButtonText: '확인'
-       })
-    }
-
-    // 음성 인식 시작 함수
-    function startRecognition() {
-       if (!isRecognitionActive) { // 음성 인식이 실행 중이 아닐 때만 시작
-          recognition.start()
-       } else {
-          Swal.fire({
-             title: '알림',
-             text: '음성 인식이 이미 실행 중입니다.',
-             confirmButtonColor:'#9cd2f1',
-             icon: 'info',
-             confirmButtonText: '확인'
-          })
-       }
-    }
-    // 음성 인식 결과 처리
-    recognition.onresult = function (event) {
+	// 음성 인식 시작 함수
+	function startRecognition() {
+		if (!isRecognitionActive) { // 음성 인식이 실행 중이 아닐 때만 시작
+			recognition.start()
+		} else {
+			Swal.fire({
+				title: '알림',
+				text: '음성 인식이 이미 실행 중입니다.',
+				confirmButtonColor:'#9cd2f1',
+				icon: 'info',
+				confirmButtonText: '확인'
+			})
+		}
+	}
+	// 음성 인식 결과 처리
+	recognition.onresult = function (event) {
 		let speechToText = event.results[0][0].transcript
 		// 마침표 제거 및 텍스트 트리밍
 		speechToText = speechToText.trim().replace('.', '')
 		// 단어를 공백 기준으로 분리하고 컴마로 연결
 		const formattedText = speechToText.split(' ').join(' , ')
-       searchInput.value = formattedText // 텍스트 입력 필드에 반영
+		searchInput.value = formattedText // 텍스트 입력 필드에 반영
 //        console.log('음성 검색 결과: ', speechToText)
-    }
+	}
 
 	// 버튼 클릭 시 음성 검색 사용 여부 확인
 	soundSearch.onclick = function () {
@@ -514,198 +505,73 @@
 		})
 	}
 
-    // 초기 플레이스 홀더 설정
-    searchInput.placeholder = '증상 또는 병명을 입력해주세요'  // 기본값
+	// 초기 플레이스 홀더 설정
+	searchInput.placeholder = '증상 또는 병명을 입력해주세요'  // 기본값
 
-    // 스위치 상태에 따라 플레이스 홀더 및 name 속성 변경
-    searchTypeSelect.addEventListener('change', function() {
-       if (this.value === 'hospital') {
-          // 병원명 검색 선택 시
-          searchInput.placeholder = '병원명을 입력해주세요'
-          searchInput.name = 'hospital'  // 병원명 검색
-       } else {
-          // 증상 검색 선택 시
-          searchInput.placeholder = '증상 또는 병명을 입력해주세요'
-          searchInput.name = 'search'  // 증상 검색
-       }
-    })
+	// 스위치 상태에 따라 플레이스 홀더 및 name 속성 변경
+	searchTypeSelect.addEventListener('change', function() {
+		if (this.value === 'hospital') {
+			// 병원명 검색 선택 시
+			searchInput.placeholder = '병원명을 입력해주세요'
+			searchInput.name = 'hospital'  // 병원명 검색
+		} else {
+			// 증상 검색 선택 시
+			searchInput.placeholder = '증상 또는 병명을 입력해주세요'
+			searchInput.name = 'search'  // 증상 검색
+		}
+	})
 
-    // 검색 핸들러
-    async function searchHandler(event) {
-       event.preventDefault();
-       const formData = new FormData(event.target);
+	// 검색 핸들러
+	async function searchHandler(event) {
+		event.preventDefault();
+		const formData = new FormData(event.target);
 		const query = searchInput.value // 입력된 검색어를 저장
 		localStorage.setItem('lastSearch', query) // 검색어를 localStorage에 저장
-       const url = searchTypeSelect.value === 'hospital' ? '${cpath}/hospitals/searchs/names' : '${cpath}/hospitals/searchs';
-       const opt = {
-          method: 'POST',
-          body: formData
-       }
-       const result = await fetch(url, opt).then(response => response.json());
+		const url = searchTypeSelect.value === 'hospital' ? cpath + '/hospitals/searchs/names' :  cpath + '/hospitals/searchs';
+		const opt = {
+			method: 'POST',
+			body: formData
+		}
+		const result = await fetch(url, opt).then(response => response.json());
 //        console.log(result);
 
-       if (result.noSearch) {
-          swal({
-             title: '알림',
-             text: '검색결과가 없습니다. 검색어를 조건에 맞게 검색하세요',
-             type: 'info',
-             button: '확인'
-          })
-       } else {
-          if (searchTypeSelect.value === 'hospital') {
-             // 병원명 검색인 경우 모달 열기
-             openMapModal(result.hospitals)
-          } else {
-             // 다른 페이지로 이동 (증상 검색의 경우)
-             window.location.href = '${cpath}/result'
-          }
-       }
-    }
-
-    // 폼 제출 시 searchHandler 실행
-    searchForm.addEventListener('submit', searchHandler);
-
-    function displayHospitalList(hospitals) {
-        hospitalList.innerHTML = ''; // 이전 결과 초기화
-        hospitals.forEach(hospital => {
-            const listItem = document.createElement('li')
-            listItem.innerText = hospital.hospital_name + '(' +hospital.address.substring(0,2) + ')' // 병원명 표시
-
-            // 리스트 항목 클릭 시 맵 중심 이동 및 인포윈도우 표시
-            listItem.addEventListener('click', () => {
-                // 클릭된 리스트 항목에 'selected' 클래스 추가
-                const selectedItem = document.querySelector('.hospital-list .selected')
-                if (selectedItem) {
-                    selectedItem.classList.remove('selected')
-                }
-                listItem.classList.add('selected') // 클릭된 항목에 'selected' 클래스 추가
-                const markerPosition = new kakao.maps.LatLng(hospital.lat, hospital.lng)
-                map.setCenter(markerPosition) // 맵 중심 이동
-                map.setLevel(3) // 줌 레벨을 6으로 설정 (더 크게 보이도록)
-                const marker = new kakao.maps.Marker({
-                    position: markerPosition,
-                    map: map, // 기존 맵 변수 사용
-                    image: markerImage
-                });
-                markers.forEach(m => m.setMap(null)) // 기존 마커 숨기기
-                markers = [marker] // 현재 마커로 배열 초기화
-				// 인포윈도우 내용 생성
-				const infoMapListContent = document.createElement('div');
-				infoMapListContent.classList.add('infoMapListContent'); // 클래스 추가
-
-				// 병원 이름을 <a> 태그로 만들기
-				const hospitalNameLink = document.createElement('a');
-				hospitalNameLink.href = '${cpath}/hospitalInfo/' + hospital.id; // 병원 상세 페이지로 링크
-				hospitalNameLink.target = '_blank'; // 새 탭에서 열기
-				hospitalNameLink.classList.add('hospitalNameLink'); // 클래스 추가
-				hospitalNameLink.innerText = hospital.hospital_name;
-
-				// 주소와 전화번호 정보 추가
-				const addressText = document.createElement('div');
-				addressText.classList.add('hospitalAddress'); // 클래스 추가
-				addressText.innerHTML = '<strong>주소:</strong> ' + hospital.address;
-
-				const telText = document.createElement('div');
-				telText.classList.add('hospitalPhone'); // 클래스 추가
-				telText.innerHTML = '<strong>전화번호:</strong> ' + hospital.tel;
-
-				// 인포윈도우 내용에 병원 이름, 주소, 전화번호 추가
-				infoMapListContent.appendChild(hospitalNameLink);
-				infoMapListContent.appendChild(addressText);
-				infoMapListContent.appendChild(telText);
-
-				// 인포윈도우 열기
-				infowindow.setContent(infoMapListContent);
-				infowindow.open(map, marker); // 클릭한 마커 위에 인포윈도우 표시
-			});
-
-            hospitalList.appendChild(listItem);
-        });
-    }
-
+		if (result.noSearch) {
+			swal({
+				title: '알림',
+				text: '검색결과가 없습니다. 검색어를 조건에 맞게 검색하세요',
+				type: 'info',
+				button: '확인'
+			})
+		} else {
+			if (searchTypeSelect.value === 'hospital') {
+				// 병원명 검색인 경우 모달 열기
+				openMapModal(result.hospitals)
+			} else {
+				// 다른 페이지로 이동 (증상 검색의 경우)
+				window.location.href = cpath + '/result'
+			}
+		}
+	}
+</script>
+<script src="${cpath}/resources/script/homeSearch.js"></script>
+<script>
     // 사용자 정의 마커 이미지 경로
     const markerImageUrl = '${cpath}/resources/image/3333.png'; // 마커 이미지 경로를 설정하세요
     const markerImageSize = new kakao.maps.Size(30, 30); // 마커 이미지의 크기
 
-    // 사용자 정의 마커 이미지 객체 생성
+	// 사용자 정의 마커 이미지 객체 생성
     const markerImage = new kakao.maps.MarkerImage(markerImageUrl, markerImageSize);
-
-    // 모달 열기 및 마커 표시
-    async function openMapModal(hospitals) {
-        const modal = document.getElementById('mapModal')
-        modal.classList.add('show')
-
-        const mapContainer = document.getElementById('map2') // 맵 컨테이너
-
-        // 카카오 맵 초기화
-        map = new kakao.maps.Map(mapContainer, {
-            center: new kakao.maps.LatLng(37.5563, 126.9727), // 서울역 좌표
-            level: 13  // 줌 레벨 설정
-        })
-
-        // 새로운 마커 추가
-        markers.forEach(marker => marker.setMap(null)) // 기존 마커 숨기기
-        markers = [] // 마커 배열 초기화
-
-        // 새로운 마커 추가
-        hospitals.slice(0, 20).forEach(hospital => {
-            const markerPosition = new kakao.maps.LatLng(hospital.lat, hospital.lng)
-            const marker = new kakao.maps.Marker({
-                position: markerPosition,
-                image: markerImage
-            })
-
-            marker.setMap(map)
-            markers.push(marker)
-            // 마커 클릭 시 해당 병원의 인포윈도우 띄우기
-            kakao.maps.event.addListener(marker, 'click', function() {
-				const infoMapContent = document.createElement('div');
-				infoMapContent.classList.add('infoMapContent'); // 클래스 추가
-
-				// 병원 이름을 <a> 태그로 만들기
-				const hospitalNameLink = document.createElement('a');
-				hospitalNameLink.href = '${cpath}/hospitalInfo/' + hospital.id; // 병원 상세 페이지로 링크
-				hospitalNameLink.target = '_blank'; // 새 탭에서 열기
-				hospitalNameLink.classList.add('hospitalNameLink'); // 클래스 추가
-				hospitalNameLink.innerText = hospital.hospital_name;
-
-				// 주소와 전화번호 정보 추가
-				const addressText = document.createElement('div');
-				addressText.classList.add('hospitalAddress'); // 클래스 추가
-				addressText.innerHTML = '<strong>주소:</strong> ' + hospital.address;
-
-				const telText = document.createElement('div');
-				telText.classList.add('hospitalPhone'); // 클래스 추가
-				telText.innerHTML = '<strong>전화번호:</strong> ' + hospital.tel;
-
-				// 인포윈도우 내용에 병원 이름, 주소, 전화번호 추가
-				infoMapContent.appendChild(hospitalNameLink);
-				infoMapContent.appendChild(addressText);
-				infoMapContent.appendChild(telText);
-
-				// 인포윈도우 열기
-				infowindow.setContent(infoMapContent);
-				infowindow.open(map, marker); // 클릭한 마커 위에 인포윈도우 표시
-			});
-        });
-
-        displayHospitalList(hospitals); // 병원 리스트 표시
-    }
-
-    // 모달 닫기
-    function closeMapModal() {
-        const modal = document.getElementById('mapModal')
-        modal.classList.remove('show')
-        markers.forEach(marker => marker.setMap(null)) // 마커 숨기기
-        markers = [] // 마커 배열 초기화
-    }
 
 	// 닫기 버튼 클릭 시 모달 닫기
 	document.getElementById('closeMapModalBtn').addEventListener('click', function() {
-		closeMapModal();
+		closeMapModal()
 	})
+	// 폼 제출 시 searchHandler 실행
+	searchForm.addEventListener('submit', searchHandler)
 </script>
 
+<script src="${cpath}/resources/script/header/headerFunctionFirst.js"></script>
+<%--홈화면--%>
 <script>
 <!-- 스크롤 효과 스크립트(호준) -->
 window.onload = () => {
@@ -789,69 +655,8 @@ window.onload = () => {
         clone.classList.add("clone")
     })
 </script>
-
-
-
 <!-- 응급실 목록 -->
 <script>
-    async function emergencyHandler() {
-        const url = '${cpath}/hospitals/emergency'
-        const result = await fetch(url).then(response => response.json())
-        const emergency = result.emergency
-
-        const emergencyList = document.getElementById('emergencyList')
-
-        emergency.forEach(function(x) {
-            const listItem = document.createElement('li')
-            const areaCode = x.dutyTel3.slice(0, 3)
-            let region
-            let regionClass
-
-            switch (areaCode) {
-                case '02': region = '서울'; regionClass = 'region-seoul'; break
-                case '031': region = '경기'; regionClass = 'region-gyeonggi'; break
-                case '032': region = '인천'; regionClass = 'region-incheon'; break
-                case '051': region = '부산'; regionClass = 'region-busan'; break
-                case '053': region = '대구'; regionClass = 'region-daegu'; break
-                case '042': region = '대전'; regionClass = 'region-daejeon'; break
-                case '062': region = '광주'; regionClass = 'region-gwangju'; break
-                case '052': region = '울산'; regionClass = 'region-ulsan'; break
-                case '044': region = '세종'; regionClass = 'region-sejong'; break
-                case '033': region = '강원'; regionClass = 'region-gangwon'; break
-                case '043': region = '충북'; regionClass = 'region-chungbuk'; break
-                case '041': region = '충남'; regionClass = 'region-chungnam'; break
-                case '063': region = '전북'; regionClass = 'region-jeonbuk'; break
-                case '061': region = '전남'; regionClass = 'region-jeonnam'; break
-                case '054': region = '경북'; regionClass = 'region-gyeongbuk'; break
-                case '055': region = '경남'; regionClass = 'region-gyeongnam'; break
-                case '064': region = '제주'; regionClass = 'region-jeju'; break
-                default: region = '기타'; regionClass = 'region-etc'; break
-            }
-
-            listItem.innerHTML =
-                '<div>' +
-                '<strong>' + x.dutyName + ' (' + region + ')</strong><br>' +
-                '<a href="tel:' + x.dutyTel3 + '">전화: ' + x.dutyTel3 + '</a><br>' +
-                '입원실: ' + x.hvgc + '<br>' +
-                '응급실: ' + x.hvec +
-                '</div>'
-
-            listItem.classList.add(regionClass)
-            emergencyList.appendChild(listItem)
-        })
-
-        const roller = document.getElementById('roller1')
-        const clone = roller.cloneNode(true)
-        clone.id = 'roller2'
-        document.querySelector('.rollerWrap').appendChild(clone)
-
-        document.querySelector('#roller1').style.left = '0px'
-        document.querySelector('#roller2').style.left = roller.offsetWidth + 'px'
-
-        roller.classList.add('original')
-        clone.classList.add('clone')
-    }
-
     window.addEventListener('DOMContentLoaded', emergencyHandler)
 </script>
 
@@ -859,599 +664,36 @@ window.onload = () => {
 <script>
 	//검색어 순위
 	document.addEventListener('DOMContentLoaded', function() {
-		const rankingList = document.getElementById('rankingList');
-		const originalOrder = Array.from(rankingList.children);
-		let timer;
-
-		function tickerAnimation() {
-			timer = setTimeout(function() {
-				const firstLi = rankingList.querySelector('li:first-child');
-				firstLi.style.marginTop = '-30px';
-				firstLi.style.transition = 'margin-top 400ms';
-
-				setTimeout(() => {
-					rankingList.appendChild(firstLi);
-					firstLi.style.marginTop = '';
-					firstLi.style.transition = '';
-					tickerAnimation();
-				}, 400);
-			}, 2000);
-		}
-
-		function resetOrder() {
-			// 리스트를 초기 순서로 재정렬
-			originalOrder.forEach(item => rankingList.appendChild(item));
-		}
-
-		tickerAnimation();
-
+		tickerAnimation()
 		rankingList.addEventListener('mouseover', function() {
-			clearTimeout(timer);
-			resetOrder(); // 순서 초기화
-			rankingList.classList.add('expanded');
+			clearTimeout(timer)
+			resetOrder() // 순서 초기화
+			rankingList.classList.add('expanded')
 		})
-
 		rankingList.addEventListener('mouseout', function() {
 			rankingList.classList.remove('expanded')
 			tickerAnimation()
 		})
-
-
 		document.querySelectorAll('.ranking-item').forEach(item => {
 			item.onclick = function() {
 				const keyword = item.querySelector('.ranking-text').textContent // 클릭한 아이템의 텍스트 가져오기
 				document.getElementById('searchInput').value = keyword // 입력 필드에 키워드 설정
-
+				localStorage.setItem('lastSearch', keyword) // 검색어를 localStorage에 저장
 				// FormData 객체 생성
 				const formData = new FormData(document.getElementById('searchForm'))
-
 				// FormData에 검색어 추가 (필요한 경우)
 				formData.set('search', keyword) // 'search'라는 이름으로 키워드 추가
-
 				// AJAX 요청을 통해 폼 데이터 전송
 				searchHandler2(formData)
 			}
 		})
 	})
 
-	// 검색 핸들러
-	async function searchHandler2(data) {
-		const url = searchTypeSelect.value === 'hospital' ? '${cpath}/hospitals/searchs/names' : '${cpath}/hospitals/searchs';
-		const opt = {
-			method: 'POST',
-			body: data
-		};
-		const result = await fetch(url, opt).then(response => response.json());
-// 		console.log(result);
 
-		if (result.noSearch) {
-			swal({
-				title: '알림',
-				text: '검색결과가 없습니다. 검색어를 조건에 맞게 검색하세요',
-				type: 'info',
-				button: '확인'
-			});
-		} else {
-			if (searchTypeSelect.value === 'hospital') {
-				// 병원명 검색인 경우 모달 열기
-				openMapModal(result.hospitals);
-			} else {
-				// 다른 페이지로 이동 (증상 검색의 경우)
-				window.location.href = '${cpath}/result';
-			}
-		}
-	}
 </script>
-
-<%--로그인--%>
-<script>
-    const cpath = '${cpath}'
-    const loginIcon = document.querySelector('div.loginIcon')
-    const gotoInfo = document.getElementById('div.gotoInfo')
-    if (loginIcon) {
-        loginIcon.addEventListener('click', function() {
-            location.href = cpath + '/member/login'
-        })
-    }
-    if (gotoInfo) {
-        gotoInfo.addEventListener('click', function() {
-           location.href =  cpath + '/member/info/${login.id}'
-        })
-    }
-</script>
-
-<!-- 호원 스크립트 -->
-<script>
-    <!-- 알림 스크립트 -->
-    const notification = document.getElementById('notification')
-    const notificationTable = document.getElementById('notificationTable')
-    const notificationTableHead = document.querySelector('#notificationTable thead')
-    const notificationTableBody = document.querySelector('#notificationTable tbody')
-    const bookingTitleElement = document.querySelector('.bookingTitle')
-    const bookingDetailElement = document.querySelector('.bookingDetail')
-    const bookingOverlay = document.querySelector('.bookingOverlay')
-    const notificationCountSpan = document.getElementById('notificationCountSpan')
-    const closeBookingBtn = document.getElementById('closeBookingBtn')
-    const bookingInsertForm = document.getElementById('bookingInsertForm')
-    const bookingUpdateForm = document.getElementById('bookingUpdateForm')
-
-    // 밀리초단위의 시간정보를 년월일시분 형태의 문자열로 변환하는 함수
-    function formatDate(d) {
-        const date = new Date(d)
-        const year = date.getFullYear()
-        const month = String(date.getMonth() + 1).padStart(2, '0') // 월은 0부터 시작하므로 +1
-        const day = String(date.getDate()).padStart(2, '0')
-        const hours = String(date.getHours()).padStart(2, '0')
-        const minutes = String(date.getMinutes()).padStart(2, '0')
-        return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes
-    }
-
-    // 예약 모달 여는 함수
-    function openBookingModal(bookingTitle, bookingDetail) {
-        bookingTitleElement.innerText = bookingTitle
-        bookingDetailElement.appendChild(bookingDetail)
-        bookingModal.classList.remove('hidden')
-    }
-
-    // 예약 모달 닫는 함수
-    function closeBookingModal(event){
-        bookingModal.classList.add('hidden')
-        bookingInsertForm.classList.add('hidden')
-        bookingUpdateForm.classList.add('hidden')
-        notificationTable.classList.add('hidden')
-        myFavoritesTable.classList.add('hidden')
-    }
-
-
-
-    // 아직 안읽은 알림 갯수 가져와서 띄우는 함수
-    async function notificationCount(){
-        const url = '${cpath}/notificationCount'
-        const opt = {
-            method : 'GET'
-        }
-        const result = await fetch(url, opt).then(resp => resp.json())
-        if (result > 0 && '${login}' != '') {
-            notificationCountSpan.classList.remove('hidden')
-            if (result >= 10 ) {
-                notificationCountSpan.innerText = '9+' // 10 이상은 '9+'로 표시
-            } else {
-                notificationCountSpan.innerText = result // 10 미만은 해당 숫자 표시
-            }
-            return result
-        } else {
-			if('${login}' != ''){
-	            notificationCountSpan.innerText = '' // 0 이하일 경우 비움
-	            notificationCountSpan.classList.add('hidden')
-        	}
-            return ''
-        }
-    }
-
-    // 알림 페이징 최대 페이지 수 가져오는 함수
-    async function notificationMaxPage(startPage){
-        const url = '${cpath}/notificationMaxPage'
-        const opt = {
-            method : 'GET'
-        }
-        const result = await fetch(url, opt).then(resp => resp.json())
-        if(result != 0){
-            let tag = '<tr id="notificationPaging">'
-            tag += '<td>이전</td>'
-            for(let i = startPage; i <= Math.min(startPage + 4, result); i++){
-                tag += '<td data-page="' + i + '">' + i + '</td>'
-            }
-            tag += '<td>다음</td></tr>'
-            notificationTableBody.innerHTML = tag
-        }
-        else notificationTableBody.innerText = '알림이 없습니다.'
-        return result
-    }
-
-
-    // 알림 리스트 가져와서 페이지별로 띄우는 함수
-    async function notificationList(thisPage){
-        const url = '${cpath}/notificationList/' + thisPage
-        const opt = {
-            method : 'GET'
-        }
-        const result = await fetch(url, opt).then(resp => resp.json())
-        let tag = ''
-        tag += '<tr><button id="deleteNotificationAllBtn">일괄 삭제하기</button></tr>'
-        result.forEach(e => {
-            tag += '<tr>' +
-                '<td class="notification-cell" style="background-color: ' + (e.read ? '#ffffff' : 'lightskyblue') + ';">' +
-                '<div class="notification-content">' +
-                '<span class="notification-date">' + formatDate(e.sent_time) + '</span>  ' +
-                '<span class="notification-name">' + e.name + '님의 ' + e.hospital_name + '</span> ' +
-                '<span class="notification-date">' + formatDate(e.booking_date) + '</span> ' +
-                '<span class="notification-message">' + e.message + '</span>' +
-                '</div>' +
-                '</td>' +
-                '<td>' +
-                '<button class="notificationDeleteBtn" data-page="' + thisPage + '" data-id="' + e.id + '">삭제</button>' +
-                '</td>' +
-                '</tr>'
-        })
-        notificationTableHead.innerHTML = tag
-
-        // 알림삭제 버튼 기능부여
-        document.querySelectorAll('.notificationDeleteBtn').forEach(btn => {
-            btn.onclick = (event) => {
-                deleteNotification(event)
-                readNotification(event)
-            }
-        })
-        document.getElementById('deleteNotificationAllBtn').addEventListener('click', deleteNotificationAll)
-        return result  // 결과를 반환합니다.
-    }
-
-    // 알림 지우는 함수
-    async function deleteNotification(event) {
-        event.preventDefault()
-        const id = parseInt(event.target.dataset.id)
-        const thisPage = parseInt(event.target.dataset.page)
-        const url = '${cpath}/deleteNotification/' + id
-        const opt = {
-            method: 'DELETE'
-        }
-        const result = await fetch(url, opt).then(resp => resp.json());
-        if (result == 1) {
-            await notificationCount()
-            await updateNotificationPage(thisPage)
-        }
-    }
-
-    // 알림 페이지 업데이트 함수
-    function updateNotificationPagination(currentPage, startPage, maxPage) {
-        document.querySelectorAll('#notificationPaging td').forEach((td, i, arr) => {
-            if(i == 0) {
-                td.onclick = () => {
-                    const prevPage = Math.max(1, currentPage - 1)
-                    readNotification({ target: { dataset: { page: prevPage } } })
-                }
-            } else if(i == arr.length - 1) {
-                td.onclick = () => {
-                    const nextPage = Math.min(maxPage, currentPage + 1)
-                    readNotification({ target: { dataset: { page: nextPage } } })
-                }
-            } else {
-                td.onclick = (e) => readNotification(e)
-            }
-
-            if(i + startPage - 1 == currentPage) td.style.fontWeight = 'bold'
-        })
-    }
-
-    // 알림 페이지 변경 함수
-    async function updateNotificationPage(currentPage) {
-        const startPage = (Math.floor((currentPage + 4) / 5) - 1) * 5 + 1
-        const maxPage = await notificationMaxPage(startPage)
-
-        // 현재 페이지의 알림 목록을 가져옵니다.
-        const notifications = await notificationList(currentPage)
-
-        if (notifications.length === 0 && currentPage > 1) {
-            // 현재 페이지가 비어있고, 첫 번째 페이지가 아니라면 이전 페이지로 이동
-            await readNotification({ target: { dataset: { page: currentPage - 1 } } })
-        } else {
-            // 페이징 업데이트
-            updateNotificationPagination(currentPage, startPage, maxPage)
-        }
-    }
-
-
-    // 알림 읽음 처리하는 함수
-    async function readNotification(event) {
-        const thisPage = parseInt(event.target.dataset.page)
-        const startPage = (Math.floor((thisPage + 4) / 5) - 1) * 5 + 1
-
-        // 알림 리스트 불러오기
-        await notificationList(thisPage)
-
-        // 알림 읽음 처리
-        const url = '${cpath}/readNotification/' + thisPage
-        const opt = {
-            method : 'PATCH'
-        }
-        await fetch(url, opt)
-
-        // 알림 안읽은 수에서 읽은만큼 빼기
-        notificationCount()
-
-        // 알림창 최대 페이지 수
-        const maxPage = await notificationMaxPage(startPage)
-
-        // 알림 페이징
-        document.querySelectorAll('#notificationPaging td').forEach((td, i, arr) => {
-
-            // 이전
-            if(i == 0) {
-                td.onclick = (e) => {
-                    const prevPage = Math.max(1, thisPage - 1)
-                    readNotification({ target: { dataset: { page: prevPage } } })
-                }
-            }
-
-            // 다음
-            else if(i == arr.length - 1) {
-                td.onclick = async (e) => {
-                    const nextPage = Math.min(maxPage, thisPage + 1)
-                    readNotification({ target: { dataset: { page: nextPage } } })
-                }
-            }
-
-            // 페이지
-            else td.onclick = (e) => readNotification(e)
-
-            // 현재 페이지 숫자 굵게 표시
-            if(i + startPage - 1 == thisPage) td.style.fontWeight = 'bold'
-        })
-        notificationTable.classList.remove('hidden')
-        openBookingModal('알림', notificationTable)
-    }
-
-    async function deleteNotificationAll(event){
-        const url = '${cpath}/deleteNotificationAll'
-        const opt = {
-            method : 'DELETE'
-        }
-        const result = await fetch(url, opt).then(resp => resp.json())
-        if(result > 0) readNotification({ target: { dataset: { page: 1 } } })
-
-
-    }
-
-
-    closeBookingBtn.addEventListener('click', closeBookingModal)
-    bookingOverlay.onclick = closeBookingModal
-    if('${login}' != ''){
-	    notification.addEventListener('click', readNotification)	
-    }
-    document.addEventListener('DOMContentLoaded', notificationCount)
-</script>
-
-<!-- 즐겨찾기 -->
-<script>
-    const myFavorites = document.getElementById('myFavorites')
-    const myFavoritesTable = document.getElementById('myFavoritesTable')
-    const myFavoritesTableHead = document.querySelector('#myFavoritesTable thead')
-    const myFavoritesTableBody = document.querySelector('#myFavoritesTable tbody')
-
-
-    async function getFavorite(id){
-        const url = cpath + '/getFavorite/' + parseInt(id)
-        const opt = {
-            method : 'GET'
-        }
-        const result = await fetch(url, opt).then(resp => resp.json())
-        return result
-    }
-
-    // 즐겨찾기 추가하는 함수
-    async function myFavorite(event){
-        event.preventDefault()
-        const url = cpath + '/myFavorite/' + parseInt(event.target.dataset.id)
-        const opt = {
-            method : 'GET'
-        }
-        const result = await fetch(url, opt).then(resp => resp.json())
-        location.reload()
-    }
-
-    // 즐겨찾기 목록 가져오는 함수
-    async function myFavoritesList(thisPage){
-        const url = cpath + '/myFavoritesList/' + thisPage
-        const opt = {
-            method : 'GET'
-        }
-        let tag = ''
-        tag += '<tr><button id="deleteMyFavoritesAllBtn">일괄 삭제하기</button></tr>'
-        const result = await fetch(url, opt).then(resp => resp.json())
-//         console.log(result)
-        result.forEach(favorite => {
-            tag += '<tr>'
-            tag += '<th><a href="${cpath }/hospitalInfo/' + favorite.hospital_id + '">' + favorite.hospital_name + '</a></th>'
-            tag += '<th>' + favorite.address + '</th><th>' + favorite.tel + '</th><th><button class="myFavoritesDeleteBtn" data-page="' + thisPage + '" data-id="' + favorite.hospital_id + '">삭제</button></th>'
-            tag += '</tr>'
-        })
-        myFavoritesTableHead.innerHTML = tag
-
-        // 즐찾삭제 버튼 기능부여
-        document.querySelectorAll('.myFavoritesDeleteBtn').forEach(btn => {
-            btn.onclick = (event) => {
-                Swal.fire({
-                    title: '즐겨찾기 삭제',
-                    text: '해당 병원을 즐겨찾기 삭제 하시겠습니까?',
-                    icon: 'question',  // 'type' 대신 'icon' 사용
-                    showCancelButton: true,
-                    confirmButtonText: '확인',
-                    cancelButtonText: '취소',
-                    confirmButtonColor: '#9cd2f1',
-                    cancelButtonColor: '#c1c1c1',
-                    reverseButtons: true, // 취소 버튼을 왼쪽에 배치하려면 추가
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        deleteMyFavorites(event)
-                        openMyFavorites(event)
-                    }
-                })
-            }
-        })
-
-        document.getElementById('deleteMyFavoritesAllBtn').addEventListener('click', () => {
-            if(result != ''){
-                Swal.fire({
-                    title: '즐겨찾기 일괄삭제',
-                    text: '즐겨찾기 목록을 전부 삭제 하시겠습니까?',
-                    icon: 'question',
-                    confirmButtonText: '확인',
-                    cancelButtonText: '취소',
-                    confirmButtonColor: '#9cd2f1',
-                    cancelButtonColor: '#c1c1c1',
-                    showCancelButton: true,
-                    allowOutsideClick: false,
-                    allowEscapeKey: false,
-                    showCloseButton: false
-                }).then((result) => {if(result.isConfirmed) deleteMyFavoritesAll()})}})
-        return result
-    }
-
-    // 즐겨찾기 지우는 함수
-    async function deleteMyFavorites(event) {
-        event.preventDefault()
-        const id = parseInt(event.target.dataset.id)
-        const thisPage = parseInt(event.target.dataset.page)
-//         console.log(thisPage)
-        const url = '${cpath}/deleteMyFavorites/' + id
-        const opt = {
-            method: 'DELETE'
-        }
-        const result = await fetch(url, opt).then(resp => resp.json());
-        if (result == 1) {
-            await updateMyFavoritesPage(thisPage)
-        }
-    }
-
-    // 즐겨찾기 페이징 최대 페이지 수 가져오는 함수
-    async function myFavoritesMaxPage(startPage){
-        const url = '${cpath}/myFavoritesMaxPage'
-        const opt = {
-            method : 'GET'
-        }
-        const result = await fetch(url, opt).then(resp => resp.json())
-        if(result != 0){
-            let tag = '<tr id="myFavoritesPaging">'
-            tag += '<td>이전</td>'
-            for(let i = startPage; i <= Math.min(startPage + 4, result); i++){
-                tag += '<td data-page="' + i + '">' + i + '</td>'
-            }
-            tag += '<td>다음</td></tr>'
-            myFavoritesTableBody.innerHTML = tag
-        }
-        else myFavoritesTableBody.innerText = '즐겨찾기 한 병원이 없습니다.'
-        return result
-    }
-
-    // 즐찾 페이지 업데이트 함수
-    function updateMyFavoritesPagination(currentPage, startPage, maxPage) {
-
-        document.querySelectorAll('#myFavoritesPaging td').forEach((td, i, arr) => {
-            if(i == 0) {
-                td.onclick = () => {
-                    const prevPage = Math.max(1, currentPage - 1)
-                    openMyFavorites({ target: { dataset: { page: prevPage } } })
-                }
-            } else if(i == arr.length - 1) {
-                td.onclick = () => {
-                    const nextPage = Math.min(maxPage, currentPage + 1)
-                    openMyFavorites({ target: { dataset: { page: nextPage } } })
-                }
-            } else {
-                td.onclick = (e) => openMyFavorites(e)
-            }
-
-            if(i + startPage - 1 == currentPage) td.style.fontWeight = 'bold'
-        })
-    }
-
-    // 즐찾 페이지 변경 함수
-    async function updateMyFavoritesPage(currentPage) {
-        const startPage = (Math.floor((currentPage + 4) / 5) - 1) * 5 + 1
-        const maxPage = await myFavoritesMaxPage(startPage)
-
-        // 현재 페이지의 알림 목록을 가져옵니다.
-        const myFavoritess = await myFavoritesList(currentPage)
-
-        if (myFavoritess.length === 0 && currentPage > 1) {
-            // 현재 페이지가 비어있고, 첫 번째 페이지가 아니라면 이전 페이지로 이동
-            await openMyFavorites({ target: { dataset: { page: currentPage - 1 } } })
-        } else {
-            // 페이징 업데이트
-            updateMyFavoritesPagination(currentPage, startPage, maxPage)
-        }
-    }
-
-    // 즐겨찾기 목록 여는 함수
-    async function openMyFavorites(event) {
-//         console.log(event.target.dataset.page)
-        const thisPage = parseInt(event.target.dataset.page)
-        const startPage = (Math.floor((thisPage + 4) / 5) - 1) * 5 + 1
-
-        // 즐겨찾기 리스트 불러오기
-        await myFavoritesList(thisPage)
-
-        // 즐겨찾기 최대 페이지 수
-        const maxPage = await myFavoritesMaxPage(startPage)
-
-
-        // 즐겨찾기 페이징
-        document.querySelectorAll('#myFavoritesPaging td').forEach((td, i, arr) => {
-
-            // 이전
-            if(i == 0) {
-                td.onclick = (e) => {
-                    const prevPage = Math.max(1, thisPage - 1)
-                    openMyFavorites({ target: { dataset: { page: prevPage } } })
-                }
-            }
-
-            // 다음
-            else if(i == arr.length - 1) {
-                td.onclick = async (e) => {
-                    const nextPage = Math.min(maxPage, thisPage + 1)
-                    openMyFavorites({ target: { dataset: { page: nextPage } } })
-                }
-            }
-
-            // 페이지
-            else td.onclick = (e) => openMyFavorites(e)
-
-            // 현재 페이지 숫자 굵게 표시
-            if(i + startPage - 1 == thisPage) td.style.fontWeight = 'bold'
-        })
-
-        myFavoritesTable.classList.remove('hidden')
-        openBookingModal('즐겨찾기 목록', myFavoritesTable)
-    }
-
-    async function deleteMyFavoritesAll(event){
-        const url = '${cpath}/deleteMyfavoritesAll'
-        const opt = {
-            method : 'DELETE'
-        }
-        const result = await fetch(url, opt).then(resp => resp.json())
-        if(result > 0) openMyFavorites({ target: { dataset: { page: 1 } } })
-    }
-    if('${login}' != '') {
-    	myFavorites.addEventListener('click', (event) => openMyFavorites(event))
-    }
-
-   
-</script>
-
 <!-- 세번째 페이지 코멘트 스크립트 -->
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const texts = document.querySelectorAll('.reveal-text') // 모든 .reveal-text 요소 선택
-
-        function playAnimation() {
-            texts.forEach((element, index) => {
-                // 애니메이션 리셋
-                element.classList.add('reset')
-                element.style.backgroundSize = '0% 100%'
-
-                // 강제로 리플로우 발생
-                void element.offsetWidth
-
-                // 리셋 클래스 제거 및 애니메이션 시작
-                element.classList.remove('reset')
-                setTimeout(() => {
-                    element.style.backgroundSize = '100% 100%'
-                }, index * 500) // 순차적으로 애니메이션 적용
-            })
-        }
-
         // 초기 애니메이션 실행
         playAnimation()
 
@@ -1460,6 +702,34 @@ window.onload = () => {
             text.addEventListener('click', playAnimation)
         })
     })
+</script>
+
+<%--알림--%>
+<script>
+
+	const notification = document.getElementById('notification')
+	const notificationTable = document.getElementById('notificationTable')
+	const notificationTableHead = document.querySelector('#notificationTable thead')
+	const notificationTableBody = document.querySelector('#notificationTable tbody')
+	const bookingTitleElement = document.querySelector('.bookingTitle')
+	const bookingDetailElement = document.querySelector('.bookingDetail')
+	const bookingOverlay = document.querySelector('.bookingOverlay')
+	const notificationCountSpan = document.getElementById('notificationCountSpan')
+	const closeBookingBtn = document.getElementById('closeBookingBtn')
+	const bookingInsertForm = document.getElementById('bookingInsertForm')
+	const bookingUpdateForm = document.getElementById('bookingUpdateForm')
+
+	document.addEventListener('DOMContentLoaded', notificationCount)
+</script>
+<script src="${cpath}/resources/script/header/headerFunctuion.js"></script>
+
+
+<!-- 즐겨찾기 -->
+<script>
+	const myFavorites = document.getElementById('myFavorites')
+	const myFavoritesTable = document.getElementById('myFavoritesTable')
+	const myFavoritesTableHead = document.querySelector('#myFavoritesTable thead')
+	const myFavoritesTableBody = document.querySelector('#myFavoritesTable tbody')
 </script>
 
 </body>

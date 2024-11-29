@@ -10,50 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4350750a-29a0-43ea-8a70-32cef6523690" name="변경" comment="separate javaScript">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/chat/room.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/chat/rooms.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/healthInfo.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/home.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/hospital/hospitalInfo.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/hospital/list.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/hospital/selectLocation.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/hospital/view.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/css/review/view.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/chat/room.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/chat/rooms.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/healthInfo.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/hospital/hospitalInfo.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/hospital/list.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/hospital/selectLocation.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/hospital/view.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/member/addLocation.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/member/bookingList.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/member/info.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/member/join.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/member/locationUpdate.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/member/resetPassword.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/review/view.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/24__11__21___1_04__________.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/24__11__21__오후_1_04,_체크아웃_전에_커밋되지_않은_변경_내용_[변경]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/home.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/homeSearch.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/chat/room.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/chat/room.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/chat/rooms.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/chat/rooms.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/healthInfo/healthInfo.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/healthInfo/healthInfo.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/hospital/hospitalInfo.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/hospital/hospitalInfo.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/hospital/list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/hospital/list.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/hospital/selectLocation.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/hospital/selectLocation.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/hospital/view.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/hospital/view.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/addLocation.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/addLocation.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/bookingList.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/bookingList.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/info.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/info.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/join.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/join.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/locationUpdate.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/locationUpdate.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/resetPassword.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/member/resetPassword.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/result.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/result.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/review/view.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/review/view.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/script/resultFunction.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/resultFunction.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/script/header/headerFunctionFirst.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/header/headerFunctionFirst.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/resources/script/searchFunction.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/resources/script/searchFunction.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,8 +26,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
-        <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -267,6 +228,7 @@
       <workItem from="1732455953748" duration="2038000" />
       <workItem from="1732708344525" duration="10402000" />
       <workItem from="1732770054328" duration="14761000" />
+      <workItem from="1732855511521" duration="6898000" />
     </task>
     <task id="LOCAL-00001" summary="update notification">
       <option name="closed" value="true" />

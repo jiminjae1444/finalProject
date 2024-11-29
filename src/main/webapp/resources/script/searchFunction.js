@@ -1,3 +1,4 @@
+
 // 음성 인식 시작 이벤트
 recognition.onstart = function () {
     isRecognitionActive = true // 음성 인식이 시작되었음을 표시
