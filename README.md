@@ -30,20 +30,36 @@
 
 
 
-241125 최종 파일을 참고하여 테이블을 만듭니다.
+## 데이터베이스 설정
 
-1. csv파일을 임포트 한다(5개)
-2. 테이블 관계를 설정한다
-3. DDL 명령어를 이용하여 테이블을 만든다(12개)
-4. 더미데이터는 넣고 싶으면 넣는다
+### 1. **CSV 파일 임포트**
+- 프로젝트에는 초기 데이터가 포함된 5개의 CSV 파일이 있습니다.
+- 데이터베이스로 임포트하여 사용합니다.
 
+### 2. **테이블 관계 설정**
+- 병원, 병원시간 , 진료코드 , 증상 등을 중심으로 관계형 테이블 구조를 설정합니다.
 
+### 3. **DDL 명령어로 테이블 생성**
+- 12개의 테이블을 생성합니다.
+- DDL 명령어를 사용하여 테이블을 설정하며, 아래와 같은 주요 테이블이 포함됩니다:
+  - 사용자 테이블 (member)
+  - 예약 테이블 (Booking)
+  - 알림 테이블 (Notification)
 
+### 4. **더미 데이터**
+- 기본적인 데이터로 더미 데이터를 추가할 수 있습니다.
+- 필요 시 `INSERT INTO` 명령어를 사용하여 샘플 데이터를 삽입합니다.
 
+---
 
-스타일 참고 사항
+## 스타일 및 환경 설정
 
-1.Background-image는 url을 자신의 contextPath를 복사하여 바꿔준다
-2.파일컴포넌트 , 네이버 캡차 서비스의 경로를 자신의 경로로 바꾼다
-3.servlet-context 부분에 	<resources mapping="/fpupload/**" location="file:C:/fpupload/" /> 이부분을 자신의 경로로 수정한다
-
+### 1. **Background 이미지**
+- 스타일 설정에서 `Background-image` 속성을 프로젝트의 `contextPath`에 맞게 수정합니다:
+- ex) 'http:localhost:8080/finalProject/'
+  ```css
+  ex ) background-image: url("http:localhost:8080/finalProject//images/background.jpg");
+  
+### 2. **경로 수정**
+- 파일 업로드와 네이버 캡차 서비스의 경로를 자신의 경로로 변경
+- servlet-context.xml 파일에서 다음 경로를 자신의 환경에 맞게 수정
